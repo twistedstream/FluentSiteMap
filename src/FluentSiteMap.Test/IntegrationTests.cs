@@ -16,8 +16,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Test1()
         {
-            FluentSiteMap.RegisterRootSiteMap(new TestSiteMap());
-
             var principal = MockRepository.GenerateMock<IPrincipal>();
             principal
                 .Stub(p => p.IsInRole(Arg<string>.Is.Anything))
@@ -32,7 +30,10 @@ namespace FluentSiteMap.Test
                 httpContext,
                 new RouteData());
 
-            var root = FluentSiteMap.GetRootNode(requestContext);
+            var siteMap = new TestSiteMap();
+            var coordinator = new SiteMapCoordinator(siteMap);
+
+            var root = coordinator.GetRootNode(requestContext);
 
             Console.WriteLine("test done");
         }

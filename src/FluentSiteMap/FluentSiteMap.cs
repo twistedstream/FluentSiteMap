@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Routing;
 
 namespace FluentSiteMap
@@ -14,13 +15,27 @@ namespace FluentSiteMap
             _coordinator = new SiteMapCoordinator(siteMap);
         }
 
-        public static FilteredNodeModel GetRootNode(RequestContext requestContext)
+        public static FilteredNodeModel RootNode
         {
-            if (_coordinator == null)
-                throw new InvalidOperationException(
-                    "RegisterRootSiteMap must be called before the root node can be generated.");
+            get
+            {
+                // build concrete HTTP request context
+                if (HttpContext.Current == null)
+                    throw new InvalidOperationException(
+                        "A current HTTP request is required.");
+                var httpContext = new HttpContextWrapper(HttpContext.Current);
+                var requestContext = new RequestContext
+                                         {
+                                             HttpContext = httpContext,
+                                             RouteData = RouteTable.Routes.GetRouteData(httpContext)
+                                         };
 
-            return _coordinator.GetRootNode(requestContext);
+                // invoke coordinator
+                if (_coordinator == null)
+                    throw new InvalidOperationException(
+                        "RegisterRootSiteMap must be called before the root node can be generated.");
+                return _coordinator.GetRootNode(requestContext);
+            }
         }
     }
 }
