@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentSiteMap
+namespace FluentSiteMap.Filters
 {
     public class TitleFilter
         : INodeFilter

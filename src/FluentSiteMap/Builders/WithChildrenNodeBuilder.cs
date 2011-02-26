@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentSiteMap
+namespace FluentSiteMap.Builders
 {
     public class WithChildrenNodeBuilder
         : BaseNodeBuilder

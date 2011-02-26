@@ -2,6 +2,8 @@
 using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
+using FluentSiteMap.Builders;
+using FluentSiteMap.Filters;
 using NUnit.Framework;
 using Rhino.Mocks;
 

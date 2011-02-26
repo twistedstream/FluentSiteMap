@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace FluentSiteMap.Builders
 {
     public interface IUrlProvider
     {

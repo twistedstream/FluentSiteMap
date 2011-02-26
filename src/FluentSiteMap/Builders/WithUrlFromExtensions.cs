@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace FluentSiteMap.Builders
 {
     public static class WithUrlFromExtensions
     {

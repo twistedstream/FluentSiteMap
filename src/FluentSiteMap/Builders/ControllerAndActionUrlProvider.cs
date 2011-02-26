@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace FluentSiteMap.Builders
 {
     public sealed class ControllerAndActionUrlProvider
         : IUrlProvider

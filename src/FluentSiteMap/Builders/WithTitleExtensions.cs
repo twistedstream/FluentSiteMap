@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentSiteMap
+namespace FluentSiteMap.Builders
 {
     public static class WithTitleExtensions
     {

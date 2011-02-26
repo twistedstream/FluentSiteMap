@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace FluentSiteMap.Filters
 {
     public static class RolesExtensions
     {

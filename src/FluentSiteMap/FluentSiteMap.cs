@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
 {

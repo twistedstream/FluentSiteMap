@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace FluentSiteMap
+namespace FluentSiteMap.Filters
 {
     public class RolesNodeFilter
         : INodeFilter
