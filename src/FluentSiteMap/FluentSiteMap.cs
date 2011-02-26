@@ -13,7 +13,7 @@ namespace FluentSiteMap
             return new DefaultNodeBuilder();
         }
 
-        public NodeModel Build(BuildContext context)
+        public NodeModel Build(BuilderContext context)
         {
             var rootNode = Root.Build(context);
             rootNode.Filters = Filters;

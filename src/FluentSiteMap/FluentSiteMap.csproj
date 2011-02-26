@@ -47,7 +47,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BaseNodeBuilder.cs" />
-    <Compile Include="BuildContext.cs" />
+    <Compile Include="BuilderContext.cs" />
     <Compile Include="Builders\ControllerAndActionUrlProvider.cs" />
     <Compile Include="Builders\DefaultNodeBuilder.cs" />
     <Compile Include="FilterContext.cs" />

@@ -24,7 +24,7 @@ namespace FluentSiteMap
             // generate root node
             if (_rootNodeModel == null)
             {
-                var buildContext = new BuildContext(requestContext);
+                var buildContext = new BuilderContext(requestContext);
                 _rootNodeModel = _siteMap.Build(buildContext);
             }
 

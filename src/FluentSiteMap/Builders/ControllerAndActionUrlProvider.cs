@@ -12,7 +12,7 @@
             _action = action;
         }
 
-        string IUrlProvider.GenerateUrl(BuildContext context)
+        string IUrlProvider.GenerateUrl(BuilderContext context)
         {
             const string controllerMetadataKey = "controller";
             const string actionMetadataKey = "action";

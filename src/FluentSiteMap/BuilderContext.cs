@@ -4,21 +4,21 @@ using System.Web.Routing;
 
 namespace FluentSiteMap
 {
-    public class BuildContext
+    public class BuilderContext
     {
         private IDictionary<string, string> _metadata = new Dictionary<string, string>();
 
         public RequestContext RequestContext { get; private set; }
-        public BuildContext Parent { get; private set; }
+        public BuilderContext Parent { get; private set; }
 
-        public BuildContext(RequestContext requestContext)
+        public BuilderContext(RequestContext requestContext)
         {
             if (requestContext == null) throw new ArgumentNullException("requestContext");
 
             RequestContext = requestContext;
         }
 
-        public BuildContext(BuildContext parent)
+        public BuilderContext(BuilderContext parent)
             : this(parent.RequestContext)
         {
             if (parent == null) throw new ArgumentNullException("parent");
@@ -36,7 +36,7 @@ namespace FluentSiteMap
                 if (context == null)
                     throw new InvalidOperationException(
                         string.Format(
-                            "No metadata with key '{0}' could be found in the current or parent BuildContext instances.",
+                            "No metadata with key '{0}' could be found in the current or parent BuilderContext instances.",
                             key));
             }
 

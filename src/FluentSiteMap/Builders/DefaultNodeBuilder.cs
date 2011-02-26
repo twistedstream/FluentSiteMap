@@ -12,7 +12,7 @@ namespace FluentSiteMap.Builders
 
         public IList<INodeFilter> Filters { get; private set; }
 
-        NodeModel INodeBuilder.Build(BuildContext context)
+        NodeModel INodeBuilder.Build(BuilderContext context)
         {
             return new NodeModel();
         }

@@ -2,6 +2,6 @@
 {
     public interface IUrlProvider
     {
-        string GenerateUrl(BuildContext context);
+        string GenerateUrl(BuilderContext context);
     }
 }

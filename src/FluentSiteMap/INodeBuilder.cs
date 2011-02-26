@@ -4,7 +4,7 @@ namespace FluentSiteMap
 {
     public interface INodeBuilder
     {
-        NodeModel Build(BuildContext context);
+        NodeModel Build(BuilderContext context);
         IList<INodeFilter> Filters { get; }
     }
 }

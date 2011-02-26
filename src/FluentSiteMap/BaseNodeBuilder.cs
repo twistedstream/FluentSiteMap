@@ -19,6 +19,6 @@ namespace FluentSiteMap
             Inner = inner;
         }
 
-        public abstract NodeModel Build(BuildContext context);
+        public abstract NodeModel Build(BuilderContext context);
     }
 }

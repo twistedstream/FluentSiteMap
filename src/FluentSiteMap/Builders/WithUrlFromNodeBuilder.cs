@@ -15,7 +15,7 @@ namespace FluentSiteMap.Builders
             _urlProvider = urlProvider;
         }
 
-        public override NodeModel Build(BuildContext context)
+        public override NodeModel Build(BuilderContext context)
         {
             var node = Inner.Build(context);
 
