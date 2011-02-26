@@ -7,10 +7,10 @@ namespace FluentSiteMap
 {
     public class FluentSiteMapCoordinator
     {
-        private readonly FluentSiteMap _siteMap;
+        private readonly BaseFluentSiteMap _siteMap;
         private NodeModel _rootNodeModel;
 
-        public FluentSiteMapCoordinator(FluentSiteMap siteMap)
+        public FluentSiteMapCoordinator(BaseFluentSiteMap siteMap)
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
 
@@ -40,7 +40,7 @@ namespace FluentSiteMap
             return filteredNodes.First();
         }
 
-        private IEnumerable<FilteredNodeModel> FilterNodes(IEnumerable<NodeModel> input, FilterContext context)
+        private static IEnumerable<FilteredNodeModel> FilterNodes(IEnumerable<NodeModel> input, FilterContext context)
         {
             foreach (var node in input)
             {
