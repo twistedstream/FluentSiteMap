@@ -6,7 +6,7 @@ namespace FluentSiteMap
 {
     public class BuilderContext
     {
-        private IDictionary<string, string> _metadata = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> _metadata = new Dictionary<string, string>();
 
         public RequestContext RequestContext { get; private set; }
         public BuilderContext Parent { get; private set; }
