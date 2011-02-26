@@ -52,7 +52,7 @@
     <Compile Include="Builders\DefaultNodeBuilder.cs" />
     <Compile Include="FilterContext.cs" />
     <Compile Include="FilteredNodeModel.cs" />
-    <Compile Include="BaseFluentSiteMap.cs" />
+    <Compile Include="BaseSiteMap.cs" />
     <Compile Include="FluentSiteMapCoordinator.cs" />
     <Compile Include="Filters\RolesExtensions.cs" />
     <Compile Include="Filters\RolesNodeFilter.cs" />

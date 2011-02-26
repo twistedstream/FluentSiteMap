@@ -3,7 +3,7 @@ using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
 {
-    public abstract class BaseFluentSiteMap
+    public abstract class BaseSiteMap
         : INodeBuilder, ISiteMap
     {
         protected INodeBuilder Root { get; set; }

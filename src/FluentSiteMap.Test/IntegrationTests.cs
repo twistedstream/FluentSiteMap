@@ -16,7 +16,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Test1()
         {
-            var coordinator = new FluentSiteMapCoordinator(new TestFluentSiteMap());
+            var coordinator = new FluentSiteMapCoordinator(new TestSiteMap());
 
             var principal = MockRepository.GenerateMock<IPrincipal>();
             principal
@@ -37,10 +37,10 @@ namespace FluentSiteMap.Test
             Console.WriteLine("test done");
         }
 
-        private class TestFluentSiteMap
-            : BaseFluentSiteMap
+        private class TestSiteMap
+            : BaseSiteMap
         {
-            public TestFluentSiteMap()
+            public TestSiteMap()
             {
                 Root =
                     Node()
