@@ -5,16 +5,16 @@ using System.Web.Routing;
 
 namespace FluentSiteMap
 {
-    public class FluentSiteMapCoordinator
+    public class SiteMapCoordinator
     {
-        private readonly ISiteMap _siteMap;
+        private readonly ISiteMap _rootSiteMap;
         private NodeModel _rootNodeModel;
 
-        public FluentSiteMapCoordinator(ISiteMap siteMap)
+        public SiteMapCoordinator(ISiteMap rootSiteMap)
         {
-            if (siteMap == null) throw new ArgumentNullException("siteMap");
+            if (rootSiteMap == null) throw new ArgumentNullException("rootSiteMap");
 
-            _siteMap = siteMap;
+            _rootSiteMap = rootSiteMap;
         }
 
         public FilteredNodeModel GetRootNode(RequestContext requestContext)
@@ -25,7 +25,7 @@ namespace FluentSiteMap
             if (_rootNodeModel == null)
             {
                 var buildContext = new BuilderContext(requestContext);
-                _rootNodeModel = _siteMap.Build(buildContext);
+                _rootNodeModel = _rootSiteMap.Build(buildContext);
             }
 
             // perform filtering
