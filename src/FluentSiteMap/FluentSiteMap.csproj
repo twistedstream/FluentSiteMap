@@ -60,6 +60,7 @@
     <Compile Include="INodeFilter.cs" />
     <Compile Include="Builders\IUrlProvider.cs" />
     <Compile Include="Builders\Mvc.cs" />
+    <Compile Include="ISiteMap.cs" />
     <Compile Include="NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\TitleFilter.cs" />

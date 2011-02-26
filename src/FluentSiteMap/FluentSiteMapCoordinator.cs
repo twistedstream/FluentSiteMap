@@ -7,10 +7,10 @@ namespace FluentSiteMap
 {
     public class FluentSiteMapCoordinator
     {
-        private readonly BaseFluentSiteMap _siteMap;
+        private readonly ISiteMap _siteMap;
         private NodeModel _rootNodeModel;
 
-        public FluentSiteMapCoordinator(BaseFluentSiteMap siteMap)
+        public FluentSiteMapCoordinator(ISiteMap siteMap)
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
 
