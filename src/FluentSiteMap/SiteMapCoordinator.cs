@@ -5,11 +5,20 @@ using System.Web.Routing;
 
 namespace FluentSiteMap
 {
+    /// <summary>
+    /// Handles the coordination of building and filtering nodes in a site map.
+    /// </summary>
     public class SiteMapCoordinator
     {
         private readonly ISiteMap _rootSiteMap;
         private NodeModel _rootNodeModel;
 
+        /// <summary>
+        /// Intializes a new instance of the <see cref="SiteMapCoordinator"/> class.
+        /// </summary>
+        /// <param name="rootSiteMap">
+        /// The root site map to coordinate.
+        /// </param>
         public SiteMapCoordinator(ISiteMap rootSiteMap)
         {
             if (rootSiteMap == null) throw new ArgumentNullException("rootSiteMap");
@@ -17,6 +26,12 @@ namespace FluentSiteMap
             _rootSiteMap = rootSiteMap;
         }
 
+        /// <summary>
+        /// Gets the root filtered node for the site map.
+        /// </summary>
+        /// <param name="requestContext">
+        /// A <see cref="RequestContext"/> instance used to build and filter the nodes.
+        /// </param>
         public FilteredNodeModel GetRootNode(RequestContext requestContext)
         {
             if (requestContext == null) throw new ArgumentNullException("requestContext");

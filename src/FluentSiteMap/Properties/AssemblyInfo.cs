@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("FluentSiteMap")]
@@ -6,3 +7,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("91022af9-0f14-4f75-ba13-fefee70f3273")]
+
+[assembly: InternalsVisibleTo("FluentSiteMap.Test")]
