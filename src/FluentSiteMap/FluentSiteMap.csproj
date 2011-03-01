@@ -71,11 +71,11 @@
     <Compile Include="Filters\TitleFilter.cs" />
     <Compile Include="Filters\TitleFilterExtensions.cs" />
     <Compile Include="Builders\WithChildrenExtensions.cs" />
-    <Compile Include="Builders\WithChildrenNodeBuilder.cs" />
+    <Compile Include="Builders\ChildrenNodeBuilder.cs" />
     <Compile Include="Builders\WithTitleExtensions.cs" />
-    <Compile Include="Builders\WithTitleNodeBuilder.cs" />
+    <Compile Include="Builders\TitleNodeBuilder.cs" />
     <Compile Include="Builders\WithUrlFromExtensions.cs" />
-    <Compile Include="Builders\WithUrlFromNodeBuilder.cs" />
+    <Compile Include="Builders\UrlFromNodeBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

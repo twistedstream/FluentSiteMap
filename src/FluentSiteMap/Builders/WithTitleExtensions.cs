@@ -6,7 +6,7 @@ namespace FluentSiteMap.Builders
     {
         public static INodeBuilder WithTitle(this INodeBuilder inner, Func<NodeModel, string> title)
         {
-            return new WithTitleNodeBuilder(inner, title);
+            return new TitleNodeBuilder(inner, title);
         }
 
         public static INodeBuilder WithTitle(this INodeBuilder inner, string title)

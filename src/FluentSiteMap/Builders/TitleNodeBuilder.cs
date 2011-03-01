@@ -2,12 +2,12 @@
 
 namespace FluentSiteMap.Builders
 {
-    public class WithTitleNodeBuilder
+    public class TitleNodeBuilder
         : BaseNodeBuilder
     {
         private readonly Func<NodeModel, string> _title;
 
-        public WithTitleNodeBuilder(INodeBuilder inner, Func<NodeModel, string> title) 
+        public TitleNodeBuilder(INodeBuilder inner, Func<NodeModel, string> title) 
             : base(inner)
         {
             if (title == null) throw new ArgumentNullException("title");

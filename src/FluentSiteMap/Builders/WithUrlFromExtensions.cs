@@ -4,7 +4,7 @@
     {
         public static INodeBuilder WithUrlFrom(this INodeBuilder inner, IUrlProvider urlProvider)
         {
-            return new WithUrlFromNodeBuilder(inner, urlProvider);
+            return new UrlFromNodeBuilder(inner, urlProvider);
         }
     }
 }

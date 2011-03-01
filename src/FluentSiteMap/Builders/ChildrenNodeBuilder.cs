@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace FluentSiteMap.Builders
 {
-    public class WithChildrenNodeBuilder
+    public class ChildrenNodeBuilder
         : BaseNodeBuilder
     {
         private readonly IEnumerable<INodeBuilder> _childBuilders;
 
-        public WithChildrenNodeBuilder(INodeBuilder inner, params INodeBuilder[] childBuilders) 
+        public ChildrenNodeBuilder(INodeBuilder inner, params INodeBuilder[] childBuilders) 
             : base(inner)
         {
             if (childBuilders == null) throw new ArgumentNullException("childBuilders");
