@@ -30,8 +30,10 @@ namespace FluentSiteMap.Test
                 httpContext,
                 new RouteData());
 
+            var recursiveNodeFilter = new RecursiveNodeFilter();
+
             var siteMap = new TestSiteMap();
-            var coordinator = new SiteMapCoordinator(siteMap);
+            var coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
 
             var root = coordinator.GetRootNode(requestContext);
 

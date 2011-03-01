@@ -54,6 +54,8 @@
     <Compile Include="FilteredNodeModel.cs" />
     <Compile Include="BaseSiteMap.cs" />
     <Compile Include="FluentSiteMap.cs" />
+    <Compile Include="IRecursiveNodeFilter.cs" />
+    <Compile Include="RecursiveNodeFilter.cs" />
     <Compile Include="SiteMapCoordinator.cs" />
     <Compile Include="Filters\RolesExtensions.cs" />
     <Compile Include="Filters\RolesNodeFilter.cs" />

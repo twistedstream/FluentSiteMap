@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
 
@@ -10,20 +9,27 @@ namespace FluentSiteMap
     /// </summary>
     public class SiteMapCoordinator
     {
+        private readonly IRecursiveNodeFilter _recursiveNodeFilter;
         private readonly ISiteMap _rootSiteMap;
+
         private NodeModel _rootNodeModel;
 
         /// <summary>
         /// Intializes a new instance of the <see cref="SiteMapCoordinator"/> class.
         /// </summary>
+        /// <param name="recursiveNodeFilter">
+        /// A <see cref="IRecursiveNodeFilter"/> dependency instance.
+        /// </param>
         /// <param name="rootSiteMap">
         /// The root site map to coordinate.
         /// </param>
-        public SiteMapCoordinator(ISiteMap rootSiteMap)
+        public SiteMapCoordinator(IRecursiveNodeFilter recursiveNodeFilter, ISiteMap rootSiteMap)
         {
+            if (recursiveNodeFilter == null) throw new ArgumentNullException("recursiveNodeFilter");
             if (rootSiteMap == null) throw new ArgumentNullException("rootSiteMap");
 
             _rootSiteMap = rootSiteMap;
+            _recursiveNodeFilter = recursiveNodeFilter;
         }
 
         /// <summary>
@@ -43,41 +49,16 @@ namespace FluentSiteMap
                 _rootNodeModel = _rootSiteMap.Build(buildContext);
             }
 
-            // perform filtering
+            // perform recursive filtering
             var filterContext = new FilterContext(requestContext);
 
-            var filteredNodes = FilterNodes(new[] {_rootNodeModel}, filterContext)
+            var filteredNodes = _recursiveNodeFilter.FilterNodes(filterContext, _rootNodeModel)
                 .ToList();
 
             if (!filteredNodes.Any())
                 throw new InvalidOperationException("Filtering did not return a root node.");
 
             return filteredNodes.First();
-        }
-
-        private static IEnumerable<FilteredNodeModel> FilterNodes(IEnumerable<NodeModel> input, FilterContext context)
-        {
-            foreach (var node in input)
-            {
-                var filteredNode = new FilteredNodeModel
-                                       {
-                                           Title = node.Title,
-                                           Description = node.Description,
-                                           Url = node.Url,
-                                           Children = new List<FilteredNodeModel>()
-                                       };
-
-                // perform filtering on current node
-                foreach (var filter in node.Filters)
-                    if (!filter.Filter(filteredNode, context))
-                        yield break;
-
-                // perform filtering on child nodes
-                filteredNode.Children = FilterNodes(node.Children, context).ToList();
-
-                // return final node
-                yield return filteredNode;
-            }
         }
     }
 }

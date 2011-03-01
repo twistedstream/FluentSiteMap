@@ -12,7 +12,9 @@ namespace FluentSiteMap
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
 
-            _coordinator = new SiteMapCoordinator(siteMap);
+            var recursiveNodeFilter = new RecursiveNodeFilter();
+
+            _coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
         }
 
         public static FilteredNodeModel RootNode
