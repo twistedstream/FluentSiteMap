@@ -3,7 +3,7 @@
 namespace FluentSiteMap.Builders
 {
     public class UrlFromNodeBuilder
-        : BaseNodeBuilder
+        : NodeBuilderBase
     {
         private readonly IUrlProvider _urlProvider;
 

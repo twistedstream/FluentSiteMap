@@ -5,7 +5,7 @@ using System.Linq;
 namespace FluentSiteMap.Builders
 {
     public class ChildrenNodeBuilder
-        : BaseNodeBuilder
+        : NodeBuilderBase
     {
         private readonly IEnumerable<INodeBuilder> _childBuilders;
 

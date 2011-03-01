@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FluentSiteMap
 {
-    public abstract class BaseNodeBuilder
+    public abstract class NodeBuilderBase
         : INodeBuilder
     {
         protected INodeBuilder Inner { get; private set; }
@@ -12,7 +12,7 @@ namespace FluentSiteMap
             get { return Inner.Filters; }
         }
 
-        protected BaseNodeBuilder(INodeBuilder inner)
+        protected NodeBuilderBase(INodeBuilder inner)
         {
             if (inner == null) throw new ArgumentNullException("inner");
 
