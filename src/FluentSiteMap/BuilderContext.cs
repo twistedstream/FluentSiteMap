@@ -41,7 +41,6 @@ namespace FluentSiteMap
         /// The parent <see cref="BuilderContext"/> instance.
         /// </param>
         public BuilderContext(BuilderContext parent)
-            : this(parent.RequestContext)
         {
             if (parent == null) throw new ArgumentNullException("parent");
 
