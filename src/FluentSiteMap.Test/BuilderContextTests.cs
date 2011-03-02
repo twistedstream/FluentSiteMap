@@ -7,7 +7,7 @@ namespace FluentSiteMap.Test
         : TestBase
     {
         [Test]
-        public void Class_should_require_a_request_context()
+        public void Root_instances_should_require_a_request_context()
         {
             
         }

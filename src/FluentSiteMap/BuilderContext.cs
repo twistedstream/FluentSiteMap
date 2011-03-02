@@ -50,10 +50,18 @@ namespace FluentSiteMap
         }
 
         /// <summary>
-        /// 
+        /// Gets a strongly-typed metadata value out of the context.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">
+        /// The key used to get the value.
+        /// </param>
+        /// <returns>
+        /// The obtained value either from this context or a parent context.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// No value either in this context or any parent context could be found 
+        /// with the specified <paramref name="key"/>.
+        /// </exception>
         public T GetMetadata<T>(string key)
         {
             // recursively search for the metadata value
@@ -71,6 +79,15 @@ namespace FluentSiteMap
             return (T) context._metadata[key];
         }
 
+        /// <summary>
+        /// Sets a strongly-typed metadata value into the context.
+        /// </summary>
+        /// <param name="key">
+        /// The key used to set the value.
+        /// </param>
+        /// <param name="value">
+        /// The value to set.
+        /// </param>
         public void SetMetadata(string key, object value)
         {
             _metadata[key] = value;
