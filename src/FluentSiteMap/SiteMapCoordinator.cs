@@ -12,6 +12,7 @@ namespace FluentSiteMap
         private readonly IRecursiveNodeFilter _recursiveNodeFilter;
         private readonly ISiteMap _rootSiteMap;
 
+        private object _instanceLock = new object();
         private NodeModel _rootNodeModel;
 
         /// <summary>
@@ -42,12 +43,14 @@ namespace FluentSiteMap
         {
             if (requestContext == null) throw new ArgumentNullException("requestContext");
 
-            // generate root node
-            if (_rootNodeModel == null)
-            {
-                var buildContext = new BuilderContext(requestContext);
-                _rootNodeModel = _rootSiteMap.Build(buildContext);
-            }
+            // serialize access so that the root NodeModel is only built once
+            lock (_instanceLock)
+                // generate root node
+                if (_rootNodeModel == null)
+                {
+                    var buildContext = new BuilderContext(requestContext);
+                    _rootNodeModel = _rootSiteMap.Build(buildContext);
+                }
 
             // perform recursive filtering
             var filterContext = new FilterContext(requestContext);

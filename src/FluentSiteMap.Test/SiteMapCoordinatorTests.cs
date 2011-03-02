@@ -103,6 +103,13 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
+        [Ignore]
+        public void GetRoodNode_should_only_allow_access_by_a_single_thread_during_the_build_process()
+        {
+            //TODO: add test
+        }
+
+        [Test]
         public void GetRootNode_should_throw_the_expected_exception_if_filtering_does_not_generate_a_root_node()
         {
             // Arrange
