@@ -27,7 +27,7 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void Class_should_require_a_recursive_node_filter()
+        public void Instances_should_require_a_recursive_node_filter()
         {
             var ex = Assert.Throws<ArgumentNullException>(
                 () => new SiteMapCoordinator(null, _rootSiteMap));
@@ -35,7 +35,7 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void Class_should_require_a_root_site_map()
+        public void Instances_should_require_a_root_site_map()
         {
             var ex = Assert.Throws<ArgumentNullException>(
                 () => new SiteMapCoordinator(_recursiveNodeFilter, null));
