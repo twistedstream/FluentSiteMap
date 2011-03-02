@@ -9,7 +9,7 @@ namespace FluentSiteMap
     /// </summary>
     public class BuilderContext
     {
-        private readonly IDictionary<string, string> _metadata = new Dictionary<string, string>();
+        private readonly IDictionary<string, object> _metadata = new Dictionary<string, object>();
 
         /// <summary>
         /// Gets the <see cref="RequestContext"/> associated with the site map build.
@@ -46,6 +46,7 @@ namespace FluentSiteMap
             if (parent == null) throw new ArgumentNullException("parent");
 
             Parent = parent;
+            RequestContext = parent.RequestContext;
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace FluentSiteMap
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public string GetMetadata(string key)
+        public T GetMetadata<T>(string key)
         {
             // recursively search for the metadata value
             var context = this;
@@ -67,10 +68,10 @@ namespace FluentSiteMap
                             key));
             }
 
-            return context._metadata[key];
+            return (T) context._metadata[key];
         }
 
-        public void SetMetadata(string key, string value)
+        public void SetMetadata(string key, object value)
         {
             _metadata[key] = value;
         }

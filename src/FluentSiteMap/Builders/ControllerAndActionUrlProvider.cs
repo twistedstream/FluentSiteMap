@@ -23,8 +23,8 @@
             if (_action != null)
                 context.SetMetadata(actionMetadataKey, _action);
 
-            var controller = context.GetMetadata(controllerMetadataKey);
-            var action = context.GetMetadata(actionMetadataKey);
+            var controller = context.GetMetadata<string>(controllerMetadataKey);
+            var action = context.GetMetadata<string>(actionMetadataKey);
 
             //var urlHelper = new UrlHelper(context.RequestContext);
             //return urlHelper.Action(action, controller);
