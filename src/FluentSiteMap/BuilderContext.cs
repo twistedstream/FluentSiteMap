@@ -24,6 +24,7 @@ namespace FluentSiteMap
             if (parent == null) throw new ArgumentNullException("parent");
 
             Parent = parent;
+            RequestContext = parent.RequestContext;
         }
 
         public string GetMetadata(string key)
