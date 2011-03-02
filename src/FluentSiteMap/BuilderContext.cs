@@ -6,7 +6,7 @@ namespace FluentSiteMap
 {
     public class BuilderContext
     {
-        private readonly IDictionary<string, string> _metadata = new Dictionary<string, string>();
+        private readonly IDictionary<string, object> _metadata = new Dictionary<string, object>();
 
         public RequestContext RequestContext { get; private set; }
         public BuilderContext Parent { get; private set; }
@@ -27,7 +27,7 @@ namespace FluentSiteMap
             RequestContext = parent.RequestContext;
         }
 
-        public string GetMetadata(string key)
+        public T GetMetadata<T>(string key)
         {
             // recursively search for the metadata value
             var context = this;
@@ -41,10 +41,10 @@ namespace FluentSiteMap
                             key));
             }
 
-            return context._metadata[key];
+            return (T) context._metadata[key];
         }
 
-        public void SetMetadata(string key, string value)
+        public void SetMetadata(string key, object value)
         {
             _metadata[key] = value;
         }
