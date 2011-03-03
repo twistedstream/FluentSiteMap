@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
 {
@@ -12,7 +11,7 @@ namespace FluentSiteMap
     /// define a site map, setting the <see cref="Root"/> property in their constructor, 
     /// chaining additional builders using the fluent builder interface.
     /// </remarks>
-    public abstract class SiteMapBase
+    public abstract class SiteMap
         : INodeBuilder, ISiteMap
     {
         /// <summary>

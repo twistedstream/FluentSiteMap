@@ -41,7 +41,7 @@ namespace FluentSiteMap.Test
         }
 
         private class TestSiteMap
-            : SiteMapBase
+            : SiteMap
         {
             public TestSiteMap()
             {
