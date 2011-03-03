@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -23,27 +22,27 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void FilterNodes_should_require_a_context()
+        public void Filter_should_require_a_context()
         {
             IRecursiveNodeFilter target = new RecursiveNodeFilter();
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => target.FilterNodes(null, _rootNode));
+                () => target.Filter(null, _rootNode));
             Assert.That(ex.ParamName, Is.EqualTo("context"));
         }
 
         [Test]
-        public void FilterNodes_should_require_a_root_node()
+        public void Filter_should_require_a_root_node()
         {
             IRecursiveNodeFilter target = new RecursiveNodeFilter();
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => target.FilterNodes(_context, null));
+                () => target.Filter(_context, null));
             Assert.That(ex.ParamName, Is.EqualTo("rootNode"));
         }
 
         [Test]
-        public void FilterNodes_should_generate_a_root_FilteredNodeModel_recursively_calling_the_filters_on_the_root_NodeModel_and_its_children()
+        public void Filter_should_generate_a_root_FilteredNodeModel_recursively_calling_the_filters_on_the_root_NodeModel_and_its_children()
         {
             // Arrange
             var filter1 = MockRepository.GenerateMock<INodeFilter>();
@@ -76,23 +75,20 @@ namespace FluentSiteMap.Test
             IRecursiveNodeFilter target = new RecursiveNodeFilter();
 
             // Act
-            var result = target.FilterNodes(_context, _rootNode)
-                .ToList();
+            var result = target.Filter(_context, _rootNode);
 
             // Assert
             filter1.VerifyAllExpectations();
             filter2.VerifyAllExpectations();
 
-            Assert.That(result.Count, Is.EqualTo(1));
-            var root = result[0];
-            Assert.That(root.Title, Is.EqualTo("Foo"));
-            Assert.That(root.Children.Count, Is.EqualTo(1));
-            var child = root.Children[0];
+            Assert.That(result.Title, Is.EqualTo("Foo"));
+            Assert.That(result.Children.Count, Is.EqualTo(1));
+            var child = result.Children[0];
             Assert.That(child.Title, Is.EqualTo("Bar"));
         }
 
         [Test]
-        public void FilterNodes_should_generate_a_root_FilteredNodeModel_that_removes_any_nodes_whose_filter_return_false()
+        public void Filter_should_generate_a_root_FilteredNodeModel_that_removes_any_nodes_whose_filter_return_false()
         {
             // Arrange
             var filter1 = MockRepository.GenerateStub<INodeFilter>();
@@ -128,14 +124,38 @@ namespace FluentSiteMap.Test
             IRecursiveNodeFilter target = new RecursiveNodeFilter();
 
             // Act
-            var result = target.FilterNodes(_context, _rootNode)
-                .ToList();
+            var result = target.Filter(_context, _rootNode);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            var root = result[0];
-            Assert.That(root.Title, Is.EqualTo("Foo"));
-            Assert.That(root.Children.Count, Is.EqualTo(0));
+            Assert.That(result.Title, Is.EqualTo("Foo"));
+            Assert.That(result.Children.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Filter_should_return_null_if_the_root_node_itself_was_filtered_out()
+        {
+            // Arrange
+            var filter1 = MockRepository.GenerateStub<INodeFilter>();
+            filter1
+                .Stub(
+                    f =>
+                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                             Arg<FilterContext>.Is.Anything))
+                // this filter will result in node that is filtered out
+                .Return(false);
+
+            _rootNode = new NodeModel(new[] {filter1})
+                            {
+                                Title = "Foo"
+                            };
+
+            IRecursiveNodeFilter target = new RecursiveNodeFilter();
+
+            // Act
+            var result = target.Filter(_context, _rootNode);
+
+            // Assert
+            Assert.That(result, Is.Null);
         }
     }
 }

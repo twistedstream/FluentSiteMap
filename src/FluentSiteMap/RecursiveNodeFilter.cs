@@ -10,12 +10,19 @@ namespace FluentSiteMap
     public sealed class RecursiveNodeFilter 
         : IRecursiveNodeFilter
     {
-        IEnumerable<FilteredNodeModel> IRecursiveNodeFilter.FilterNodes(FilterContext context, NodeModel rootNode)
+        FilteredNodeModel IRecursiveNodeFilter.Filter(FilterContext context, NodeModel rootNode)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (rootNode == null) throw new ArgumentNullException("rootNode");
-            
-            return FilterNodes(context, new[] {rootNode});
+
+            // perform recursive filtering
+            var nodes = FilterNodes(context, new[] {rootNode})
+                .ToList();
+
+            // only return filtered root node if it wasn't filtered out
+            return nodes.Count == 1
+                       ? nodes[0]
+                       : null;
         }
 
         private static IEnumerable<FilteredNodeModel> FilterNodes(FilterContext context, IEnumerable<NodeModel> soureNodes)

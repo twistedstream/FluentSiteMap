@@ -64,9 +64,9 @@ namespace FluentSiteMap.Test
                 .Return(_rootNode);
 
             _recursiveNodeFilter
-                .Stub(f => f.FilterNodes(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
+                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new[] {new FilteredNodeModel()});
+                .Return(new FilteredNodeModel());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
 
@@ -88,9 +88,9 @@ namespace FluentSiteMap.Test
                 .Repeat.Once();
 
             _recursiveNodeFilter
-                .Stub(f => f.FilterNodes(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
+                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new[] {new FilteredNodeModel()});
+                .Return(new FilteredNodeModel());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
 
@@ -119,9 +119,9 @@ namespace FluentSiteMap.Test
                 .Return(_rootNode);
 
             _recursiveNodeFilter
-                .Stub(f => f.FilterNodes(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
+                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new FilteredNodeModel[] {});
+                .Return(null);
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
 

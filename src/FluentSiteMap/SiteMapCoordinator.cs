@@ -55,13 +55,12 @@ namespace FluentSiteMap
             // perform recursive filtering
             var filterContext = new FilterContext(requestContext);
 
-            var filteredNodes = _recursiveNodeFilter.FilterNodes(filterContext, _rootNodeModel)
-                .ToList();
+            var rootFilteredNode = _recursiveNodeFilter.Filter(filterContext, _rootNodeModel);
 
-            if (!filteredNodes.Any())
+            if (rootFilteredNode == null)
                 throw new InvalidOperationException("Filtering did not return a root node.");
 
-            return filteredNodes.First();
+            return rootFilteredNode;
         }
     }
 }
