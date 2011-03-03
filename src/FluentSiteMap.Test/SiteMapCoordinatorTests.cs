@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -19,7 +20,7 @@ namespace FluentSiteMap.Test
             base.Setup();
 
             _requestContext = new RequestContext();
-            _rootNode = new NodeModel();
+            _rootNode = new NodeModel(new List<INodeFilter>());
 
             _recursiveNodeFilter = MockRepository.GenerateStub<IRecursiveNodeFilter>();
 

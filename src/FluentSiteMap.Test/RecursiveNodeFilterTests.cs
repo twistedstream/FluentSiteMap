@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
 using NUnit.Framework;
@@ -18,7 +19,7 @@ namespace FluentSiteMap.Test
             base.Setup();
 
             _context = new FilterContext(new RequestContext());
-            _rootNode = new NodeModel();
+            _rootNode = new NodeModel(new List<INodeFilter>());
         }
 
         [Test]
@@ -60,16 +61,14 @@ namespace FluentSiteMap.Test
                              Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _context.RequestContext))))
                 .Return(true);
 
-            _rootNode = new NodeModel
+            _rootNode = new NodeModel(new[] {filter1})
                             {
                                 Title = "Foo",
-                                Filters = new[] {filter1},
                                 Children = new[]
                                                {
-                                                   new NodeModel
+                                                   new NodeModel(new[] {filter2})
                                                        {
-                                                           Title = "Bar",
-                                                           Filters = new[] {filter2}
+                                                           Title = "Bar"
                                                        }
                                                }
                             };
@@ -112,18 +111,16 @@ namespace FluentSiteMap.Test
                 // this filter will result in node that is filtered out
                 .Return(false);
 
-            _rootNode = new NodeModel
+            _rootNode = new NodeModel(new[] {filter1})
                             {
                                 Title = "Foo",
-                                Filters = new[] {filter1},
                                 Children = new[]
                                                {
-                                                   new NodeModel
+                                                   // this node will get filtered out since its filter
+                                                   // will return false
+                                                   new NodeModel(new[] {filter2})
                                                        {
-                                                           Title = "Bar",
-                                                           // this node will get filtered out since its filter
-                                                           // will return false
-                                                           Filters = new[] {filter2}
+                                                           Title = "Bar"
                                                        }
                                                }
                             };

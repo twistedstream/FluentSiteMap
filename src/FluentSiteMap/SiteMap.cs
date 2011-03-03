@@ -40,9 +40,7 @@ namespace FluentSiteMap
 
             EnsureRoot();
 
-            var rootNode = Root.Build(context);
-            rootNode.Filters = Filters;
-            return rootNode;
+            return Root.Build(context);
         }
 
         /// <summary>

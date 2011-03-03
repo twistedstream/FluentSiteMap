@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -64,7 +65,7 @@ namespace FluentSiteMap.Test
             var rootBuilder = MockRepository.GenerateMock<INodeBuilder>();
             rootBuilder
                 .Expect(b => b.Build(_context))
-                .Return(new NodeModel());
+                .Return(new NodeModel(new List<INodeFilter>()));
 
             var target = new TestSiteMap(rootBuilder);
 
@@ -76,35 +77,10 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void Build_should_set_the_Filters_of_the_root_node_equal_to_the_root_builder_filters()
-        {
-            // Arrange
-            var filters = new[] {MockRepository.GenerateStub<INodeFilter>()};
-
-            var rootNode = new NodeModel();
-
-            var rootBuilder = MockRepository.GenerateStub<INodeBuilder>();
-            rootBuilder
-                .Stub(b => b.Build(_context))
-                .Return(rootNode);
-            rootBuilder
-                .Stub(b => b.Filters)
-                .Return(filters);
-
-            var target = new TestSiteMap(rootBuilder);
-
-            // Act
-            target.Build(_context);
-
-            // Assert
-            Assert.That(rootNode.Filters, Is.EqualTo(filters));
-        }
-
-        [Test]
         public void Build_should_return_the_root_node()
         {
             // Arrange
-            var rootNode = new NodeModel();
+            var rootNode = new NodeModel(new List<INodeFilter>());
 
             var rootBuilder = MockRepository.GenerateStub<INodeBuilder>();
             rootBuilder

@@ -14,7 +14,7 @@ namespace FluentSiteMap
 
         NodeModel INodeBuilder.Build(BuilderContext context)
         {
-            return new NodeModel();
+            return new NodeModel(_filters);
         }
     }
 }

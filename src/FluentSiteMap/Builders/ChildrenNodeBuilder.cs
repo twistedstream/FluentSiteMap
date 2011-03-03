@@ -22,13 +22,7 @@ namespace FluentSiteMap.Builders
             var node = Inner.Build(context);
 
             node.Children = _childBuilders
-                .Select(b =>
-                            {
-                                var childContent = new BuilderContext(context);
-                                var childeNode = b.Build(childContent);
-                                childeNode.Filters = b.Filters;
-                                return childeNode;
-                            })
+                .Select(b => b.Build(new BuilderContext(context)))
                 .ToList();
 
             return node;

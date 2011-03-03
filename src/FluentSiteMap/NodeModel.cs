@@ -12,6 +12,19 @@ namespace FluentSiteMap
     public class NodeModel
     {
         /// <summary>
+        /// Initializes a new instance of a <see cref="NodeModel"/> class.
+        /// </summary>
+        /// <param name="filters">
+        /// The filters that will be applied to this node during filtering.
+        /// </param>
+        internal NodeModel(IList<INodeFilter> filters)
+        {
+            if (filters == null) throw new ArgumentNullException("filters");
+
+            Filters = filters;
+        }
+
+        /// <summary>
         /// Gets or sets the node title.
         /// </summary>
         public string Title { get; set; }
@@ -41,19 +54,9 @@ namespace FluentSiteMap
             }
         }
 
-        private IList<INodeFilter> _filters = new List<INodeFilter>();
         /// <summary>
-        /// Gets or sets the filters to be applied to this node during filtering.
+        /// Gets the filters to be applied to this node during filtering.
         /// </summary>
-        public IList<INodeFilter> Filters
-        {
-            get { return _filters; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException("value");
-
-                _filters = value;
-            }
-        }
+        public IList<INodeFilter> Filters { get; private set; }
     }
 }
