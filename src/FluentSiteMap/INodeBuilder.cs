@@ -16,7 +16,7 @@ namespace FluentSiteMap
         NodeModel Build(BuilderContext context);
 
         /// <summary>
-        /// I list of <see cref="INodeFilter"/> objects associated with the 
+        /// Gets a list of <see cref="INodeFilter"/> objects associated with the 
         /// node builder.
         /// </summary>
         /// <remarks>
