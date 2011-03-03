@@ -12,7 +12,7 @@ namespace FluentSiteMap
         private readonly IRecursiveNodeFilter _recursiveNodeFilter;
         private readonly ISiteMap _rootSiteMap;
 
-        private object _instanceLock = new object();
+        private readonly object _instanceLock = new object();
         private NodeModel _rootNodeModel;
 
         /// <summary>
