@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="BaseNodeBuilderTests.cs" />
     <Compile Include="BuilderContextTests.cs" />
+    <Compile Include="DecoratingNodeBuilderTests.cs" />
     <Compile Include="FilterContextTests.cs" />
     <Compile Include="FilteredNodeModelTests.cs" />
     <Compile Include="IntegrationTests.cs" />
