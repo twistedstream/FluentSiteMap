@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace FluentSiteMap
@@ -10,15 +11,6 @@ namespace FluentSiteMap
     [DebuggerDisplay("Title = {Title}, Url = {Url}")]
     public class NodeModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NodeModel"/> class.
-        /// </summary>
-        public NodeModel()
-        {
-            Children = new List<NodeModel>();
-            Filters = new List<INodeFilter>();
-        }
-
         /// <summary>
         /// Gets or sets the node title.
         /// </summary>
@@ -34,14 +26,34 @@ namespace FluentSiteMap
         /// </summary>
         public string Url { get; set; }
 
+        private IList<NodeModel> _children = new List<NodeModel>();
         /// <summary>
         /// Gets the children nodes.
         /// </summary>
-        public IList<NodeModel> Children { get; internal set; }
+        public IList<NodeModel> Children
+        {
+            get { return _children; }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
 
+                _children = value;
+            }
+        }
+
+        private IList<INodeFilter> _filters = new List<INodeFilter>();
         /// <summary>
         /// Gets or sets the filters to be applied to this node during filtering.
         /// </summary>
-        internal IList<INodeFilter> Filters { get; set; }
+        public IList<INodeFilter> Filters
+        {
+            get { return _filters; }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+
+                _filters = value;
+            }
+        }
     }
 }
