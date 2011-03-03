@@ -51,6 +51,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BaseNodeBuilderTests.cs" />
     <Compile Include="BuilderContextTests.cs" />
     <Compile Include="FilterContextTests.cs" />
     <Compile Include="FilteredNodeModelTests.cs" />

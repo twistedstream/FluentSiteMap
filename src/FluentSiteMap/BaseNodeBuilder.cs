@@ -2,15 +2,15 @@
 
 namespace FluentSiteMap
 {
-    internal class BaseNodeBuilder
+    internal sealed class BaseNodeBuilder
         : INodeBuilder
     {
-        public BaseNodeBuilder()
-        {
-            Filters = new List<INodeFilter>();
-        }
+        private readonly IList<INodeFilter> _filters = new List<INodeFilter>();
 
-        public IList<INodeFilter> Filters { get; private set; }
+        IList<INodeFilter> INodeBuilder.Filters
+        {
+            get { return _filters; }
+        }
 
         NodeModel INodeBuilder.Build(BuilderContext context)
         {
