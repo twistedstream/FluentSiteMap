@@ -15,13 +15,9 @@ namespace FluentSiteMap.Builders
             _urlProvider = urlProvider;
         }
 
-        public override NodeModel Build(BuilderContext context)
+        protected override void OnBuild(NodeModel node, BuilderContext context)
         {
-            var node = Inner.Build(context);
-
             node.Url = _urlProvider.GenerateUrl(context);
-
-            return node;
         }
     }
 }

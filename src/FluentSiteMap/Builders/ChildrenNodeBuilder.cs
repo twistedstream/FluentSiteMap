@@ -17,15 +17,11 @@ namespace FluentSiteMap.Builders
             _childBuilders = childBuilders;
         }
 
-        public override NodeModel Build(BuilderContext context)
+        protected override void OnBuild(NodeModel node, BuilderContext context)
         {
-            var node = Inner.Build(context);
-
             node.Children = _childBuilders
                 .Select(b => b.Build(new BuilderContext(context)))
                 .ToList();
-
-            return node;
         }
     }
 }

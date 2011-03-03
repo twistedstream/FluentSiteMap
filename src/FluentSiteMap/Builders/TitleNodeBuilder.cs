@@ -15,13 +15,9 @@ namespace FluentSiteMap.Builders
             _title = title;
         }
 
-        public override NodeModel Build(BuilderContext context)
+        protected override void OnBuild(NodeModel node, BuilderContext context)
         {
-            var node = Inner.Build(context);
-
             node.Title = _title(node);
-            
-            return node;
         }
     }
 }

@@ -6,19 +6,31 @@ namespace FluentSiteMap
     public abstract class DecoratingNodeBuilder
         : INodeBuilder
     {
-        protected INodeBuilder Inner { get; private set; }
-        public IList<INodeFilter> Filters
-        {
-            get { return Inner.Filters; }
-        }
+        private readonly INodeBuilder _inner;
 
         protected DecoratingNodeBuilder(INodeBuilder inner)
         {
             if (inner == null) throw new ArgumentNullException("inner");
 
-            Inner = inner;
+            _inner = inner;
         }
 
-        public abstract NodeModel Build(BuilderContext context);
+        public IList<INodeFilter> Filters
+        {
+            get { return _inner.Filters; }
+        }
+
+        public NodeModel Build(BuilderContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+
+            var node = _inner.Build(context);
+
+            OnBuild(node, context);
+
+            return node;
+        }
+
+        protected abstract void OnBuild(NodeModel node, BuilderContext context);
     }
 }
