@@ -3,7 +3,7 @@
 namespace FluentSiteMap.Builders
 {
     public class TitleNodeBuilder
-        : NodeBuilderBase
+        : DecoratingNodeBuilder
     {
         private readonly Func<NodeModel, string> _title;
 
