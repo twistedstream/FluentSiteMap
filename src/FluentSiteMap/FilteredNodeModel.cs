@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace FluentSiteMap
@@ -30,9 +31,19 @@ namespace FluentSiteMap
         /// </summary>
         public bool IsCurrent { get; set; }
 
+        private IList<FilteredNodeModel> _children = new List<FilteredNodeModel>();
         /// <summary>
         /// Gets or sets the children nodes.
         /// </summary>
-        public IList<FilteredNodeModel> Children { get; set; }
+        public IList<FilteredNodeModel> Children
+        {
+            get { return _children; }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+
+                _children = value;
+            }
+        }
     }
 }
