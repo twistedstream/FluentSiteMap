@@ -4,10 +4,17 @@ using System.Web.Routing;
 
 namespace FluentSiteMap
 {
+    /// <summary>
+    /// Provides external access to site map data.
+    /// </summary>
     public static class FluentSiteMap
     {
         private static SiteMapCoordinator _coordinator;
 
+        /// <summary>
+        /// Registers an <see cref="ISiteMap"/> instance as the root site map 
+        /// of the current web applcation.
+        /// </summary>
         public static void RegisterRootSiteMap(ISiteMap siteMap)
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
@@ -17,6 +24,9 @@ namespace FluentSiteMap
             _coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
         }
 
+        /// <summary>
+        /// Gets the root node of the site map.
+        /// </summary>
         public static FilteredNodeModel RootNode
         {
             get
