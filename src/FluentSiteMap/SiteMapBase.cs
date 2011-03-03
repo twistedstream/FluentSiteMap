@@ -29,7 +29,7 @@ namespace FluentSiteMap
         /// <returns></returns>
         protected INodeBuilder Node()
         {
-            return new DefaultNodeBuilder();
+            return new BaseNodeBuilder();
         }
 
         /// <summary>

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentSiteMap.Builders
+namespace FluentSiteMap
 {
-    internal class DefaultNodeBuilder
+    internal class BaseNodeBuilder
         : INodeBuilder
     {
-        public DefaultNodeBuilder()
+        public BaseNodeBuilder()
         {
             Filters = new List<INodeFilter>();
         }

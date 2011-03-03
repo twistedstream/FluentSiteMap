@@ -51,7 +51,7 @@
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
     <Compile Include="Builders\ControllerAndActionUrlProvider.cs" />
-    <Compile Include="Builders\DefaultNodeBuilder.cs" />
+    <Compile Include="BaseNodeBuilder.cs" />
     <Compile Include="FilterContext.cs" />
     <Compile Include="FilteredNodeModel.cs" />
     <Compile Include="SiteMapBase.cs" />
