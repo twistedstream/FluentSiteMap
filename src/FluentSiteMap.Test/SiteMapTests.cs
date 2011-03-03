@@ -19,6 +19,20 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
+        public void Node_should_return_a_BaseNodeBuilder_instance()
+        {
+            // Arrange
+            var target = new TestSiteMap(MockRepository.GenerateStub<INodeBuilder>());
+
+            // Act
+            var result = target.Node();
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.TypeOf(typeof(BaseNodeBuilder)));
+        }
+
+        [Test]
         public void Build_should_require_a_context()
         {
             // Arrange
@@ -143,6 +157,11 @@ namespace FluentSiteMap.Test
             public TestSiteMap(INodeBuilder rootBuilder)
             {
                 Root = rootBuilder;
+            }
+
+            public new INodeBuilder Node()
+            {
+                return base.Node();
             }
         }
     }
