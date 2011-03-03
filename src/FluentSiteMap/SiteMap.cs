@@ -23,9 +23,9 @@ namespace FluentSiteMap
         protected INodeBuilder Root { get; set; }
 
         /// <summary>
-        /// Generates a base node which can be used as the beginning of a chain of builders.
+        /// Generates a <see cref="INodeBuilder"/> instance that can be used as 
+        /// the base instance of a chain of decorator instances.
         /// </summary>
-        /// <returns></returns>
         protected INodeBuilder Node()
         {
             return new BaseNodeBuilder();
