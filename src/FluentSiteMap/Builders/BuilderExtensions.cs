@@ -112,6 +112,16 @@ namespace FluentSiteMap.Builders
             return WithUrl(inner, n => url);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that 
+        /// configures the node to get its URL from a named MVC controller.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="controllerName">
+        /// The name of the MVC controller.
+        /// </param>
         public static INodeBuilder ForController(this INodeBuilder inner, string controllerName)
         {
             return new ControllerNodeBuilder(inner, controllerName);
