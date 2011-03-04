@@ -37,11 +37,31 @@ namespace FluentSiteMap.Builders
             return WithTitle(inner, n => title);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node description 
+        /// with an expression.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="descriptionGenerator">
+        /// An expression that generates the node description.
+        /// </param>
         public static INodeBuilder WithDescription(this INodeBuilder inner, Func<NodeModel, string> descriptionGenerator)
         {
             return new DescriptionNodeBuilder(inner, descriptionGenerator);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node description 
+        /// with a value.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="description">
+        /// The node description.
+        /// </param>
         public static INodeBuilder WithDescription(this INodeBuilder inner, string description)
         {
             return WithDescription(inner, n => description);

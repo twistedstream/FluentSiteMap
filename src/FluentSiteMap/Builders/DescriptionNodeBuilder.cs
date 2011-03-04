@@ -2,11 +2,24 @@
 
 namespace FluentSiteMap.Builders
 {
+    /// <summary>
+    /// A <see cref="DecoratingNodeBuilder"/> class 
+    /// that sets the node description.
+    /// </summary>
     public class DescriptionNodeBuilder
         : DecoratingNodeBuilder
     {
         private readonly Func<NodeModel, string> _descriptionGenerator;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DescriptionNodeBuilder"/> class.
+        /// </summary>
+        /// <param name="inner">
+        /// The inner <see cref="INodeBuilder"/> instance being decorated.
+        /// </param>
+        /// <param name="descriptionGenerator">
+        /// An expression that generates the node description.
+        /// </param>
         public DescriptionNodeBuilder(INodeBuilder inner, Func<NodeModel, string> descriptionGenerator)
             : base(inner)
         {
@@ -15,6 +28,10 @@ namespace FluentSiteMap.Builders
             _descriptionGenerator = descriptionGenerator;
         }
 
+        /// <summary>
+        /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
+        /// setting the node description.
+        /// </summary>
         protected override void OnBuild(NodeModel node, BuilderContext context)
         {
             node.Description = _descriptionGenerator(node);
