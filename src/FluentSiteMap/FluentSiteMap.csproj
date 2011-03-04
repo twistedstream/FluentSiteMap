@@ -48,6 +48,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Builders\DescriptionNodeBuilder.cs" />
+    <Compile Include="Builders\WithDescriptionExtensions.cs" />
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
     <Compile Include="Builders\ControllerAndActionUrlProvider.cs" />
