@@ -9,7 +9,7 @@ namespace FluentSiteMap.Builders
     {
         private readonly IEnumerable<INodeBuilder> _childBuilders;
 
-        public ChildrenNodeBuilder(INodeBuilder inner, params INodeBuilder[] childBuilders) 
+        public ChildrenNodeBuilder(INodeBuilder inner, IEnumerable<INodeBuilder> childBuilders) 
             : base(inner)
         {
             if (childBuilders == null) throw new ArgumentNullException("childBuilders");
