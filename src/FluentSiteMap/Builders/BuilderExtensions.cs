@@ -156,6 +156,16 @@ namespace FluentSiteMap.Builders
             return new UrlFromMvcNodeBuilder(inner);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the 
+        /// children of a node.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="childBuilders">
+        /// A list of child builders that will build the child nodes.
+        /// </param>
         public static INodeBuilder WithChildren(this INodeBuilder inner, params INodeBuilder[] childBuilders)
         {
             return new ChildrenNodeBuilder(inner, childBuilders);
