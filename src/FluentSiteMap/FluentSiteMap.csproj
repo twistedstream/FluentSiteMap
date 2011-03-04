@@ -48,10 +48,12 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Builders\ActionNodeBuilder.cs" />
+    <Compile Include="Builders\ControllerNodeBuilder.cs" />
     <Compile Include="Builders\DescriptionNodeBuilder.cs" />
+    <Compile Include="Builders\UrlNodeBuilder.cs" />
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
-    <Compile Include="Builders\ControllerAndActionUrlProvider.cs" />
     <Compile Include="BaseNodeBuilder.cs" />
     <Compile Include="FilterContext.cs" />
     <Compile Include="FilteredNodeModel.cs" />
@@ -64,8 +66,6 @@
     <Compile Include="Filters\RolesNodeFilter.cs" />
     <Compile Include="INodeBuilder.cs" />
     <Compile Include="INodeFilter.cs" />
-    <Compile Include="Builders\IUrlProvider.cs" />
-    <Compile Include="Builders\Mvc.cs" />
     <Compile Include="ISiteMap.cs" />
     <Compile Include="NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,7 +73,7 @@
     <Compile Include="Builders\BuilderExtensions.cs" />
     <Compile Include="Builders\ChildrenNodeBuilder.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />
-    <Compile Include="Builders\UrlFromProviderNodeBuilder.cs" />
+    <Compile Include="Builders\UrlFromMvcNodeBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

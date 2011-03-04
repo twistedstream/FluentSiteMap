@@ -49,25 +49,26 @@ namespace FluentSiteMap.Test
                     Node()
                         .WithTitle("Home")
                         .WithDescriptionSameAsTitle()
-                        .WithUrlFrom(Mvc.ControllerAndAction("Home", "Index"))
+                        .ForController("Home").ForAction("Index").WithUrlFromMvc()
                         .WithChildren(
                             Node()
                                 .WithTitle(n => DateTime.Now.ToString()).FilteredTitle(t => "HEY " + t + "HEY")
-                                .WithUrlFrom(Mvc.ControllerAndAction("Section1", "Index"))
+                                .ForController("Section1").ForAction("Index").WithUrlFromMvc()
                                 .WithChildren(
                                     Node()
                                         .WithTitle("Subsection 1")
-                                        .WithUrlFrom(Mvc.InheritedControllerAndAction("Subsection1")),
+                                        .ForAction("Subsection1").WithUrlFromMvc(),
                                     Node()
-                                        .WithTitle("Secure Section 2")
+                                        .WithTitle("Secure Subsection 2")
+                                        .ForAction("Subsection2").WithUrlFromMvc()
                                         .FilteredByRoles("Role1", "Role2")
                                         .WithChildren(
                                             Node()
-                                                .WithTitle("Subsection 2")
-                                                .WithUrlFrom(Mvc.InheritedControllerAndAction("Subsection2")),
+                                                .WithTitle("Sub Subsection 1")
+                                                .ForAction("SubSubsection2").WithUrlFromMvc(),
                                             Node()
-                                                .WithTitle("Subsection 3")
-                                                .WithUrlFrom(Mvc.InheritedControllerAndAction()))));
+                                                .WithTitle("Sub Subsection 2")
+                                                .WithUrlFromMvc())));
             }
         }
     }
