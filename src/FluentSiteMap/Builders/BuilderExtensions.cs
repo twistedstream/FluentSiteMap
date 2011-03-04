@@ -2,13 +2,36 @@
 
 namespace FluentSiteMap.Builders
 {
+    /// <summary>
+    /// Contains extension methods for chaining node builders.
+    /// </summary>
     public static class BuilderExtensions
     {
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node title 
+        /// with an expression.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="titleGenerator">
+        /// An expression that generates the node title.
+        /// </param>
         public static INodeBuilder WithTitle(this INodeBuilder inner, Func<NodeModel, string> titleGenerator)
         {
             return new TitleNodeBuilder(inner, titleGenerator);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node title 
+        /// with a value.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="title">
+        /// The node title.
+        /// </param>
         public static INodeBuilder WithTitle(this INodeBuilder inner, string title)
         {
             return WithTitle(inner, n => title);
