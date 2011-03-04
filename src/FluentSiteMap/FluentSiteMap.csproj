@@ -75,7 +75,7 @@
     <Compile Include="Builders\WithTitleExtensions.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />
     <Compile Include="Builders\WithUrlFromExtensions.cs" />
-    <Compile Include="Builders\UrlFromNodeBuilder.cs" />
+    <Compile Include="Builders\UrlFromProviderNodeBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

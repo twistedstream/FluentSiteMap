@@ -2,12 +2,12 @@
 
 namespace FluentSiteMap.Builders
 {
-    public class UrlFromNodeBuilder
+    public class UrlFromProviderNodeBuilder
         : DecoratingNodeBuilder
     {
         private readonly IUrlProvider _urlProvider;
 
-        public UrlFromNodeBuilder(INodeBuilder inner, IUrlProvider urlProvider) 
+        public UrlFromProviderNodeBuilder(INodeBuilder inner, IUrlProvider urlProvider) 
             : base(inner)
         {
             if (urlProvider == null) throw new ArgumentNullException("urlProvider");
