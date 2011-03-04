@@ -7,7 +7,7 @@ namespace FluentSiteMap
     /// <summary>
     /// Handles the coordination of building and filtering nodes in a site map.
     /// </summary>
-    public class SiteMapCoordinator
+    internal class SiteMapCoordinator
     {
         private readonly IRecursiveNodeFilter _recursiveNodeFilter;
         private readonly ISiteMap _rootSiteMap;

@@ -7,7 +7,7 @@ namespace FluentSiteMap
     /// <summary>
     /// The default implementation of the <see cref="IRecursiveNodeFilter"/> interface.
     /// </summary>
-    public sealed class RecursiveNodeFilter 
+    internal sealed class RecursiveNodeFilter 
         : IRecursiveNodeFilter
     {
         FilteredNodeModel IRecursiveNodeFilter.Filter(FilterContext context, NodeModel rootNode)
