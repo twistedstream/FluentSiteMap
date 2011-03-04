@@ -24,7 +24,7 @@ namespace FluentSiteMap
 
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> instance that can be used as 
-        /// the base instance of a chain of decorator instances.
+        /// the base instance for a chain of decorator <see cref="INodeBuilder"/> instances.
         /// </summary>
         protected INodeBuilder Node()
         {
