@@ -49,7 +49,6 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Builders\DescriptionNodeBuilder.cs" />
-    <Compile Include="Builders\WithDescriptionExtensions.cs" />
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
     <Compile Include="Builders\ControllerAndActionUrlProvider.cs" />
@@ -61,7 +60,7 @@
     <Compile Include="IRecursiveNodeFilter.cs" />
     <Compile Include="RecursiveNodeFilter.cs" />
     <Compile Include="SiteMapCoordinator.cs" />
-    <Compile Include="Filters\RolesExtensions.cs" />
+    <Compile Include="Filters\FilterExtensions.cs" />
     <Compile Include="Filters\RolesNodeFilter.cs" />
     <Compile Include="INodeBuilder.cs" />
     <Compile Include="INodeFilter.cs" />
@@ -71,12 +70,9 @@
     <Compile Include="NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\TitleFilter.cs" />
-    <Compile Include="Filters\TitleFilterExtensions.cs" />
-    <Compile Include="Builders\WithChildrenExtensions.cs" />
+    <Compile Include="Builders\BuilderExtensions.cs" />
     <Compile Include="Builders\ChildrenNodeBuilder.cs" />
-    <Compile Include="Builders\WithTitleExtensions.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />
-    <Compile Include="Builders\WithUrlFromExtensions.cs" />
     <Compile Include="Builders\UrlFromProviderNodeBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
