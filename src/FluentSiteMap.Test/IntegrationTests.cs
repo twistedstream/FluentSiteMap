@@ -48,6 +48,7 @@ namespace FluentSiteMap.Test
                 Root =
                     Node()
                         .WithTitle("Home")
+                        .WithDescriptionSameAsTitle()
                         .WithUrlFrom(Mvc.ControllerAndAction("Home", "Index"))
                         .WithChildren(
                             Node()

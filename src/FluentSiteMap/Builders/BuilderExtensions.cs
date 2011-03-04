@@ -24,6 +24,11 @@ namespace FluentSiteMap.Builders
             return WithDescription(inner, n => description);
         }
 
+        public static INodeBuilder WithDescriptionSameAsTitle(this INodeBuilder inner)
+        {
+            return WithDescription(inner, n => n.Title);
+        }
+
         public static INodeBuilder WithUrlFrom(this INodeBuilder inner, IUrlProvider urlProvider)
         {
             return new UrlFromProviderNodeBuilder(inner, urlProvider);
