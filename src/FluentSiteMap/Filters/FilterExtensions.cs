@@ -20,5 +20,31 @@
             builder.Filters.Add(new RolesNodeFilter(roles));
             return builder;
         }
+
+        /// <summary>
+        /// Adds a filter to the <see cref="INodeBuilder"/> that will 
+        /// hide the node if the user isn't authenticated.
+        /// </summary>
+        /// <param name="builder">
+        /// The <see cref="INodeBuilder"/> to add the filter to.
+        /// </param>
+        public static INodeBuilder IfAuthenticated(this INodeBuilder builder)
+        {
+            builder.Filters.Add(new AuthenticationNodeFilter(true));
+            return builder;
+        }
+
+        /// <summary>
+        /// Adds a filter to the <see cref="INodeBuilder"/> that will 
+        /// hide the node if the user is authenticated.
+        /// </summary>
+        /// <param name="builder">
+        /// The <see cref="INodeBuilder"/> to add the filter to.
+        /// </param>
+        public static INodeBuilder IfNotAuthenticated(this INodeBuilder builder)
+        {
+            builder.Filters.Add(new AuthenticationNodeFilter(false));
+            return builder;
+        }
     }
 }

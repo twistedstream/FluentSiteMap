@@ -16,10 +16,18 @@ namespace FluentSiteMap.Test
         [Test]
         public void Test1()
         {
+            var identity = MockRepository.GenerateStub<IIdentity>();
+            identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
             var principal = MockRepository.GenerateMock<IPrincipal>();
             principal
                 .Stub(p => p.IsInRole(Arg<string>.Is.Anything))
                 .Return(true);
+            principal
+                .Stub(p => p.Identity)
+                .Return(identity);
 
             var httpContext = MockRepository.GenerateMock<HttpContextBase>();
             httpContext
@@ -57,7 +65,8 @@ namespace FluentSiteMap.Test
                                 .WithChildren(
                                     Node()
                                         .WithTitle("Subsection 1")
-                                        .ForAction("Subsection1").WithUrlFromMvc(),
+                                        .ForAction("Subsection1").WithUrlFromMvc()
+                                        .IfAuthenticated(),
                                     Node()
                                         .WithTitle("Secure Subsection 2")
                                         .ForAction("Subsection2").WithUrlFromMvc()
