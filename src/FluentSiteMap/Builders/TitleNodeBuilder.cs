@@ -5,19 +5,19 @@ namespace FluentSiteMap.Builders
     public class TitleNodeBuilder
         : DecoratingNodeBuilder
     {
-        private readonly Func<NodeModel, string> _title;
+        private readonly Func<NodeModel, string> _titleGenerator;
 
-        public TitleNodeBuilder(INodeBuilder inner, Func<NodeModel, string> title) 
+        public TitleNodeBuilder(INodeBuilder inner, Func<NodeModel, string> titleGenerator) 
             : base(inner)
         {
-            if (title == null) throw new ArgumentNullException("title");
+            if (titleGenerator == null) throw new ArgumentNullException("titleGenerator");
 
-            _title = title;
+            _titleGenerator = titleGenerator;
         }
 
         protected override void OnBuild(NodeModel node, BuilderContext context)
         {
-            node.Title = _title(node);
+            node.Title = _titleGenerator(node);
         }
     }
 }
