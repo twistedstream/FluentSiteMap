@@ -67,6 +67,16 @@ namespace FluentSiteMap.Builders
             return WithDescription(inner, n => description);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node description 
+        /// with a value that is the same as the title.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <remarks>
+        /// This extension method must be used after any of the WithTitle methods.
+        /// </remarks>
         public static INodeBuilder WithDescriptionSameAsTitle(this INodeBuilder inner)
         {
             return WithDescription(inner, n => n.Title);
