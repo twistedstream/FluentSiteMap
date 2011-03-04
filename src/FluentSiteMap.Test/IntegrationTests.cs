@@ -52,7 +52,7 @@ namespace FluentSiteMap.Test
                         .ForController("Home").ForAction("Index").WithUrlFromMvc()
                         .WithChildren(
                             Node()
-                                .WithTitle(n => DateTime.Now.ToString()).FilteredTitle(t => "HEY " + t + "HEY")
+                                .WithTitle("Section 1")
                                 .ForController("Section1").ForAction("Index").WithUrlFromMvc()
                                 .WithChildren(
                                     Node()

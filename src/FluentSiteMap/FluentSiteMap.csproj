@@ -69,7 +69,6 @@
     <Compile Include="ISiteMap.cs" />
     <Compile Include="NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Filters\TitleFilter.cs" />
     <Compile Include="Builders\BuilderExtensions.cs" />
     <Compile Include="Builders\ChildrenNodeBuilder.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />

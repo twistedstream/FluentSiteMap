@@ -9,11 +9,5 @@ namespace FluentSiteMap.Filters
             builder.Filters.Add(new RolesNodeFilter(roles));
             return builder;
         }
-
-        public static INodeBuilder FilteredTitle(this INodeBuilder builder, Func<string, string> title)
-        {
-            builder.Filters.Add(new TitleFilter(title));
-            return builder;
-        }
     }
 }
