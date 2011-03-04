@@ -56,6 +56,7 @@
     <Compile Include="Builders\DescriptionNodeBuilderTests.cs" />
     <Compile Include="Builders\NodeBuilderTestBase.cs" />
     <Compile Include="Builders\TitleNodeBuilderTests.cs" />
+    <Compile Include="Builders\UrlNodeBuilderTests.cs" />
     <Compile Include="DecoratingNodeBuilderTests.cs" />
     <Compile Include="FilterContextTests.cs" />
     <Compile Include="FilteredNodeModelTests.cs" />

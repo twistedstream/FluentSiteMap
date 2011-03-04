@@ -82,11 +82,31 @@ namespace FluentSiteMap.Builders
             return WithDescription(inner, n => n.Title);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node URL 
+        /// with an expression.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="urlGenerator">
+        /// An expression that generates the node URL.
+        /// </param>
         public static INodeBuilder WithUrl(this INodeBuilder inner, Func<NodeModel, string> urlGenerator)
         {
             return new UrlNodeBuilder(inner, urlGenerator);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node URL 
+        /// with a value.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="url">
+        /// The node URL.
+        /// </param>
         public static INodeBuilder WithUrl(this INodeBuilder inner, string url)
         {
             return WithUrl(inner, n => url);
