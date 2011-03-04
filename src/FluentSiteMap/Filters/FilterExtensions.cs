@@ -15,7 +15,7 @@
         /// <param name="roles">
         /// A list of roles of which a user must be a member of at least one to view the node.
         /// </param>
-        public static INodeBuilder FilteredByRoles(this INodeBuilder builder, params string[] roles)
+        public static INodeBuilder IfInRole(this INodeBuilder builder, params string[] roles)
         {
             builder.Filters.Add(new RolesNodeFilter(roles));
             return builder;

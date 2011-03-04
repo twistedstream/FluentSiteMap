@@ -70,7 +70,7 @@ namespace FluentSiteMap.Test
                                     Node()
                                         .WithTitle("Secure Subsection 2")
                                         .ForAction("Subsection2").WithUrlFromMvc()
-                                        .FilteredByRoles("Role1", "Role2")
+                                        .IfInRole("Role1", "Role2")
                                         .WithChildren(
                                             Node()
                                                 .WithTitle("Sub Subsection 1")
