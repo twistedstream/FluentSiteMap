@@ -142,6 +142,15 @@ namespace FluentSiteMap.Builders
             return new ActionNodeBuilder(inner, actionName);
         }
 
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node URL 
+        /// using MVC controller and action data 
+        /// set by the <see cref="ForController"/> and <see cref="ForAction"/> 
+        /// methods.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
         public static INodeBuilder WithUrlFromMvc(this INodeBuilder inner)
         {
             return new UrlFromMvcNodeBuilder(inner);
