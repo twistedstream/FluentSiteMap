@@ -7,14 +7,14 @@ using Rhino.Mocks;
 namespace FluentSiteMap.Test.Builders
 {
     [TestFixture]
-    public class ChildrenNodeBuilderTests
+    public class StaticChildNodeBuilderTests
         : NodeBuilderTestBase
     {
         [Test]
         public void Instances_should_require_child_builders()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new ChildrenNodeBuilder(Inner, null));
+                () => new StaticChildNodeBuilder(Inner, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("childBuilders"));
         }
@@ -31,7 +31,7 @@ namespace FluentSiteMap.Test.Builders
 
             var childBuilders = new[] {childBuilder};
 
-            var target = new ChildrenNodeBuilder(Inner, childBuilders);
+            var target = new StaticChildNodeBuilder(Inner, childBuilders);
 
             // Act
             var result = target.Build(Context);

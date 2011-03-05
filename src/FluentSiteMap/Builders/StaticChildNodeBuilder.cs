@@ -6,15 +6,15 @@ namespace FluentSiteMap.Builders
 {
     /// <summary>
     /// A <see cref="DecoratingNodeBuilder"/> class 
-    /// that sets the children of a node.
+    /// that statically sets the children of a node with a list of child <see cref="INodeBuilder"/> objects.
     /// </summary>
-    public class ChildrenNodeBuilder
+    public class StaticChildNodeBuilder
         : DecoratingNodeBuilder
     {
         private readonly IEnumerable<INodeBuilder> _childBuilders;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ChildrenNodeBuilder"/> class.
+        /// Initializes a new instance of the <see cref="StaticChildNodeBuilder"/> class.
         /// </summary>
         /// <param name="inner">
         /// The inner <see cref="INodeBuilder"/> instance being decorated.
@@ -22,7 +22,7 @@ namespace FluentSiteMap.Builders
         /// <param name="childBuilders">
         /// A sequence of child builders that will build the child nodes.
         /// </param>
-        public ChildrenNodeBuilder(INodeBuilder inner, IEnumerable<INodeBuilder> childBuilders) 
+        public StaticChildNodeBuilder(INodeBuilder inner, IEnumerable<INodeBuilder> childBuilders) 
             : base(inner)
         {
             if (childBuilders == null) throw new ArgumentNullException("childBuilders");
@@ -32,7 +32,7 @@ namespace FluentSiteMap.Builders
 
         /// <summary>
         /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
-        /// setting the node children.
+        /// setting the child nodes statically with a list of child <see cref="INodeBuilder"/> objects.
         /// </summary>
         protected override void OnBuild(NodeModel node, BuilderContext context)
         {

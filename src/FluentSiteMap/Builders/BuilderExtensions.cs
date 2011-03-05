@@ -172,7 +172,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder WithChildren(this INodeBuilder inner, params INodeBuilder[] childBuilders)
         {
-            return new ChildrenNodeBuilder(inner, childBuilders);
+            return new StaticChildNodeBuilder(inner, childBuilders);
         }
 
         /// <summary>
@@ -182,13 +182,18 @@ namespace FluentSiteMap.Builders
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
         /// </param>
-        /// <param name="childBuilders">
-        /// A sequence of child builders that will build the child nodes.
+        /// <param name="source">
+        /// The source of data to create the child nodes.
         /// </param>
-        public static INodeBuilder WithChildren(this INodeBuilder inner, IEnumerable<INodeBuilder> childBuilders)
+        /// <param name="childTemplate">
+        /// An expression that configures each child <see cref="INodeBuilder"/>.
+        /// </param>
+        /// <typeparam name="TSource">
+        /// The type of the source data populating the nodes.
+        /// </typeparam>
+        public static INodeBuilder WithChildren<TSource>(this INodeBuilder inner, IEnumerable<TSource> source, Func<TSource, INodeBuilder, INodeBuilder> childTemplate)
         {
-            return new ChildrenNodeBuilder(inner, childBuilders);
+            return new DynamicChildNodeBuilder<TSource>(inner, source, childTemplate);
         }
-
     }
 }

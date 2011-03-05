@@ -51,6 +51,7 @@
     <Compile Include="Builders\ActionNodeBuilder.cs" />
     <Compile Include="Builders\ControllerNodeBuilder.cs" />
     <Compile Include="Builders\DescriptionNodeBuilder.cs" />
+    <Compile Include="Builders\DynamicChildNodeBuilder.cs" />
     <Compile Include="Builders\UrlNodeBuilder.cs" />
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="NodeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Builders\BuilderExtensions.cs" />
-    <Compile Include="Builders\ChildrenNodeBuilder.cs" />
+    <Compile Include="Builders\StaticChildNodeBuilder.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />
     <Compile Include="Builders\UrlFromMvcNodeBuilder.cs" />
   </ItemGroup>

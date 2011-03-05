@@ -60,12 +60,10 @@ namespace FluentSiteMap.Test
                             Node()
                                 .WithTitle("Products").WithDescriptionSameAsTitle()
                                 .ForController("Products").ForAction("Index").WithUrlFromMvc()
-                                .WithChildren(
-                                    products.Select(p => 
-                                        Node()
-                                            .WithTitle(p.Name)
-                                            .WithDescription(p.Description)
-                                            .ForAction("View").WithUrlFromMvc(new { id = p.Id}))),
+                                .WithChildren(products, (p, b) => b
+                                    .WithTitle(p.Name)
+                                    .WithDescription(p.Description)
+                                    .ForAction("View").WithUrlFromMvc(new { id = p.Id})),
                             Node()
                                 .WithTitle("Administration").WithDescriptionSameAsTitle()
                                 .ForController("Admin").ForAction("Index").WithUrlFromMvc()
