@@ -106,6 +106,13 @@ namespace FluentSiteMap.Test
                              Arg<FilterContext>.Is.Anything))
                 // this filter will result in node that is filtered out
                 .Return(false);
+            var filter3 = MockRepository.GenerateStub<INodeFilter>();
+            filter3
+                .Stub(
+                    f =>
+                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                             Arg<FilterContext>.Is.Anything))
+                .Return(true);
 
             _rootNode = new NodeModel(new[] {filter1})
                             {
@@ -117,6 +124,11 @@ namespace FluentSiteMap.Test
                                                    new NodeModel(new[] {filter2})
                                                        {
                                                            Title = "Bar"
+                                                       },
+                                                   // this node will not get filtered out
+                                                   new NodeModel(new[] {filter3})
+                                                       {
+                                                           Title = "Baz"
                                                        }
                                                }
                             };
@@ -128,7 +140,10 @@ namespace FluentSiteMap.Test
 
             // Assert
             Assert.That(result.Title, Is.EqualTo("Foo"));
-            Assert.That(result.Children.Count, Is.EqualTo(0));
+            Assert.That(result.Children.Count, Is.EqualTo(1));
+
+            var child = result.Children[0];
+            Assert.That(child.Title, Is.EqualTo("Baz"));
         }
 
         [Test]

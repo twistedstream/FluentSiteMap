@@ -41,9 +41,18 @@ namespace FluentSiteMap
                                        };
 
                 // perform filtering on current node
+                var filteredOut = false;
                 foreach (var filter in node.Filters)
                     if (!filter.Filter(filteredNode, context))
-                        yield break;
+                    {
+                        // stop executing node's filters if filtered out
+                        filteredOut = true;
+                        break;
+                    }
+
+                // skip returning this node if filtered out
+                if (filteredOut)
+                    continue;
 
                 // perform filtering on child nodes
                 filteredNode.Children = FilterNodes(context, node.Children).ToList();
