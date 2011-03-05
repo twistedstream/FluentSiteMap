@@ -27,10 +27,12 @@
         /// </summary>
         public bool Filter(FilteredNodeModel node, FilterContext context)
         {
-            return
-                (_requireAuthentication && context.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+            var isAuthenticated = context.RequestContext.HttpContext.User.Identity.IsAuthenticated;
+
+            return 
+                (_requireAuthentication && isAuthenticated)
                 ||
-                (!_requireAuthentication && !context.RequestContext.HttpContext.User.Identity.IsAuthenticated);
+                (!_requireAuthentication && !isAuthenticated);
         }
     }
 }
