@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FluentSiteMap.Builders
 {
@@ -151,9 +152,12 @@ namespace FluentSiteMap.Builders
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
         /// </param>
-        public static INodeBuilder WithUrlFromMvc(this INodeBuilder inner)
+        /// <param name="routeValues">
+        /// Any additional route values used to build the URL.
+        /// </param>
+        public static INodeBuilder WithUrlFromMvc(this INodeBuilder inner, object routeValues = null)
         {
-            return new UrlFromMvcNodeBuilder(inner);
+            return new UrlFromMvcNodeBuilder(inner, routeValues);
         }
 
         /// <summary>
@@ -170,5 +174,21 @@ namespace FluentSiteMap.Builders
         {
             return new ChildrenNodeBuilder(inner, childBuilders);
         }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the 
+        /// children of a node.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="childBuilders">
+        /// A sequence of child builders that will build the child nodes.
+        /// </param>
+        public static INodeBuilder WithChildren(this INodeBuilder inner, IEnumerable<INodeBuilder> childBuilders)
+        {
+            return new ChildrenNodeBuilder(inner, childBuilders);
+        }
+
     }
 }

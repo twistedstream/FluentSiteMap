@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Impl;
@@ -34,6 +37,7 @@ namespace FluentSiteMap.Test
         [SetUp]
         public virtual void Setup()
         {
+            RouteTable.Routes.Clear();
         }
 
         /// <summary>
@@ -42,6 +46,40 @@ namespace FluentSiteMap.Test
         [TearDown]
         public virtual void TearDown()
         {
+        }
+
+        /// <summary>
+        /// Creates a <see cref="RequestContext"/> 
+        /// that can accept MVC routing operations during a test.
+        /// </summary>
+        protected RequestContext MockRequestContextForRouting()
+        {
+            var httpRequest = MockRepository.GenerateStub<HttpRequestBase>();
+            httpRequest
+                .Stub(r => r.AppRelativeCurrentExecutionFilePath)
+                .Return("~/some-url");
+            httpRequest
+                .Stub(r => r.PathInfo)
+                .Return(string.Empty);
+
+            var httpResponse = MockRepository.GenerateStub<HttpResponseBase>();
+            httpResponse
+                .Stub(r => r.ApplyAppPathModifier(Arg<string>.Is.Anything))
+                .Do((Func<string, string>)(p => p));
+
+            var httpContext = MockRepository.GenerateStub<HttpContextBase>();
+            httpContext
+                .Stub(c => c.Request)
+                .Return(httpRequest);
+            httpContext
+                .Stub(c => c.Response)
+                .Return(httpResponse);
+
+            return new RequestContext
+                       {
+                           RouteData = RouteTable.Routes.GetRouteData(httpContext),
+                           HttpContext = httpContext
+                       };
         }
     }
 }
