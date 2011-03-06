@@ -60,6 +60,7 @@
     <Compile Include="FilterContext.cs" />
     <Compile Include="FilteredNodeModel.cs" />
     <Compile Include="Filters\AuthenticationNodeFilter.cs" />
+    <Compile Include="Filters\CurrentNodeFilter.cs" />
     <Compile Include="IDefaultFilterProvider.cs" />
     <Compile Include="SiteMap.cs" />
     <Compile Include="FluentSiteMap.cs" />

@@ -69,6 +69,7 @@
     <Compile Include="FilterContextTests.cs" />
     <Compile Include="FilteredNodeModelTests.cs" />
     <Compile Include="Filters\AuthenticationNodeFilterTests.cs" />
+    <Compile Include="Filters\CurrentNodeFilterTests.cs" />
     <Compile Include="Filters\RolesNodeFilterTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="NodeModelTests.cs" />

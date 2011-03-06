@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FluentSiteMap.Filters;
 using NUnit.Framework;
 
 namespace FluentSiteMap.Test
@@ -17,7 +18,8 @@ namespace FluentSiteMap.Test
             var results = target.GetFilters().ToList();
 
             // Assert
-            Assert.That(results.Count, Is.EqualTo(0));
+            Assert.That(results.Count, Is.EqualTo(1));
+            Assert.That(results[0], Is.TypeOf(typeof (CurrentNodeFilter)));
         }
     }
 }

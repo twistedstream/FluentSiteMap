@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FluentSiteMap.Filters;
 
 namespace FluentSiteMap
 {
@@ -10,7 +11,7 @@ namespace FluentSiteMap
     {
         IEnumerable<INodeFilter> IDefaultFilterProvider.GetFilters()
         {
-            yield break;
+            yield return new CurrentNodeFilter();
         }
     }
 }
