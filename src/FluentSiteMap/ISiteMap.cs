@@ -12,8 +12,8 @@
         /// A <see cref="BuilderContext"/> used to build the site map.
         /// </param>
         /// <returns>
-        /// The resulting root <see cref="NodeModel"/>.
+        /// The resulting root <see cref="Node"/>.
         /// </returns>
-        NodeModel Build(BuilderContext context);
+        Node Build(BuilderContext context);
     }
 }

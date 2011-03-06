@@ -59,7 +59,7 @@
     <Compile Include="BaseNodeBuilder.cs" />
     <Compile Include="DefaultFilterProvider.cs" />
     <Compile Include="FilterContext.cs" />
-    <Compile Include="FilteredNodeModel.cs" />
+    <Compile Include="FilteredNode.cs" />
     <Compile Include="Filters\AuthenticationNodeFilter.cs" />
     <Compile Include="Filters\CurrentNodeFilter.cs" />
     <Compile Include="IDefaultFilterProvider.cs" />
@@ -73,13 +73,14 @@
     <Compile Include="INodeBuilder.cs" />
     <Compile Include="INodeFilter.cs" />
     <Compile Include="ISiteMap.cs" />
-    <Compile Include="NodeModel.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Builders\BuilderExtensions.cs" />
     <Compile Include="Builders\StaticChildNodeBuilder.cs" />
     <Compile Include="Builders\TitleNodeBuilder.cs" />
     <Compile Include="Builders\UrlFromMvcNodeBuilder.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

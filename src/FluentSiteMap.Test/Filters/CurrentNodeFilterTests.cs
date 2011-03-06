@@ -38,7 +38,7 @@ namespace FluentSiteMap.Test.Filters
                 .Stub(r => r.Path)
                 .Return("/Foo");
 
-            var node = new FilteredNodeModel {Url = "/foo"};
+            var node = new FilteredNode {Url = "/foo"};
 
             var target = new CurrentNodeFilter();
 
@@ -57,7 +57,7 @@ namespace FluentSiteMap.Test.Filters
                 .Stub(r => r.Path)
                 .Return("/Foo");
 
-            var node = new FilteredNodeModel { Url = "/bar" };
+            var node = new FilteredNode { Url = "/bar" };
 
             var target = new CurrentNodeFilter();
 
@@ -75,7 +75,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new CurrentNodeFilter();
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), _filterContext);
+            var result = target.Filter(new FilteredNode(), _filterContext);
 
             // Assert
             Assert.That(result, Is.True);

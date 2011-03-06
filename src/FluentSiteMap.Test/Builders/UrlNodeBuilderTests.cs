@@ -21,7 +21,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_url_using_the_url_generator()
         {
             // Arrange
-            Func<NodeModel, string> urlGenerator = n => "/foo";
+            Func<Node, string> urlGenerator = n => "/foo";
 
             var target = new UrlNodeBuilder(Inner, urlGenerator);
 

@@ -21,7 +21,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_title_using_the_title_generator()
         {
             // Arrange
-            Func<NodeModel, string> titleGenerator = n => "foo";
+            Func<Node, string> titleGenerator = n => "foo";
 
             var target = new TitleNodeBuilder(Inner, titleGenerator);
 

@@ -32,7 +32,7 @@ namespace FluentSiteMap.Builders
         /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
         /// setting the node URL.
         /// </summary>
-        protected override void OnBuild(NodeModel node, BuilderContext context)
+        protected override void OnBuild(Node node, BuilderContext context)
         {
             var controller = context.GetMetadata<string>(ControllerNodeBuilder.ControllerMetadataKey);
             var action = context.GetMetadata<string>(ActionNodeBuilder.ActionMetadataKey);

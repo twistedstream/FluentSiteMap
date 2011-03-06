@@ -9,15 +9,15 @@ namespace FluentSiteMap
     /// but before it has been filtered.
     /// </summary>
     [DebuggerDisplay("Title = {Title}, Url = {Url}")]
-    public class NodeModel
+    public class Node
     {
         /// <summary>
-        /// Initializes a new instance of a <see cref="NodeModel"/> class.
+        /// Initializes a new instance of a <see cref="Node"/> class.
         /// </summary>
         /// <param name="filters">
         /// The filters that will be applied to this node during filtering.
         /// </param>
-        internal NodeModel(IList<INodeFilter> filters)
+        internal Node(IList<INodeFilter> filters)
         {
             if (filters == null) throw new ArgumentNullException("filters");
 
@@ -39,12 +39,12 @@ namespace FluentSiteMap
         /// </summary>
         public string Url { get; set; }
 
-        private IList<NodeModel> _children = new List<NodeModel>();
+        private IList<Node> _children = new List<Node>();
 
         /// <summary>
         /// Gets the children nodes.
         /// </summary>
-        public IList<NodeModel> Children
+        public IList<Node> Children
         {
             get { return _children; }
             set

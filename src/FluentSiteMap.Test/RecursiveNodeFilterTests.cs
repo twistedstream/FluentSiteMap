@@ -11,14 +11,14 @@ namespace FluentSiteMap.Test
         : TestBase
     {
         private FilterContext _context;
-        private NodeModel _rootNode;
+        private Node _rootNode;
 
         public override void Setup()
         {
             base.Setup();
 
             _context = new FilterContext(new RequestContext(), new List<INodeFilter>());
-            _rootNode = new NodeModel(new List<INodeFilter>());
+            _rootNode = new Node(new List<INodeFilter>());
         }
 
         [Test]
@@ -49,20 +49,20 @@ namespace FluentSiteMap.Test
             filter1
                 .Expect(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 .Return(true);
             var filter2 = MockRepository.GenerateMock<INodeFilter>();
             filter2
                 .Expect(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 .Return(true);
 
             _context.DefaultFilters.Add(filter1);
 
-            _rootNode = new NodeModel(new[] { filter2 });
+            _rootNode = new Node(new[] { filter2 });
 
             IRecursiveNodeFilter target = new RecursiveNodeFilter();
 
@@ -82,23 +82,23 @@ namespace FluentSiteMap.Test
             filter1
                 .Expect(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Matches(m => m.Title == "Foo"),
+                    f.Filter(Arg<FilteredNode>.Matches(m => m.Title == "Foo"),
                              Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _context.RequestContext))))
                 .Return(true);
             var filter2 = MockRepository.GenerateMock<INodeFilter>();
             filter2
                 .Expect(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Matches(m => m.Title == "Bar"),
+                    f.Filter(Arg<FilteredNode>.Matches(m => m.Title == "Bar"),
                              Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _context.RequestContext))))
                 .Return(true);
 
-            _rootNode = new NodeModel(new[] {filter1})
+            _rootNode = new Node(new[] {filter1})
                             {
                                 Title = "Foo",
                                 Children = new[]
                                                {
-                                                   new NodeModel(new[] {filter2})
+                                                   new Node(new[] {filter2})
                                                        {
                                                            Title = "Bar"
                                                        }
@@ -128,14 +128,14 @@ namespace FluentSiteMap.Test
             filter1
                 .Stub(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 .Return(true);
             var filter2 = MockRepository.GenerateStub<INodeFilter>();
             filter2
                 .Stub(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 // this filter will result in node that is filtered out
                 .Return(false);
@@ -143,23 +143,23 @@ namespace FluentSiteMap.Test
             filter3
                 .Stub(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 .Return(true);
 
-            _rootNode = new NodeModel(new[] {filter1})
+            _rootNode = new Node(new[] {filter1})
                             {
                                 Title = "Foo",
                                 Children = new[]
                                                {
                                                    // this node will get filtered out since its filter
                                                    // will return false
-                                                   new NodeModel(new[] {filter2})
+                                                   new Node(new[] {filter2})
                                                        {
                                                            Title = "Bar"
                                                        },
                                                    // this node will not get filtered out
-                                                   new NodeModel(new[] {filter3})
+                                                   new Node(new[] {filter3})
                                                        {
                                                            Title = "Baz"
                                                        }
@@ -187,12 +187,12 @@ namespace FluentSiteMap.Test
             filter1
                 .Stub(
                     f =>
-                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
                              Arg<FilterContext>.Is.Anything))
                 // this filter will result in node that is filtered out
                 .Return(false);
 
-            _rootNode = new NodeModel(new[] {filter1})
+            _rootNode = new Node(new[] {filter1})
                             {
                                 Title = "Foo"
                             };

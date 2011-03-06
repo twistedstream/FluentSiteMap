@@ -14,14 +14,14 @@ namespace FluentSiteMap.Test
         private IDefaultFilterProvider _defaultFilterProvider;
         private ISiteMap _rootSiteMap;
         private RequestContext _requestContext;
-        private NodeModel _rootNode;
+        private Node _rootNode;
 
         public override void Setup()
         {
             base.Setup();
 
             _requestContext = new RequestContext();
-            _rootNode = new NodeModel(new List<INodeFilter>());
+            _rootNode = new Node(new List<INodeFilter>());
 
             _recursiveNodeFilter = MockRepository.GenerateStub<IRecursiveNodeFilter>();
 
@@ -99,8 +99,8 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                    Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new FilteredNodeModel());
+                                    Arg<Node>.Is.Equal(_rootNode)))
+                .Return(new FilteredNode());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
@@ -123,8 +123,8 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                         Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new FilteredNodeModel());
+                                         Arg<Node>.Is.Equal(_rootNode)))
+                .Return(new FilteredNode());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
@@ -154,7 +154,7 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                         Arg<NodeModel>.Is.Equal(_rootNode)))
+                                         Arg<Node>.Is.Equal(_rootNode)))
                 .Return(null);
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
@@ -173,15 +173,15 @@ namespace FluentSiteMap.Test
                 .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
                 .Return(_rootNode);
 
-            var currentNode = new FilteredNodeModel {IsCurrent = true};
-            var filteredRootNode = new FilteredNodeModel
+            var currentNode = new FilteredNode {IsCurrent = true};
+            var filteredRootNode = new FilteredNode
                                        {
                                            Children = new[] {currentNode}
                                        };
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                    Arg<NodeModel>.Is.Equal(_rootNode)))
+                                    Arg<Node>.Is.Equal(_rootNode)))
                 .Return(filteredRootNode);
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
@@ -204,8 +204,8 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                    Arg<NodeModel>.Is.Equal(_rootNode)))
-                .Return(new FilteredNodeModel());
+                                    Arg<Node>.Is.Equal(_rootNode)))
+                .Return(new FilteredNode());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 

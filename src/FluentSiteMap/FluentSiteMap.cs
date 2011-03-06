@@ -43,7 +43,7 @@ namespace FluentSiteMap
         /// <summary>
         /// Gets the root node of the site map.
         /// </summary>
-        public static FilteredNodeModel RootNode
+        public static FilteredNode RootNode
         {
             get
             {
@@ -59,7 +59,7 @@ namespace FluentSiteMap
         /// <summary>
         /// Gets the node who's URL matches the current HTTP request.
         /// </summary>
-        public static FilteredNodeModel CurrentNode
+        public static FilteredNode CurrentNode
         {
             get
             {

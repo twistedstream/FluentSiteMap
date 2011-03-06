@@ -18,7 +18,7 @@ namespace FluentSiteMap.Builders
         /// <param name="titleGenerator">
         /// An expression that generates the node title.
         /// </param>
-        public static INodeBuilder WithTitle(this INodeBuilder inner, Func<NodeModel, string> titleGenerator)
+        public static INodeBuilder WithTitle(this INodeBuilder inner, Func<Node, string> titleGenerator)
         {
             return new TitleNodeBuilder(inner, titleGenerator);
         }
@@ -48,7 +48,7 @@ namespace FluentSiteMap.Builders
         /// <param name="descriptionGenerator">
         /// An expression that generates the node description.
         /// </param>
-        public static INodeBuilder WithDescription(this INodeBuilder inner, Func<NodeModel, string> descriptionGenerator)
+        public static INodeBuilder WithDescription(this INodeBuilder inner, Func<Node, string> descriptionGenerator)
         {
             return new DescriptionNodeBuilder(inner, descriptionGenerator);
         }
@@ -93,7 +93,7 @@ namespace FluentSiteMap.Builders
         /// <param name="urlGenerator">
         /// An expression that generates the node URL.
         /// </param>
-        public static INodeBuilder WithUrl(this INodeBuilder inner, Func<NodeModel, string> urlGenerator)
+        public static INodeBuilder WithUrl(this INodeBuilder inner, Func<Node, string> urlGenerator)
         {
             return new UrlNodeBuilder(inner, urlGenerator);
         }

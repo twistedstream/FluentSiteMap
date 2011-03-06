@@ -16,9 +16,9 @@ namespace FluentSiteMap
             get { return _filters; }
         }
 
-        NodeModel INodeBuilder.Build(BuilderContext context)
+        Node INodeBuilder.Build(BuilderContext context)
         {
-            return new NodeModel(_filters);
+            return new Node(_filters);
         }
     }
 }

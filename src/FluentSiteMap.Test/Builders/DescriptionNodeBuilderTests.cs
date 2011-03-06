@@ -21,7 +21,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_description_using_the_description_generator()
         {
             // Arrange
-            Func<NodeModel, string> descriptionGenerator = n => "foo";
+            Func<Node, string> descriptionGenerator = n => "foo";
 
             var target = new DescriptionNodeBuilder(Inner, descriptionGenerator);
 

@@ -25,7 +25,7 @@
         /// Implements the <see cref="INodeFilter.Filter"/> method 
         /// by filtering the node itself if the user does not have access.
         /// </summary>
-        public bool Filter(FilteredNodeModel node, FilterContext context)
+        public bool Filter(FilteredNode node, FilterContext context)
         {
             var isAuthenticated = context.RequestContext.HttpContext.User.Identity.IsAuthenticated;
 

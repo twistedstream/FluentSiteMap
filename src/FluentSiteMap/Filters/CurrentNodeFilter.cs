@@ -13,7 +13,7 @@ namespace FluentSiteMap.Filters
         /// Implements the <see cref="INodeFilter.Filter"/> method 
         /// by setting the current node as current if it is.
         /// </summary>
-        public bool Filter(FilteredNodeModel node, FilterContext context)
+        public bool Filter(FilteredNode node, FilterContext context)
         {
             var currentRequestUrl = context.RequestContext.HttpContext.Request.Path;
 

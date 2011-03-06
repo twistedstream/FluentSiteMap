@@ -41,7 +41,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new RolesNodeFilter(new[] {"foo", "bar"});
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), filterContext);
+            var result = target.Filter(new FilteredNode(), filterContext);
 
             // Assert
             Assert.That(result, Is.True);
@@ -61,7 +61,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new RolesNodeFilter(new[] { "foo", "bar" });
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), filterContext);
+            var result = target.Filter(new FilteredNode(), filterContext);
 
             // Assert
             Assert.That(result, Is.False);

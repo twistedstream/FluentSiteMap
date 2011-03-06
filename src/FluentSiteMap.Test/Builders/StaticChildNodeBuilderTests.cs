@@ -23,7 +23,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_child_nodes_using_the_output_from_child_builders()
         {
             // Arrange
-            var childNode = new NodeModel(new List<INodeFilter>());
+            var childNode = new Node(new List<INodeFilter>());
             var childBuilder = MockRepository.GenerateStub<INodeBuilder>();
             childBuilder
                 .Stub(b => b.Build(Arg<BuilderContext>.Matches(c => c.Parent.Equals(Context))))

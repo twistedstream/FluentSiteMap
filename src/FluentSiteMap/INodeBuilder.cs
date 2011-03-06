@@ -13,7 +13,7 @@ namespace FluentSiteMap
         /// <param name="context">
         /// A <see cref="BuilderContext"/> instance used when building the node.
         /// </param>
-        NodeModel Build(BuilderContext context);
+        Node Build(BuilderContext context);
 
         /// <summary>
         /// Gets a list of <see cref="INodeFilter"/> objects associated with the 
@@ -21,8 +21,8 @@ namespace FluentSiteMap
         /// </summary>
         /// <remarks>
         /// These filters ultimately get applied to the resulting 
-        /// <see cref="NodeModel"/>'s <see cref="NodeModel.Filters"/> list, 
-        /// which get used to generate a <see cref="FilteredNodeModel"/>.
+        /// <see cref="Node"/>'s <see cref="Node.Filters"/> list, 
+        /// which get used to generate a <see cref="FilteredNode"/>.
         /// </remarks>
         IList<INodeFilter> Filters { get; }
     }

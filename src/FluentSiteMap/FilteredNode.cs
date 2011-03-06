@@ -8,7 +8,7 @@ namespace FluentSiteMap
     /// Represents the state of a site map node after it has been built and filtered.
     /// </summary>
     [DebuggerDisplay("Title = {Title}, Url = {Url}, IsCurrent = {IsCurrent}")]
-    public class FilteredNodeModel
+    public class FilteredNode
     {
         /// <summary>
         /// Gets or sets the node title.
@@ -31,11 +31,11 @@ namespace FluentSiteMap
         /// </summary>
         public bool IsCurrent { get; set; }
 
-        private IList<FilteredNodeModel> _children = new List<FilteredNodeModel>();
+        private IList<FilteredNode> _children = new List<FilteredNode>();
         /// <summary>
         /// Gets or sets the children nodes.
         /// </summary>
-        public IList<FilteredNodeModel> Children
+        public IList<FilteredNode> Children
         {
             get { return _children; }
             set

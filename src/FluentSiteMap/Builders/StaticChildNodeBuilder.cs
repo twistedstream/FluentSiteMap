@@ -34,7 +34,7 @@ namespace FluentSiteMap.Builders
         /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
         /// setting the child nodes statically with a list of child <see cref="INodeBuilder"/> objects.
         /// </summary>
-        protected override void OnBuild(NodeModel node, BuilderContext context)
+        protected override void OnBuild(Node node, BuilderContext context)
         {
             node.Children = _childBuilders
                 .Select(b => b.Build(new BuilderContext(context)))

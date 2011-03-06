@@ -9,7 +9,7 @@ namespace FluentSiteMap.Builders
     public class TitleNodeBuilder
         : DecoratingNodeBuilder
     {
-        private readonly Func<NodeModel, string> _titleGenerator;
+        private readonly Func<Node, string> _titleGenerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TitleNodeBuilder"/> class.
@@ -20,7 +20,7 @@ namespace FluentSiteMap.Builders
         /// <param name="titleGenerator">
         /// An expression that generates the node title.
         /// </param>
-        public TitleNodeBuilder(INodeBuilder inner, Func<NodeModel, string> titleGenerator) 
+        public TitleNodeBuilder(INodeBuilder inner, Func<Node, string> titleGenerator) 
             : base(inner)
         {
             if (titleGenerator == null) throw new ArgumentNullException("titleGenerator");
@@ -32,7 +32,7 @@ namespace FluentSiteMap.Builders
         /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
         /// setting the node title.
         /// </summary>
-        protected override void OnBuild(NodeModel node, BuilderContext context)
+        protected override void OnBuild(Node node, BuilderContext context)
         {
             node.Title = _titleGenerator(node);
         }

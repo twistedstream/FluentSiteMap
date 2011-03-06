@@ -10,7 +10,7 @@ namespace FluentSiteMap
     internal sealed class RecursiveNodeFilter 
         : IRecursiveNodeFilter
     {
-        FilteredNodeModel IRecursiveNodeFilter.Filter(FilterContext context, NodeModel rootNode)
+        FilteredNode IRecursiveNodeFilter.Filter(FilterContext context, Node rootNode)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (rootNode == null) throw new ArgumentNullException("rootNode");
@@ -25,19 +25,19 @@ namespace FluentSiteMap
                        : null;
         }
 
-        private static IEnumerable<FilteredNodeModel> FilterNodes(FilterContext context, IEnumerable<NodeModel> soureNodes)
+        private static IEnumerable<FilteredNode> FilterNodes(FilterContext context, IEnumerable<Node> soureNodes)
         {
             if (soureNodes == null) throw new ArgumentNullException("soureNodes");
             if (context == null) throw new ArgumentNullException("context");
 
             foreach (var node in soureNodes)
             {
-                var filteredNode = new FilteredNodeModel
+                var filteredNode = new FilteredNode
                                        {
                                            Title = node.Title,
                                            Description = node.Description,
                                            Url = node.Url,
-                                           Children = new List<FilteredNodeModel>(),
+                                           Children = new List<FilteredNode>(),
                                            Metadata = node.Metadata
                                        };
 

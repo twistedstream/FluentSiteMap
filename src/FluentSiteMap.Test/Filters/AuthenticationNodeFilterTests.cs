@@ -45,7 +45,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new AuthenticationNodeFilter(true);
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), _filterContext);
+            var result = target.Filter(new FilteredNode(), _filterContext);
 
             // Assert
             Assert.That(result, Is.True);
@@ -62,7 +62,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new AuthenticationNodeFilter(true);
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), _filterContext);
+            var result = target.Filter(new FilteredNode(), _filterContext);
 
             // Assert
             Assert.That(result, Is.False);
@@ -79,7 +79,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new AuthenticationNodeFilter(false);
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), _filterContext);
+            var result = target.Filter(new FilteredNode(), _filterContext);
 
             // Assert
             Assert.That(result, Is.False);
@@ -96,7 +96,7 @@ namespace FluentSiteMap.Test.Filters
             var target = new AuthenticationNodeFilter(false);
 
             // Act
-            var result = target.Filter(new FilteredNodeModel(), _filterContext);
+            var result = target.Filter(new FilteredNode(), _filterContext);
 
             // Assert
             Assert.That(result, Is.True);

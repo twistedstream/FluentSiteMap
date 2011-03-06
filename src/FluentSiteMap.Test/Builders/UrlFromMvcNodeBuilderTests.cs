@@ -33,7 +33,7 @@ namespace FluentSiteMap.Test.Builders
             _inner = MockRepository.GenerateStub<INodeBuilder>();
             _inner
                 .Stub(i => i.Build(_builderContext))
-                .Return(new NodeModel(new List<INodeFilter>()));
+                .Return(new Node(new List<INodeFilter>()));
         }
 
         [Test]

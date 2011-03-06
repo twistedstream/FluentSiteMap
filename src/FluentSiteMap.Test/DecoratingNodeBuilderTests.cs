@@ -12,7 +12,7 @@ namespace FluentSiteMap.Test
     {
         private INodeBuilder _inner;
         private BuilderContext _context;
-        private NodeModel _node;
+        private Node _node;
 
         public override void Setup()
         {
@@ -20,7 +20,7 @@ namespace FluentSiteMap.Test
 
             _inner = MockRepository.GenerateStub<INodeBuilder>();
             _context = new BuilderContext(new RequestContext());
-            _node = new NodeModel(new List<INodeFilter>());
+            _node = new Node(new List<INodeFilter>());
         }
 
         [Test]
@@ -117,12 +117,12 @@ namespace FluentSiteMap.Test
         private class TestDecoratingNodeBuilder
             : DecoratingNodeBuilder
         {
-            public NodeModel OnBuildNode { get; private set; }
+            public Node OnBuildNode { get; private set; }
             public BuilderContext OnBuildContext { get; private set; }
 
             public TestDecoratingNodeBuilder(INodeBuilder inner) : base(inner) {}
 
-            protected override void OnBuild(NodeModel node, BuilderContext context)
+            protected override void OnBuild(Node node, BuilderContext context)
             {
                 OnBuildNode = node;
                 OnBuildContext = context;

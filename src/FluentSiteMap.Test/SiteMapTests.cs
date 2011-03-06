@@ -65,7 +65,7 @@ namespace FluentSiteMap.Test
             var rootBuilder = MockRepository.GenerateMock<INodeBuilder>();
             rootBuilder
                 .Expect(b => b.Build(_context))
-                .Return(new NodeModel(new List<INodeFilter>()));
+                .Return(new Node(new List<INodeFilter>()));
 
             var target = new TestSiteMap(rootBuilder);
 
@@ -80,7 +80,7 @@ namespace FluentSiteMap.Test
         public void Build_should_return_the_root_node()
         {
             // Arrange
-            var rootNode = new NodeModel(new List<INodeFilter>());
+            var rootNode = new Node(new List<INodeFilter>());
 
             var rootBuilder = MockRepository.GenerateStub<INodeBuilder>();
             rootBuilder

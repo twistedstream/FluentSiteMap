@@ -14,7 +14,7 @@ namespace FluentSiteMap
         private readonly ISiteMap _rootSiteMap;
 
         private readonly object _instanceLock = new object();
-        private NodeModel _rootNodeModel;
+        private Node _rootNode;
 
         /// <summary>
         /// Intializes a new instance of the <see cref="SiteMapCoordinator"/> class.
@@ -51,23 +51,23 @@ namespace FluentSiteMap
         /// <param name="requestContext">
         /// A <see cref="RequestContext"/> instance used to build and filter the nodes.
         /// </param>
-        public FilteredNodeModel GetRootNode(RequestContext requestContext)
+        public FilteredNode GetRootNode(RequestContext requestContext)
         {
             if (requestContext == null) throw new ArgumentNullException("requestContext");
 
-            // serialize access so that the root NodeModel is only built once
+            // serialize access so that the root Node is only built once
             lock (_instanceLock)
                 // generate root node
-                if (_rootNodeModel == null)
+                if (_rootNode == null)
                 {
                     var buildContext = new BuilderContext(requestContext);
-                    _rootNodeModel = _rootSiteMap.Build(buildContext);
+                    _rootNode = _rootSiteMap.Build(buildContext);
                 }
 
             // perform recursive filtering
             var filterContext = new FilterContext(requestContext, DefaultFilters);
 
-            var rootFilteredNode = _recursiveNodeFilter.Filter(filterContext, _rootNodeModel);
+            var rootFilteredNode = _recursiveNodeFilter.Filter(filterContext, _rootNode);
 
             if (rootFilteredNode == null)
                 throw new InvalidOperationException("Filtering did not return a root node.");
@@ -81,7 +81,7 @@ namespace FluentSiteMap
         /// <param name="requestContext">
         /// A <see cref="RequestContext"/> instance used to build and filter the nodes.
         /// </param>
-        public FilteredNodeModel GetCurrentNode(RequestContext requestContext)
+        public FilteredNode GetCurrentNode(RequestContext requestContext)
         {
             var rootNode = GetRootNode(requestContext);
 
@@ -90,7 +90,7 @@ namespace FluentSiteMap
             return allNodes.FirstOrDefault(n => n.IsCurrent);
         }
 
-        private static IEnumerable<FilteredNodeModel> GetDecendants(IEnumerable<FilteredNodeModel> nodes)
+        private static IEnumerable<FilteredNode> GetDecendants(IEnumerable<FilteredNode> nodes)
         {
             foreach (var node in nodes)
             {

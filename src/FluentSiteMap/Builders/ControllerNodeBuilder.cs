@@ -37,7 +37,7 @@ namespace FluentSiteMap.Builders
         /// Overrides the <see cref="DecoratingNodeBuilder.OnBuild"/> method, 
         /// setting the <see cref="BuilderContext"/> metadata value.
         /// </summary>
-        protected override void OnBuild(NodeModel node, BuilderContext context)
+        protected override void OnBuild(Node node, BuilderContext context)
         {
             context.SetMetadata(ControllerMetadataKey, _controllerName);
         }

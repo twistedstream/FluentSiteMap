@@ -34,7 +34,7 @@ namespace FluentSiteMap
         /// <summary>
         /// Implements the <see cref="ISiteMap.Build"/> method.
         /// </summary>
-        public NodeModel Build(BuilderContext context)
+        public Node Build(BuilderContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
 
