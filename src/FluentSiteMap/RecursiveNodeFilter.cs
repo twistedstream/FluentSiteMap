@@ -37,7 +37,8 @@ namespace FluentSiteMap
                                            Title = node.Title,
                                            Description = node.Description,
                                            Url = node.Url,
-                                           Children = new List<FilteredNodeModel>()
+                                           Children = new List<FilteredNodeModel>(),
+                                           Metadata = node.Metadata
                                        };
 
                 // perform filtering on current node using default filters and node filters

@@ -40,5 +40,13 @@ namespace FluentSiteMap.Test
             Assert.Throws<ArgumentNullException>(
                 () => target.Children = null);
         }
+
+        [Test]
+        public void Instances_should_not_have_null_Metadata_collections()
+        {
+            var target = new NodeModel(_filters);
+
+            Assert.That(target.Metadata, Is.Not.Null);
+        }
     }
 }

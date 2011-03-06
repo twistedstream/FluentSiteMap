@@ -40,6 +40,7 @@ namespace FluentSiteMap
         public string Url { get; set; }
 
         private IList<NodeModel> _children = new List<NodeModel>();
+
         /// <summary>
         /// Gets the children nodes.
         /// </summary>
@@ -52,6 +53,16 @@ namespace FluentSiteMap
 
                 _children = value;
             }
+        }
+
+        private readonly IDictionary<string, object> _metadata = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Gets the node metadata.
+        /// </summary>
+        public IDictionary<string, object> Metadata
+        {
+            get { return _metadata; }
         }
 
         /// <summary>

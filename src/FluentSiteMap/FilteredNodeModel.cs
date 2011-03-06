@@ -45,5 +45,21 @@ namespace FluentSiteMap
                 _children = value;
             }
         }
+
+        private IDictionary<string, object> _metadata = new Dictionary<string, object>();
+
+        /// <summary>
+        /// Gets or sets the node metadata.
+        /// </summary>
+        public IDictionary<string, object> Metadata
+        {
+            get { return _metadata; }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+
+                _metadata = value;
+            }
+        }
     }
 }
