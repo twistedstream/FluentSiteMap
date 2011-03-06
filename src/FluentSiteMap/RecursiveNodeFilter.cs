@@ -40,9 +40,12 @@ namespace FluentSiteMap
                                            Children = new List<FilteredNodeModel>()
                                        };
 
-                // perform filtering on current node
+                // perform filtering on current node using default filters and node filters
+                var filters = context.DefaultFilters.Concat(node.Filters);
+
                 var filteredOut = false;
-                foreach (var filter in node.Filters)
+                
+                foreach (var filter in filters)
                     if (!filter.Filter(filteredNode, context))
                     {
                         // stop executing node's filters if filtered out

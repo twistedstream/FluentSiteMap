@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
@@ -33,7 +34,9 @@ namespace FluentSiteMap.Test.Filters
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             httpContext.User = principal;
 
-            var filterContext = new FilterContext(new RequestContext { HttpContext = httpContext });
+            var filterContext = new FilterContext(
+                new RequestContext { HttpContext = httpContext }, 
+                new List<INodeFilter>());
 
             var target = new RolesNodeFilter(new[] {"foo", "bar"});
 
@@ -51,7 +54,9 @@ namespace FluentSiteMap.Test.Filters
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             httpContext.User = MockRepository.GenerateStub<IPrincipal>();
 
-            var filterContext = new FilterContext(new RequestContext { HttpContext = httpContext });
+            var filterContext = new FilterContext(
+                new RequestContext { HttpContext = httpContext }, 
+                new List<INodeFilter>());
 
             var target = new RolesNodeFilter(new[] { "foo", "bar" });
 

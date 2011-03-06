@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Web.Routing;
 
 namespace FluentSiteMap
@@ -24,14 +24,25 @@ namespace FluentSiteMap
         /// <param name="rootSiteMap">
         /// The root site map to coordinate.
         /// </param>
-        public SiteMapCoordinator(IRecursiveNodeFilter recursiveNodeFilter, ISiteMap rootSiteMap)
+        /// <param name="defaultFilterProvider">
+        /// A <see cref="IDefaultFilterProvider"/> dependency instance.
+        /// </param>
+        public SiteMapCoordinator(IRecursiveNodeFilter recursiveNodeFilter, IDefaultFilterProvider defaultFilterProvider, ISiteMap rootSiteMap)
         {
             if (recursiveNodeFilter == null) throw new ArgumentNullException("recursiveNodeFilter");
+            if (defaultFilterProvider == null) throw new ArgumentNullException("defaultFilterProvider");
             if (rootSiteMap == null) throw new ArgumentNullException("rootSiteMap");
 
-            _rootSiteMap = rootSiteMap;
             _recursiveNodeFilter = recursiveNodeFilter;
+            _rootSiteMap = rootSiteMap;
+
+            DefaultFilters = new List<INodeFilter>(defaultFilterProvider.GetFilters());
         }
+
+        /// <summary>
+        /// Gets the list of filters to apply on each node during the filter process.
+        /// </summary>
+        public IList<INodeFilter> DefaultFilters { get; private set; }
 
         /// <summary>
         /// Gets the root filtered node for the site map.
@@ -53,7 +64,7 @@ namespace FluentSiteMap
                 }
 
             // perform recursive filtering
-            var filterContext = new FilterContext(requestContext);
+            var filterContext = new FilterContext(requestContext, DefaultFilters);
 
             var rootFilteredNode = _recursiveNodeFilter.Filter(filterContext, _rootNodeModel);
 

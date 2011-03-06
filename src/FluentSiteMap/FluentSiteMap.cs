@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Routing;
 
@@ -12,6 +13,19 @@ namespace FluentSiteMap
         private static SiteMapCoordinator _coordinator;
 
         /// <summary>
+        /// Gets the list of filters to apply on each node during the filter process.
+        /// </summary>
+        public static IList<INodeFilter> DefaultFilters
+        {
+            get
+            {
+                return _coordinator == null
+                           ? new List<INodeFilter>()
+                           : _coordinator.DefaultFilters;
+            }
+        }
+
+        /// <summary>
         /// Registers an <see cref="ISiteMap"/> instance as the root site map 
         /// of the current web applcation.
         /// </summary>
@@ -21,7 +35,9 @@ namespace FluentSiteMap
 
             var recursiveNodeFilter = new RecursiveNodeFilter();
 
-            _coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
+            var defaultFilterProvider = new DefaultFilterProvider();
+
+            _coordinator = new SiteMapCoordinator(recursiveNodeFilter, defaultFilterProvider, siteMap);
         }
 
         /// <summary>

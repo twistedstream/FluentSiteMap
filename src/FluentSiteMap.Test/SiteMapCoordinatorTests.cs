@@ -11,6 +11,7 @@ namespace FluentSiteMap.Test
         : TestBase
     {
         private IRecursiveNodeFilter _recursiveNodeFilter;
+        private IDefaultFilterProvider _defaultFilterProvider;
         private ISiteMap _rootSiteMap;
         private RequestContext _requestContext;
         private NodeModel _rootNode;
@@ -24,6 +25,11 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter = MockRepository.GenerateStub<IRecursiveNodeFilter>();
 
+            _defaultFilterProvider = MockRepository.GenerateStub<IDefaultFilterProvider>();
+            _defaultFilterProvider
+                .Stub(p => p.GetFilters())
+                .Return(new INodeFilter[] {});
+
             _rootSiteMap = MockRepository.GenerateStub<ISiteMap>();
         }
 
@@ -31,28 +37,56 @@ namespace FluentSiteMap.Test
         public void Instances_should_require_a_recursive_node_filter()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new SiteMapCoordinator(null, _rootSiteMap));
+                () => new SiteMapCoordinator(null, _defaultFilterProvider, _rootSiteMap));
             Assert.That(ex.ParamName, Is.EqualTo("recursiveNodeFilter"));
+        }
+
+        [Test]
+        public void Instances_should_require_a_default_filter_provider()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => new SiteMapCoordinator(_recursiveNodeFilter, null, _rootSiteMap));
+            Assert.That(ex.ParamName, Is.EqualTo("defaultFilterProvider"));
         }
 
         [Test]
         public void Instances_should_require_a_root_site_map()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new SiteMapCoordinator(_recursiveNodeFilter, null));
+                () => new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, null));
             Assert.That(ex.ParamName, Is.EqualTo("rootSiteMap"));
+        }
+
+        [Test]
+        public void Instances_should_populate_the_DefaultFilters_property_with_the_default_filter_provider()
+        {
+            // Arrange
+            var filter = MockRepository.GenerateStub<INodeFilter>();
+
+            _defaultFilterProvider = MockRepository.GenerateStub<IDefaultFilterProvider>();
+            _defaultFilterProvider
+                .Stub(p => p.GetFilters())
+                .Return(new[] {filter});
+
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
+
+            // Act
+            var result = target.DefaultFilters;
+
+            // Assert 
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0], Is.EqualTo(filter));
         }
 
         [Test]
         public void GetRootNode_should_require_a_request_context()
         {
-            var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
             var ex = Assert.Throws<ArgumentNullException>(
                 () => target.GetRootNode(null));
             Assert.That(ex.ParamName, Is.EqualTo("requestContext"));
         }
-
 
         [Test]
         public void GetRootNode_should_build_the_root_NodeModel_on_the_first_call()
@@ -68,7 +102,7 @@ namespace FluentSiteMap.Test
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
                 .Return(new FilteredNodeModel());
 
-            var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
             // Act
             target.GetRootNode(_requestContext);
@@ -92,7 +126,7 @@ namespace FluentSiteMap.Test
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
                 .Return(new FilteredNodeModel());
 
-            var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
             target.GetRootNode(_requestContext);
 
@@ -123,7 +157,7 @@ namespace FluentSiteMap.Test
                                          Arg<NodeModel>.Is.Equal(_rootNode)))
                 .Return(null);
 
-            var target = new SiteMapCoordinator(_recursiveNodeFilter, _rootSiteMap);
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
             // Act, Assert
             Assert.Throws<InvalidOperationException>(

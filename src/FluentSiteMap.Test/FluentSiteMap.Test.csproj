@@ -65,6 +65,7 @@
     <Compile Include="Builders\UrlFromMvcNodeBuilderTests.cs" />
     <Compile Include="Builders\UrlNodeBuilderTests.cs" />
     <Compile Include="DecoratingNodeBuilderTests.cs" />
+    <Compile Include="DefaultFilterProviderTests.cs" />
     <Compile Include="FilterContextTests.cs" />
     <Compile Include="FilteredNodeModelTests.cs" />
     <Compile Include="Filters\AuthenticationNodeFilterTests.cs" />

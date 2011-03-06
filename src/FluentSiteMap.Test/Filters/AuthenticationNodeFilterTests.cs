@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Collections.Generic;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
 using FluentSiteMap.Filters;
@@ -28,7 +29,9 @@ namespace FluentSiteMap.Test.Filters
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             httpContext.User = principal;
 
-            _filterContext = new FilterContext(new RequestContext { HttpContext = httpContext });
+            _filterContext = new FilterContext(
+                new RequestContext { HttpContext = httpContext }, 
+                new List<INodeFilter>());
         }
 
         [Test]

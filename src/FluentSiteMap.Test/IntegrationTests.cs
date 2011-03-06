@@ -2,7 +2,6 @@
 using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Linq;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Filters;
 using NUnit.Framework;
@@ -195,11 +194,12 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var recursiveNodeFilter = new RecursiveNodeFilter();
-
             var siteMap = new TestSiteMap(FetchProducts());
 
-            var coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
+            var coordinator = new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(), 
+                siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -230,11 +230,12 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var recursiveNodeFilter = new RecursiveNodeFilter();
-
             var siteMap = new TestSiteMap(FetchProducts());
 
-            var coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
+            var coordinator = new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(),
+                siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -268,11 +269,12 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var recursiveNodeFilter = new RecursiveNodeFilter();
-
             var siteMap = new TestSiteMap(FetchProducts());
 
-            var coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
+            var coordinator = new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(),
+                siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -305,11 +307,12 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var recursiveNodeFilter = new RecursiveNodeFilter();
-
             var siteMap = new TestSiteMap(FetchProducts());
 
-            var coordinator = new SiteMapCoordinator(recursiveNodeFilter, siteMap);
+            var coordinator = new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(),
+                siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);

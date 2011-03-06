@@ -17,7 +17,7 @@ namespace FluentSiteMap.Test
         {
             base.Setup();
 
-            _context = new FilterContext(new RequestContext());
+            _context = new FilterContext(new RequestContext(), new List<INodeFilter>());
             _rootNode = new NodeModel(new List<INodeFilter>());
         }
 
@@ -39,6 +39,39 @@ namespace FluentSiteMap.Test
             var ex = Assert.Throws<ArgumentNullException>(
                 () => target.Filter(_context, null));
             Assert.That(ex.ParamName, Is.EqualTo("rootNode"));
+        }
+
+        [Test]
+        public void Filter_should_filter_nodes_with_both_the_default_filters_and_the_node_filters()
+        {
+            // Arrange
+            var filter1 = MockRepository.GenerateMock<INodeFilter>();
+            filter1
+                .Expect(
+                    f =>
+                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                             Arg<FilterContext>.Is.Anything))
+                .Return(true);
+            var filter2 = MockRepository.GenerateMock<INodeFilter>();
+            filter2
+                .Expect(
+                    f =>
+                    f.Filter(Arg<FilteredNodeModel>.Is.Anything,
+                             Arg<FilterContext>.Is.Anything))
+                .Return(true);
+
+            _context.DefaultFilters.Add(filter1);
+
+            _rootNode = new NodeModel(new[] { filter2 });
+
+            IRecursiveNodeFilter target = new RecursiveNodeFilter();
+
+            // Act
+            target.Filter(_context, _rootNode);
+
+            // Assert
+            filter1.VerifyAllExpectations();
+            filter2.VerifyAllExpectations();
         }
 
         [Test]

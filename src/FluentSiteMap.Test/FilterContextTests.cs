@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
 
@@ -16,7 +17,7 @@ namespace FluentSiteMap.Test
 
             // Act
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new FilterContext(requestContext));
+                () => new FilterContext(requestContext, new List<INodeFilter>()));
 
             // Assert
             Assert.That(ex.ParamName, Is.EqualTo("requestContext"));
@@ -29,7 +30,7 @@ namespace FluentSiteMap.Test
             var requestContext = new RequestContext();
 
             // Act
-            var target = new FilterContext(requestContext);
+            var target = new FilterContext(requestContext, new List<INodeFilter>());
 
             // Assert
             Assert.That(target.RequestContext, Is.EqualTo(requestContext));

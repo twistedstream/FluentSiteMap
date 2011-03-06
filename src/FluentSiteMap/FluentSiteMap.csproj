@@ -56,9 +56,11 @@
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />
     <Compile Include="BaseNodeBuilder.cs" />
+    <Compile Include="DefaultFilterProvider.cs" />
     <Compile Include="FilterContext.cs" />
     <Compile Include="FilteredNodeModel.cs" />
     <Compile Include="Filters\AuthenticationNodeFilter.cs" />
+    <Compile Include="IDefaultFilterProvider.cs" />
     <Compile Include="SiteMap.cs" />
     <Compile Include="FluentSiteMap.cs" />
     <Compile Include="IRecursiveNodeFilter.cs" />
