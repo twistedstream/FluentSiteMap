@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -62,7 +63,8 @@ namespace FluentSiteMap.Test
                                 .WithChildren(products, (p, b) => b
                                     .WithTitle(p.Name)
                                     .WithDescription(p.Description)
-                                    .ForAction("View").WithUrlFromMvc(new { id = p.Id})),
+                                    .ForAction("View").WithUrlFromMvc(new { id = p.Id})
+                                    .WithMetadata("MenuImage", p.ImageName)),
                             Node()
                                 .WithTitle("Administration").WithDescriptionSameAsTitle()
                                 .ForController("Admin").ForAction("Index").WithUrlFromMvc()
@@ -75,6 +77,7 @@ namespace FluentSiteMap.Test
             public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
+            public string ImageName { get; set; }
         }
 
         private static IEnumerable<Product> FetchProducts()
@@ -83,19 +86,22 @@ namespace FluentSiteMap.Test
             {
                 Id = 100,
                 Name = "Foo Widget",
-                Description = "Foo Widgets are big"
+                Description = "Foo Widgets are big",
+                ImageName = "Foo.png"
             };
             yield return new Product
             {
                 Id = 101,
                 Name = "Bar Widget",
-                Description = "Bar Widgets are really big"
+                Description = "Bar Widgets are really big",
+                ImageName = "Bar.png"
             };
             yield return new Product
             {
                 Id = 102,
                 Name = "Baz Widget",
-                Description = "Baz Widgets are kinda small"
+                Description = "Baz Widgets are kinda small",
+                ImageName = "Baz.png"
             };
         }
 
@@ -156,18 +162,21 @@ namespace FluentSiteMap.Test
             Assert.That(grandChild.Title, Is.EqualTo("Foo Widget"));
             Assert.That(grandChild.Description, Is.EqualTo("Foo Widgets are big"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/100"));
+            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Foo.png"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             grandChild = child.Children[1];
             Assert.That(grandChild.Title, Is.EqualTo("Bar Widget"));
             Assert.That(grandChild.Description, Is.EqualTo("Bar Widgets are really big"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/101"));
+            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Bar.png"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             grandChild = child.Children[2];
             Assert.That(grandChild.Title, Is.EqualTo("Baz Widget"));
             Assert.That(grandChild.Description, Is.EqualTo("Baz Widgets are kinda small"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/102"));
+            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Baz.png"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             child = root.Children[4];

@@ -195,5 +195,22 @@ namespace FluentSiteMap.Builders
         {
             return new DynamicChildNodeBuilder<TSource>(inner, source, childTemplate);
         }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set metadata in a node.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="key">
+        /// The metadata key.
+        /// </param>
+        /// <param name="value">
+        /// The metadata value.
+        /// </param>
+        public static INodeBuilder WithMetadata(this INodeBuilder inner, string key, object value)
+        {
+            return new MetadataNodeBuilder(inner, key, value);
+        }
     }
 }
