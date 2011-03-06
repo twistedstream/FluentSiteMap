@@ -321,5 +321,40 @@ namespace FluentSiteMap.Test
             Assert.That(filteredRoot.Children.Count, Is.EqualTo(5));
             Assert.That(filteredRoot.Children[4].Url, Is.EqualTo("/Admin"));
         }
+
+        [Test]
+        public void Should_return_the_expected_current_node()
+        {
+            // Arrange
+            var identity = MockRepository.GenerateStub<IIdentity>();
+            identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
+            var principal = MockRepository.GenerateStub<IPrincipal>();
+            principal
+                .Stub(p => p.Identity)
+                .Return(identity);
+
+            _requestContext.HttpContext.User = principal;
+
+            _requestContext.HttpContext.Request
+                .Stub(r => r.Path)
+                .Return("/Products/View/101");
+
+            var siteMap = new TestSiteMap(FetchProducts());
+
+            var coordinator = new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(),
+                siteMap);
+
+            // Act
+            var result = coordinator.GetCurrentNode(_requestContext);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Url, Is.EqualTo("/Products/View/101"));
+        }
     }
 }
