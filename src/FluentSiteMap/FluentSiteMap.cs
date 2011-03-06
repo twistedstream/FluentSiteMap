@@ -48,22 +48,48 @@ namespace FluentSiteMap
             get
             {
                 // build concrete HTTP request context
-                if (HttpContext.Current == null)
-                    throw new InvalidOperationException(
-                        "A current HTTP request is required.");
-                var httpContext = new HttpContextWrapper(HttpContext.Current);
-                var requestContext = new RequestContext
-                                         {
-                                             HttpContext = httpContext,
-                                             RouteData = RouteTable.Routes.GetRouteData(httpContext)
-                                         };
+                var requestContext = BuildRequestContext();
 
                 // invoke coordinator
-                if (_coordinator == null)
-                    throw new InvalidOperationException(
-                        "RegisterRootSiteMap must be called before the root node can be generated.");
+                EnsureCoordinator();
                 return _coordinator.GetRootNode(requestContext);
             }
+        }
+
+        /// <summary>
+        /// Gets the node who's URL matches the current HTTP request.
+        /// </summary>
+        public static FilteredNodeModel CurrentNode
+        {
+            get
+            {
+                // build concrete HTTP request context
+                var requestContext = BuildRequestContext();
+
+                // invoke coordinator
+                EnsureCoordinator();
+                return _coordinator.GetCurrentNode(requestContext);
+            }
+        }
+
+        private static RequestContext BuildRequestContext()
+        {
+            if (HttpContext.Current == null)
+                throw new InvalidOperationException(
+                    "A current HTTP request is required.");
+            var httpContext = new HttpContextWrapper(HttpContext.Current);
+            return new RequestContext
+                       {
+                           HttpContext = httpContext,
+                           RouteData = RouteTable.Routes.GetRouteData(httpContext)
+                       };
+        }
+
+        private static void EnsureCoordinator()
+        {
+            if (_coordinator == null)
+                throw new InvalidOperationException(
+                    "RegisterRootSiteMap must be called before the root node can be generated.");
         }
     }
 }

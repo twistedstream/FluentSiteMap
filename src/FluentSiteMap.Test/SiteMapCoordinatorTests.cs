@@ -99,7 +99,7 @@ namespace FluentSiteMap.Test
 
             _recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                         Arg<NodeModel>.Is.Equal(_rootNode)))
+                                    Arg<NodeModel>.Is.Equal(_rootNode)))
                 .Return(new FilteredNodeModel());
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
@@ -162,6 +162,58 @@ namespace FluentSiteMap.Test
             // Act, Assert
             Assert.Throws<InvalidOperationException>(
                 () => target.GetRootNode(_requestContext));
+        }
+
+        [Test]
+        public void GetCurrentNode_should_return_the_current_node_if_it_exists()
+        {
+            // Arrange
+            _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
+            _rootSiteMap
+                .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
+                .Return(_rootNode);
+
+            var currentNode = new FilteredNodeModel {IsCurrent = true};
+            var filteredRootNode = new FilteredNodeModel
+                                       {
+                                           Children = new[] {currentNode}
+                                       };
+
+            _recursiveNodeFilter
+                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
+                                    Arg<NodeModel>.Is.Equal(_rootNode)))
+                .Return(filteredRootNode);
+
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
+
+            // Act
+            var result = target.GetCurrentNode(_requestContext);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(currentNode));
+        }
+
+        [Test]
+        public void GetCurrentNode_should_return_null_if_no_current_node_exists()
+        {
+            // Arrange
+            _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
+            _rootSiteMap
+                .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
+                .Return(_rootNode);
+
+            _recursiveNodeFilter
+                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
+                                    Arg<NodeModel>.Is.Equal(_rootNode)))
+                .Return(new FilteredNodeModel());
+
+            var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
+
+            // Act
+            var result = target.GetCurrentNode(_requestContext);
+
+            // Assert
+            Assert.That(result, Is.Null);
         }
     }
 }

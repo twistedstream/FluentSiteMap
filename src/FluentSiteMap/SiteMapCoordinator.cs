@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Routing;
 
 namespace FluentSiteMap
@@ -72,6 +73,31 @@ namespace FluentSiteMap
                 throw new InvalidOperationException("Filtering did not return a root node.");
 
             return rootFilteredNode;
+        }
+
+        /// <summary>
+        /// Gets the node who's URL matches the current HTTP request.
+        /// </summary>
+        /// <param name="requestContext">
+        /// A <see cref="RequestContext"/> instance used to build and filter the nodes.
+        /// </param>
+        public FilteredNodeModel GetCurrentNode(RequestContext requestContext)
+        {
+            var rootNode = GetRootNode(requestContext);
+
+            var allNodes = GetDecendants(new[] {rootNode});
+
+            return allNodes.FirstOrDefault(n => n.IsCurrent);
+        }
+
+        private static IEnumerable<FilteredNodeModel> GetDecendants(IEnumerable<FilteredNodeModel> nodes)
+        {
+            foreach (var node in nodes)
+            {
+                yield return node;
+                foreach (var dec in GetDecendants(node.Children))
+                    yield return dec;
+            }
         }
     }
 }
