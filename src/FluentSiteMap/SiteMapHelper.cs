@@ -6,10 +6,20 @@ using System.Web.Routing;
 namespace FluentSiteMap
 {
     /// <summary>
-    /// Provides external access to site map data.
+    /// Main entry point into FluentSiteMap.
     /// </summary>
-    public static class FluentSiteMap
+    public static class SiteMapHelper
     {
+        /// <summary>
+        /// The name of the partial view that renders a menu from the site map.
+        /// </summary>
+        public const string MenuView = "FluentSiteMapMenu";
+
+        /// <summary>
+        /// The name of the partial view that renders the current site map node's title.
+        /// </summary>
+        public const string TitleView = "FluentSiteMapTitle";
+
         private static SiteMapCoordinator _coordinator;
 
         /// <summary>
