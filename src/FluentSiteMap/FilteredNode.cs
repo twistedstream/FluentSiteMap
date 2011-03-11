@@ -26,6 +26,11 @@ namespace FluentSiteMap
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets or sets whether or not the node is to be rendered in a website menu.
+        /// </summary>
+        public bool HiddenInMenu { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the node is the current node 
         /// relative to the current HTTP request.
         /// </summary>
