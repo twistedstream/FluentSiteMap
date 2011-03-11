@@ -18,8 +18,8 @@ namespace FluentSiteMap.Sample.Models
                             .WithTitle("About Us").WithDescriptionSameAsTitle()
                             .ForController("Home").ForAction("About").WithUrlFromMvc(),
                         Node()
-                            .WithTitle("Account").WithDescriptionSameAsTitle()
-                            .ForController("Account").ForAction("Index").WithUrlFromMvc()
+                            .WithTitle("Account")
+                            .ForController("Account")
                             .WithChildren(
                                 Node()
                                     .WithTitle("Sign In").WithDescriptionSameAsTitle()

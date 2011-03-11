@@ -41,7 +41,7 @@ namespace FluentSiteMap.Test
             Assert.That(root.Title, Is.EqualTo("Home"));
             Assert.That(root.Description, Is.EqualTo("Welcome to Foo.com!"));
             Assert.That(root.Url, Is.EqualTo("/"));
-            Assert.That(root.Children.Count, Is.EqualTo(5));
+            Assert.That(root.Children.Count, Is.EqualTo(4));
 
             var child = root.Children[0];
             Assert.That(child.Title, Is.EqualTo("About Us"));
@@ -50,15 +50,9 @@ namespace FluentSiteMap.Test
             Assert.That(child.Children.Count, Is.EqualTo(0));
 
             child = root.Children[1];
-            Assert.That(child.Title, Is.EqualTo("Contact Us"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Home/Contact"));
-            Assert.That(child.Children.Count, Is.EqualTo(0));
-
-            child = root.Children[2];
             Assert.That(child.Title, Is.EqualTo("Account"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Account"));
+            Assert.That(child.Description, Is.Null);
+            Assert.That(child.Url, Is.Null);
             Assert.That(child.Children.Count, Is.EqualTo(2));
 
             var grandChild = child.Children[0];
@@ -73,7 +67,7 @@ namespace FluentSiteMap.Test
             Assert.That(grandChild.Url, Is.EqualTo("/Account/Logout"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
-            child = root.Children[3];
+            child = root.Children[2];
             Assert.That(child.Title, Is.EqualTo("Products"));
             Assert.That(child.Description, Is.EqualTo(child.Title));
             Assert.That(child.Url, Is.EqualTo("/Products"));
@@ -100,7 +94,7 @@ namespace FluentSiteMap.Test
             Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Baz.png"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
-            child = root.Children[4];
+            child = root.Children[3];
             Assert.That(child.Title, Is.EqualTo("Administration"));
             Assert.That(child.Description, Is.EqualTo(child.Title));
             Assert.That(child.Url, Is.EqualTo("/Admin"));
@@ -133,8 +127,8 @@ namespace FluentSiteMap.Test
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
             // Assert - only /Account/Login should be visble
-            var accountNode = filteredRoot.Children[2];
-            Assert.That(accountNode.Url, Is.EqualTo("/Account"));
+            var accountNode = filteredRoot.Children[1];
+            Assert.That(accountNode.Title, Is.EqualTo("Account"));
             Assert.That(accountNode.Children.Count, Is.EqualTo(1));
 
             var child = accountNode.Children[0];
@@ -167,8 +161,8 @@ namespace FluentSiteMap.Test
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
             // Assert - only /Account/Logout should be visble
-            var accountNode = filteredRoot.Children[2];
-            Assert.That(accountNode.Url, Is.EqualTo("/Account"));
+            var accountNode = filteredRoot.Children[1];
+            Assert.That(accountNode.Title, Is.EqualTo("Account"));
             Assert.That(accountNode.Children.Count, Is.EqualTo(1));
 
             var child = accountNode.Children[0];
@@ -204,11 +198,10 @@ namespace FluentSiteMap.Test
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
             // Assert - /Admin should not be visible
-            Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
+            Assert.That(filteredRoot.Children.Count, Is.EqualTo(3));
             Assert.That(filteredRoot.Children[0].Url, Is.EqualTo("/Home/About"));
-            Assert.That(filteredRoot.Children[1].Url, Is.EqualTo("/Home/Contact"));
-            Assert.That(filteredRoot.Children[2].Url, Is.EqualTo("/Account"));
-            Assert.That(filteredRoot.Children[3].Url, Is.EqualTo("/Products"));
+            Assert.That(filteredRoot.Children[1].Title, Is.EqualTo("Account"));
+            Assert.That(filteredRoot.Children[2].Url, Is.EqualTo("/Products"));
         }
 
         [Test]
@@ -240,8 +233,8 @@ namespace FluentSiteMap.Test
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
             // Assert - /Admin should be visible
-            Assert.That(filteredRoot.Children.Count, Is.EqualTo(5));
-            Assert.That(filteredRoot.Children[4].Url, Is.EqualTo("/Admin"));
+            Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
+            Assert.That(filteredRoot.Children[3].Url, Is.EqualTo("/Admin"));
         }
 
         [Test]
