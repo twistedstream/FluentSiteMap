@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace FluentSiteMap
@@ -88,11 +89,16 @@ namespace FluentSiteMap
                 throw new InvalidOperationException(
                     "A current HTTP request is required.");
             var httpContext = new HttpContextWrapper(HttpContext.Current);
-            return new RequestContext
-                       {
-                           HttpContext = httpContext,
-                           RouteData = RouteTable.Routes.GetRouteData(httpContext)
-                       };
+
+            var mvcHandler = httpContext.Handler as MvcHandler;
+
+            return mvcHandler != null
+                       ? mvcHandler.RequestContext
+                       : new RequestContext
+                             {
+                                 HttpContext = httpContext,
+                                 RouteData = new RouteData()
+                             };
         }
 
         private static void EnsureCoordinator()
