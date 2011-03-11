@@ -3,7 +3,7 @@
 <ul id="menu">
     <% foreach (var node in Model.Children) { %>
     
-    <li><a href="<%: node.Url %>"><%: node.Title %></a></li>
+    <li><% Html.RenderPartial(SiteMapHelper.NodeView, node); %></li>
 
     <% } %>
 </ul>

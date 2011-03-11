@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Shared\FluentSiteMapNode.ascx" />
     <Content Include="Views\Shared\FluentSiteMapMenu.ascx" />
     <Content Include="Views\Shared\FluentSiteMapTitle.ascx" />
     <Content Include="Web.config" />

@@ -17,6 +17,11 @@ namespace FluentSiteMap
         public const string MenuView = "FluentSiteMapMenu";
 
         /// <summary>
+        /// The name of the partial view that renders a single site map node.
+        /// </summary>
+        public const string NodeView = "FluentSiteMapNode";
+
+        /// <summary>
         /// The name of the partial view that renders the current site map node's title.
         /// </summary>
         public const string TitleView = "FluentSiteMapTitle";
