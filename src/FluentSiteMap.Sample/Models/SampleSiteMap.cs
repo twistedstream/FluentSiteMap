@@ -24,12 +24,15 @@ namespace FluentSiteMap.Sample.Models
                             .WithChildren(
                                 Node()
                                     .WithTitle("Sign In").WithDescriptionSameAsTitle()
-                                    .ForAction("Login").WithUrlFromMvc()
+                                    .ForAction("LogOn").WithUrlFromMvc()
                                     .IfNotAuthenticated(),
                                 Node()
                                     .WithTitle("Sign Out").WithDescriptionSameAsTitle()
-                                    .ForAction("Logout").WithUrlFromMvc()
-                                    .IfAuthenticated()),
+                                    .ForAction("LogOff").WithUrlFromMvc()
+                                    .IfAuthenticated(),
+                                Node()
+                                    .WithTitle("Register").WithDescriptionSameAsTitle()
+                                    .ForAction("Register").WithUrlFromMvc()),
                         Node()
                             .WithTitle("Products").WithDescriptionSameAsTitle()
                             .ForController("Products").ForAction("Index").WithUrlFromMvc()

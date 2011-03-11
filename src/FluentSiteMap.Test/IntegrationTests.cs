@@ -54,18 +54,24 @@ namespace FluentSiteMap.Test
             Assert.That(child.Description, Is.Null);
             Assert.That(child.Url, Is.Null);
             Assert.That(child.HiddenInMenu, Is.True);
-            Assert.That(child.Children.Count, Is.EqualTo(2));
+            Assert.That(child.Children.Count, Is.EqualTo(3));
 
             var grandChild = child.Children[0];
             Assert.That(grandChild.Title, Is.EqualTo("Sign In"));
             Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
-            Assert.That(grandChild.Url, Is.EqualTo("/Account/Login"));
+            Assert.That(grandChild.Url, Is.EqualTo("/Account/LogOn"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             grandChild = child.Children[1];
             Assert.That(grandChild.Title, Is.EqualTo("Sign Out"));
             Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
-            Assert.That(grandChild.Url, Is.EqualTo("/Account/Logout"));
+            Assert.That(grandChild.Url, Is.EqualTo("/Account/LogOff"));
+            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
+
+            grandChild = child.Children[2];
+            Assert.That(grandChild.Title, Is.EqualTo("Register"));
+            Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
+            Assert.That(grandChild.Url, Is.EqualTo("/Account/Register"));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             child = root.Children[2];
@@ -130,10 +136,13 @@ namespace FluentSiteMap.Test
             // Assert - only /Account/Login should be visble
             var accountNode = filteredRoot.Children[1];
             Assert.That(accountNode.Title, Is.EqualTo("Account"));
-            Assert.That(accountNode.Children.Count, Is.EqualTo(1));
+            Assert.That(accountNode.Children.Count, Is.EqualTo(2));
 
             var child = accountNode.Children[0];
-            Assert.That(child.Url, Is.EqualTo("/Account/Login"));
+            Assert.That(child.Url, Is.EqualTo("/Account/LogOn"));
+
+            child = accountNode.Children[1];
+            Assert.That(child.Url, Is.EqualTo("/Account/Register"));
         }
 
         [Test]
@@ -164,10 +173,13 @@ namespace FluentSiteMap.Test
             // Assert - only /Account/Logout should be visble
             var accountNode = filteredRoot.Children[1];
             Assert.That(accountNode.Title, Is.EqualTo("Account"));
-            Assert.That(accountNode.Children.Count, Is.EqualTo(1));
+            Assert.That(accountNode.Children.Count, Is.EqualTo(2));
 
             var child = accountNode.Children[0];
-            Assert.That(child.Url, Is.EqualTo("/Account/Logout"));
+            Assert.That(child.Url, Is.EqualTo("/Account/LogOff"));
+
+            child = accountNode.Children[1];
+            Assert.That(child.Url, Is.EqualTo("/Account/Register"));
         }
 
         [Test]
