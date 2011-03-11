@@ -32,3 +32,5 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 [Bb]uild[Ll]og.*
 *.[Pp]ublish.xml
+src/FluentSiteMap.Sample/App_Data/ASPNETDB.MDF
+src/FluentSiteMap.Sample/App_Data/aspnetdb_log.ldf
