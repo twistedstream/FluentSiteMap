@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentSiteMap.Builders;
-using FluentSiteMap.Filters;
+using FluentSiteMap.Sample.Models;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -15,6 +12,7 @@ namespace FluentSiteMap.Test
         : TestBase
     {
         private RequestContext _requestContext;
+        private ISiteMap _siteMap;
 
         public override void Setup()
         {
@@ -26,83 +24,8 @@ namespace FluentSiteMap.Test
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
             _requestContext = MockRequestContextForRouting();
-        }
 
-        private class TestSiteMap
-            : SiteMap
-        {
-            public TestSiteMap(IEnumerable<Product> products)
-            {
-                Root =
-                    Node()
-                        .WithTitle("Home")
-                        .WithDescription("Welcome to Foo.com!")
-                        .ForController("Home").ForAction("Index").WithUrlFromMvc()
-                        .WithChildren(
-                            Node()
-                                .WithTitle("About Us").WithDescriptionSameAsTitle()
-                                .ForController("Home").ForAction("About").WithUrlFromMvc(),
-                            Node()
-                                .WithTitle("Contact Us").WithDescriptionSameAsTitle()
-                                .ForController("Home").ForAction("Contact").WithUrlFromMvc(),
-                            Node()
-                                .WithTitle("Account").WithDescriptionSameAsTitle()
-                                .ForController("Account").ForAction("Index").WithUrlFromMvc()
-                                .WithChildren(
-                                    Node()
-                                        .WithTitle("Sign In").WithDescriptionSameAsTitle()
-                                        .ForAction("Login").WithUrlFromMvc()
-                                        .IfNotAuthenticated(),
-                                    Node()
-                                        .WithTitle("Sign Out").WithDescriptionSameAsTitle()
-                                        .ForAction("Logout").WithUrlFromMvc()
-                                        .IfAuthenticated()),
-                            Node()
-                                .WithTitle("Products").WithDescriptionSameAsTitle()
-                                .ForController("Products").ForAction("Index").WithUrlFromMvc()
-                                .WithChildren(products, (p, b) => b
-                                    .WithTitle(p.Name)
-                                    .WithDescription(p.Description)
-                                    .ForAction("View").WithUrlFromMvc(new { id = p.Id})
-                                    .WithMetadata("MenuImage", p.ImageName)),
-                            Node()
-                                .WithTitle("Administration").WithDescriptionSameAsTitle()
-                                .ForController("Admin").ForAction("Index").WithUrlFromMvc()
-                                .IfInRole("Admin"));
-            }
-        }
-
-        private class Product
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public string ImageName { get; set; }
-        }
-
-        private static IEnumerable<Product> FetchProducts()
-        {
-            yield return new Product
-            {
-                Id = 100,
-                Name = "Foo Widget",
-                Description = "Foo Widgets are big",
-                ImageName = "Foo.png"
-            };
-            yield return new Product
-            {
-                Id = 101,
-                Name = "Bar Widget",
-                Description = "Bar Widgets are really big",
-                ImageName = "Bar.png"
-            };
-            yield return new Product
-            {
-                Id = 102,
-                Name = "Baz Widget",
-                Description = "Baz Widgets are kinda small",
-                ImageName = "Baz.png"
-            };
+            _siteMap = new SampleSiteMap(new ProductRepository());
         }
 
         [Test]
@@ -111,10 +34,8 @@ namespace FluentSiteMap.Test
             // Arrange
             var builderContext = new BuilderContext(_requestContext);
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             // Act
-            var root = siteMap.Build(builderContext);
+            var root = _siteMap.Build(builderContext);
 
             // Assert
             Assert.That(root.Title, Is.EqualTo("Home"));
@@ -203,12 +124,10 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(), 
-                siteMap);
+                _siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -239,12 +158,10 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
-                siteMap);
+                _siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -278,12 +195,10 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
-                siteMap);
+                _siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -316,12 +231,10 @@ namespace FluentSiteMap.Test
 
             _requestContext.HttpContext.User = principal;
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
-                siteMap);
+                _siteMap);
 
             // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
@@ -351,12 +264,10 @@ namespace FluentSiteMap.Test
                 .Stub(r => r.Path)
                 .Return("/Products/View/101");
 
-            var siteMap = new TestSiteMap(FetchProducts());
-
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
-                siteMap);
+                _siteMap);
 
             // Act
             var result = coordinator.GetCurrentNode(_requestContext);

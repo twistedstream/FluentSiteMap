@@ -7,7 +7,7 @@ namespace FluentSiteMap
     /// The base class for all site maps.  
     /// </summary>
     /// <remarks>
-    /// Consumers of <see cref="FluentSiteMap"/> should subclass this base class to 
+    /// Consumers of <see cref="SiteMapHelper"/> should subclass this base class to 
     /// define a site map, setting the <see cref="Root"/> property in their constructor, 
     /// chaining additional builders using the fluent builder interface.
     /// </remarks>

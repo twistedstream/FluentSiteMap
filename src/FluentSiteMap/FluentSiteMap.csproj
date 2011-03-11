@@ -64,7 +64,7 @@
     <Compile Include="Filters\CurrentNodeFilter.cs" />
     <Compile Include="IDefaultFilterProvider.cs" />
     <Compile Include="SiteMap.cs" />
-    <Compile Include="FluentSiteMap.cs" />
+    <Compile Include="SiteMapHelper.cs" />
     <Compile Include="IRecursiveNodeFilter.cs" />
     <Compile Include="RecursiveNodeFilter.cs" />
     <Compile Include="SiteMapCoordinator.cs" />

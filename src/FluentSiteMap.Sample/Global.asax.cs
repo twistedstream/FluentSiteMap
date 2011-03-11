@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using FluentSiteMap.Sample.Models;
 
 namespace FluentSiteMap.Sample
 {
@@ -29,6 +30,9 @@ namespace FluentSiteMap.Sample
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
+
+            var siteMap = new SampleSiteMap(new ProductRepository());
+            SiteMapHelper.RegisterRootSiteMap(siteMap);
         }
     }
 }
