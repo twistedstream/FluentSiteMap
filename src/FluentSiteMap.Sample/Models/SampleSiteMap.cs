@@ -20,6 +20,7 @@ namespace FluentSiteMap.Sample.Models
                         Node()
                             .WithTitle("Account")
                             .ForController("Account")
+                            .HiddenInMenu()
                             .WithChildren(
                                 Node()
                                     .WithTitle("Sign In").WithDescriptionSameAsTitle()
