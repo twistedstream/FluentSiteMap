@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -79,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Views\Products\Index.aspx" />
+    <Content Include="Views\Products\View.aspx" />
     <Content Include="Views\Shared\FluentSiteMapNode.ascx" />
     <Content Include="Views\Shared\FluentSiteMapMenu.ascx" />
     <Content Include="Views\Shared\FluentSiteMapTitle.ascx" />
