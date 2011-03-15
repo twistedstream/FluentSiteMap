@@ -16,7 +16,7 @@ namespace FluentSiteMap.Sample.Models
                     .WithChildren(
                         Node()
                             .WithTitle("About Us").WithDescriptionSameAsTitle()
-                            .ForController("Home").ForAction("About").WithUrlFromMvc(),
+                            .ForAction("About").WithUrlFromMvc(),
                         Node()
                             .WithTitle("Account")
                             .ForController("Account")
