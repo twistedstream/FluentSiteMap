@@ -43,6 +43,9 @@ namespace FluentSiteMap.Sample.Models
                                                         .ForAction("View").WithUrlFromMvc(new {id = p.Id})
                                                         .WithMetadata("MenuImage", p.ImageName)),
                         Node()
+                            .WithTitle("Site Map").WithDescriptionSameAsTitle()
+                            .ForAction("SiteMap").WithUrlFromMvc(),
+                        Node()
                             .WithTitle("Administration").WithDescriptionSameAsTitle()
                             .ForController("Admin").ForAction("Index").WithUrlFromMvc()
                             .IfInRole("Admin"));

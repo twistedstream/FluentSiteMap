@@ -20,5 +20,10 @@ namespace FluentSiteMap.Sample.Controllers
         {
             return View();
         }
+
+        public ActionResult SiteMap()
+        {
+            return View();
+        }
     }
 }

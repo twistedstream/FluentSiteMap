@@ -26,6 +26,16 @@ namespace FluentSiteMap
         /// </summary>
         public const string TitleView = "FluentSiteMapTitle";
 
+        /// <summary>
+        /// The name of the partial view that renders a site map of the site map.
+        /// </summary>
+        public const string SiteMapView = "FluentSiteMapSiteMap";
+
+        /// <summary>
+        /// The name of the partial view that renders a site map node of the site map.
+        /// </summary>
+        public const string SiteMapNodeView = "FluentSiteMapSiteMapNode";
+
         private static SiteMapCoordinator _coordinator;
 
         /// <summary>
