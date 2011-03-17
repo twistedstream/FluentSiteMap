@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<FilteredNode>" %>
 
 <li>
-    <% Html.RenderPartial(SiteMapHelper.NodeView, Model); %>
+    <% Html.FluentSiteMap().Node(Model); %>
     <% if (Model.Children.Count > 0) { %>
     <ul>
         <% foreach (var child in Model.Children) { %>
-        <% Html.RenderPartial(SiteMapHelper.SiteMapNodeView, child); %>
+        <% Html.FluentSiteMap().SiteMapNode(child); %>
         <% } %>
     </ul>
     <% } %>

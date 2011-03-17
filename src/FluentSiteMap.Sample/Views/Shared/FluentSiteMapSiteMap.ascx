@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<FilteredNode>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <ul>
-    <% Html.RenderPartial(SiteMapHelper.SiteMapNodeView, SiteMapHelper.RootNode); %>
+    <% Html.FluentSiteMap().SiteMapNode(SiteMapHelper.RootNode); %>
 </ul>
