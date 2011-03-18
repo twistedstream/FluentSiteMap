@@ -83,6 +83,7 @@
     <Content Include="Views\Home\SiteMap.aspx" />
     <Content Include="Views\Products\Index.aspx" />
     <Content Include="Views\Products\View.aspx" />
+    <Content Include="Views\Shared\FluentSiteMapBreadCrumbs.ascx" />
     <Content Include="Views\Shared\FluentSiteMapSiteMapNode.ascx" />
     <Content Include="Views\Shared\FluentSiteMapSiteMap.ascx" />
     <Content Include="Views\Shared\FluentSiteMapNode.ascx" />

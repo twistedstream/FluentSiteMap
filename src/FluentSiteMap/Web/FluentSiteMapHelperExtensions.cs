@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc.Html;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc.Html;
 
 namespace FluentSiteMap.Web
 {
@@ -41,6 +43,29 @@ namespace FluentSiteMap.Web
         public static void Node(this FluentSiteMapHelper helper, FilteredNode node)
         {
             helper.HtmlHelper.RenderPartial("FluentSiteMapNode", node);
+        }
+
+        /// <summary>
+        /// Renders a bread crumbs partial view.
+        /// </summary>
+        /// <param name="helper">
+        /// The <see cref="FluentSiteMapHelper"/> instance to render the partial view against.
+        /// </param>
+        public static void BreadCrumbs(this FluentSiteMapHelper helper)
+        {
+            var viewModel = BuildBreadCrumbsTrail().Reverse().ToList();
+
+            helper.HtmlHelper.RenderPartial("FluentSiteMapBreadCrumbs", viewModel);
+        }
+
+        private static IEnumerable<FilteredNode> BuildBreadCrumbsTrail()
+        {
+            var currentNode = SiteMapHelper.CurrentNode;
+            while (currentNode != null)
+            {
+                yield return currentNode;
+                currentNode = currentNode.Parent;
+            }
         }
 
         /// <summary>

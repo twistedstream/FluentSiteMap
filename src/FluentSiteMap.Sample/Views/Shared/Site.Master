@@ -27,6 +27,8 @@
         </div>
 
         <div id="main">
+            <% Html.FluentSiteMap().BreadCrumbs(); %>
+
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
             <div id="footer">
