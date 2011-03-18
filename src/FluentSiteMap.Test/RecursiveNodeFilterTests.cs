@@ -118,6 +118,7 @@ namespace FluentSiteMap.Test
             Assert.That(result.Children.Count, Is.EqualTo(1));
             var child = result.Children[0];
             Assert.That(child.Title, Is.EqualTo("Bar"));
+            Assert.That(child.Parent, Is.EqualTo(result));
         }
 
         [Test]

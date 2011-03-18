@@ -16,7 +16,7 @@ namespace FluentSiteMap
             if (rootNode == null) throw new ArgumentNullException("rootNode");
 
             // perform recursive filtering
-            var nodes = FilterNodes(context, new[] {rootNode})
+            var nodes = FilterNodes(context, new[] {rootNode}, null)
                 .ToList();
 
             // only return filtered root node if it wasn't filtered out
@@ -25,7 +25,7 @@ namespace FluentSiteMap
                        : null;
         }
 
-        private static IEnumerable<FilteredNode> FilterNodes(FilterContext context, IEnumerable<Node> soureNodes)
+        private static IEnumerable<FilteredNode> FilterNodes(FilterContext context, IEnumerable<Node> soureNodes, FilteredNode parent)
         {
             if (soureNodes == null) throw new ArgumentNullException("soureNodes");
             if (context == null) throw new ArgumentNullException("context");
@@ -39,6 +39,7 @@ namespace FluentSiteMap
                                            Url = node.Url,
                                            HiddenInMenu = node.HiddenInMenu,
                                            Children = new List<FilteredNode>(),
+                                           Parent = parent,
                                            Metadata = node.Metadata
                                        };
 
@@ -60,7 +61,7 @@ namespace FluentSiteMap
                     continue;
 
                 // perform filtering on child nodes
-                filteredNode.Children = FilterNodes(context, node.Children).ToList();
+                filteredNode.Children = FilterNodes(context, node.Children, filteredNode).ToList();
 
                 // return final node
                 yield return filteredNode;
