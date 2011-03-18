@@ -26,7 +26,7 @@ namespace FluentSiteMap.Test.Builders
         public void Instances_should_require_a_source()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new DynamicChildNodeBuilder<Product>(Inner, null, _childTemplate));
+                () => new DynamicChildNodeBuilder<Product>(InnerBuilder, null, _childTemplate));
 
             Assert.That(ex.ParamName, Is.EqualTo("source"));
         }
@@ -35,7 +35,7 @@ namespace FluentSiteMap.Test.Builders
         public void Instances_should_require_a_child_template()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new DynamicChildNodeBuilder<Product>(Inner, _source, null));
+                () => new DynamicChildNodeBuilder<Product>(InnerBuilder, _source, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("childTemplate"));
         }
@@ -44,7 +44,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_child_nodes_using_the_output_from_the_source_and_child_template()
         {
             // Arrange
-            var target = new DynamicChildNodeBuilder<Product>(Inner, _source, _childTemplate);
+            var target = new DynamicChildNodeBuilder<Product>(InnerBuilder, _source, _childTemplate);
 
             // Act
             var result = target.Build(Context);
@@ -59,6 +59,20 @@ namespace FluentSiteMap.Test.Builders
             child = result.Children[1];
             Assert.That(child.Title, Is.EqualTo("Bar"));
             Assert.That(child.Description, Is.EqualTo("Bar Widget"));
+        }
+
+        [Test]
+        public void OnBuild_should_set_the_parent_node_of_child_nodes()
+        {
+            // Arrange
+            var target = new DynamicChildNodeBuilder<Product>(InnerBuilder, _source, _childTemplate);
+
+            // Act
+            var result = target.Build(Context);
+
+            // Assert
+            var child = result.Children[0];
+            Assert.That(child.Parent, Is.EqualTo(InnerNode));
         }
 
         private class Product

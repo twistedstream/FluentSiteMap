@@ -9,17 +9,22 @@ namespace FluentSiteMap.Test.Builders
     {
         public BuilderContext Context { get; set; }
 
-        public INodeBuilder Inner { get; set; }
+        public INodeBuilder InnerBuilder { get; set; }
+
+        public Node InnerNode { get; set; }
 
         public override void Setup()
         {
             base.Setup();
 
             Context = new BuilderContext(new RequestContext());
-            Inner = MockRepository.GenerateStub<INodeBuilder>();
-            Inner
+
+            InnerNode = new Node(new List<INodeFilter>());
+
+            InnerBuilder = MockRepository.GenerateStub<INodeBuilder>();
+            InnerBuilder
                 .Stub(i => i.Build(Context))
-                .Return(new Node(new List<INodeFilter>()));
+                .Return(InnerNode);
         }
     }
 }

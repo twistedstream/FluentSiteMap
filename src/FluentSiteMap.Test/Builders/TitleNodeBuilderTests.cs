@@ -12,7 +12,7 @@ namespace FluentSiteMap.Test.Builders
         public void Instances_should_require_a_title_generator()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new TitleNodeBuilder(Inner, null));
+                () => new TitleNodeBuilder(InnerBuilder, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("titleGenerator"));
         }
@@ -23,7 +23,7 @@ namespace FluentSiteMap.Test.Builders
             // Arrange
             Func<Node, string> titleGenerator = n => "foo";
 
-            var target = new TitleNodeBuilder(Inner, titleGenerator);
+            var target = new TitleNodeBuilder(InnerBuilder, titleGenerator);
 
             // Act
             var result = target.Build(Context);

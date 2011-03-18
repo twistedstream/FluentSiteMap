@@ -11,7 +11,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_builder_context_metadata_value()
         {
             // Arrange
-            var target = new ControllerNodeBuilder(Inner, "foo");
+            var target = new ControllerNodeBuilder(InnerBuilder, "foo");
 
             // Act
             target.Build(Context);

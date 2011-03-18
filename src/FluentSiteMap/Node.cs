@@ -60,6 +60,11 @@ namespace FluentSiteMap
             }
         }
 
+        /// <summary>
+        /// Gets or sets the parent of the node.
+        /// </summary>
+        public Node Parent { get; set; }
+
         private readonly IDictionary<string, object> _metadata = new Dictionary<string, object>();
 
         /// <summary>

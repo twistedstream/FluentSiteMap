@@ -37,7 +37,12 @@ namespace FluentSiteMap.Builders
         protected override void OnBuild(Node node, BuilderContext context)
         {
             node.Children = _childBuilders
-                .Select(b => b.Build(new BuilderContext(context)))
+                .Select(b =>
+                            {
+                                var child = b.Build(new BuilderContext(context));
+                                child.Parent = node;
+                                return child;
+                            })
                 .ToList();
         }
     }
