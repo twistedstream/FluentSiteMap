@@ -50,6 +50,7 @@ namespace FluentSiteMap.Builders
                             {
                                 var builder = _childTemplate(s, new BaseNodeBuilder());
                                 var child = builder.Build(new BuilderContext(context));
+                                child.Parent = node;
                                 return child;
                             })
                 .ToList();

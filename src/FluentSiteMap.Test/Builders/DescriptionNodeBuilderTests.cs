@@ -12,7 +12,7 @@ namespace FluentSiteMap.Test.Builders
         public void Instances_should_require_a_description_generator()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new DescriptionNodeBuilder(Inner, null));
+                () => new DescriptionNodeBuilder(InnerBuilder, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("descriptionGenerator"));
         }
@@ -23,7 +23,7 @@ namespace FluentSiteMap.Test.Builders
             // Arrange
             Func<Node, string> descriptionGenerator = n => "foo";
 
-            var target = new DescriptionNodeBuilder(Inner, descriptionGenerator);
+            var target = new DescriptionNodeBuilder(InnerBuilder, descriptionGenerator);
 
             // Act
             var result = target.Build(Context);

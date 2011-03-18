@@ -11,7 +11,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_hidden_in_menu_to_true()
         {
             // Arrange
-            var target = new HiddenInMenuNodeBuilder(Inner);
+            var target = new HiddenInMenuNodeBuilder(InnerBuilder);
 
             // Act
             var result = target.Build(Context);

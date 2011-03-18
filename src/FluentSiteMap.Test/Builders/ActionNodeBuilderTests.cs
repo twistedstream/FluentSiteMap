@@ -11,7 +11,7 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_builder_context_metadata_value()
         {
             // Arrange
-            var target = new ActionNodeBuilder(Inner, "bar");
+            var target = new ActionNodeBuilder(InnerBuilder, "bar");
 
             // Act
             target.Build(Context);
