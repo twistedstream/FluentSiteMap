@@ -40,6 +40,10 @@ namespace FluentSiteMap.Test
             RouteTable.Routes.Clear();
             SiteMapHelper.InjectRootNode(null);
             SiteMapHelper.InjectCurrentNode(null);
+            SiteMapHelper.InjectHttpContext(null);
+            SiteMapHelper.ClearCoordinator();
+            SiteMapHelper.InjectRecursiveNodeFilter(null);
+            SiteMapHelper.InjectDefaultFilterProvider(null);
         }
 
         /// <summary>

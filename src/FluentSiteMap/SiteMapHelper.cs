@@ -34,9 +34,9 @@ namespace FluentSiteMap
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
 
-            var recursiveNodeFilter = new RecursiveNodeFilter();
+            var recursiveNodeFilter = _mockRecursiveNodeFilter ?? new RecursiveNodeFilter();
 
-            var defaultFilterProvider = new DefaultFilterProvider();
+            var defaultFilterProvider = _mockDefaultFilterProvider ?? new DefaultFilterProvider();
 
             _coordinator = new SiteMapCoordinator(recursiveNodeFilter, defaultFilterProvider, siteMap);
         }
@@ -81,10 +81,18 @@ namespace FluentSiteMap
 
         private static RequestContext BuildRequestContext()
         {
-            if (HttpContext.Current == null)
-                throw new InvalidOperationException(
-                    "A current HTTP request is required.");
-            var httpContext = new HttpContextWrapper(HttpContext.Current);
+            HttpContextBase httpContext;
+
+            if (_mockHttpContext != null)
+                httpContext = _mockHttpContext;
+
+            else
+            {
+                if (HttpContext.Current == null)
+                    throw new InvalidOperationException(
+                        "A current HTTP request is required.");
+                httpContext = new HttpContextWrapper(HttpContext.Current);
+            }
 
             var mvcHandler = httpContext.Handler as MvcHandler;
 
@@ -116,6 +124,29 @@ namespace FluentSiteMap
         internal static void InjectCurrentNode(FilteredNode currentNode)
         {
             _mockCurrentNode = currentNode;
+        }
+
+        private static HttpContextBase _mockHttpContext;
+        internal static void InjectHttpContext(HttpContextBase httpContext)
+        {
+            _mockHttpContext = httpContext;
+        }
+
+        internal static void ClearCoordinator()
+        {
+            _coordinator = null;
+        }
+
+        private static IRecursiveNodeFilter _mockRecursiveNodeFilter;
+        internal static void InjectRecursiveNodeFilter(IRecursiveNodeFilter recursiveNodeFilter)
+        {
+            _mockRecursiveNodeFilter = recursiveNodeFilter;
+        }
+
+        private static IDefaultFilterProvider _mockDefaultFilterProvider;
+        internal static void InjectDefaultFilterProvider(IDefaultFilterProvider defaultFilterProvider)
+        {
+            _mockDefaultFilterProvider = defaultFilterProvider;
         }
 
         #endregion
