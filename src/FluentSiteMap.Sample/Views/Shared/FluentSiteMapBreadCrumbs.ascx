@@ -2,8 +2,12 @@
 
 <% foreach (var node in Model) { %>
     <% if (node.Parent != null) { %>
-    > 
+        > 
     <% } %>
-    <% Html.FluentSiteMap().Node(node); %>
+    <% if (node.IsCurrent) { %>
+        <%: node.Title %>
+    <% } else { %>
+        <% Html.FluentSiteMap().Node(node); %>
+    <% } %>
 <% } %>
 
