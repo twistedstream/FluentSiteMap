@@ -27,7 +27,9 @@
         </div>
 
         <div id="main">
-            <% Html.FluentSiteMap().BreadCrumbs(); %>
+            <p>
+                <% Html.FluentSiteMap().BreadCrumbs(); %>
+            </p>
 
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
 
