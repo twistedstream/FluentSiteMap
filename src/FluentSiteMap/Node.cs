@@ -44,6 +44,11 @@ namespace FluentSiteMap
         /// </summary>
         public bool HiddenInMenu { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether or not the node is to be rendered in a bread crumbs view.
+        /// </summary>
+        public bool HiddenInBreadCrumbs { get; set; }
+
         private IList<Node> _children = new List<Node>();
 
         /// <summary>

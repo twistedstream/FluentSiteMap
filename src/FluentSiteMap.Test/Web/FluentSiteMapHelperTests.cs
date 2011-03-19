@@ -101,6 +101,34 @@ namespace FluentSiteMap.Test.Web
         }
 
         [Test]
+        public void BreadCrumbsModel_should_not_include_nodes_that_are_marked_as_hidden_in_the_bread_crumbs()
+        {
+            // Arrange
+            var rootNode = new FilteredNode();
+            var currentNode = new FilteredNode();
+            var parentNode = new FilteredNode();
+
+            currentNode.Parent = parentNode;
+            parentNode.Parent = rootNode;
+            parentNode.HiddenInBreadCrumbs = true;
+
+            SiteMapHelper.InjectRootNode(rootNode);
+            SiteMapHelper.InjectCurrentNode(currentNode);
+
+            var target = new FluentSiteMapHelper(_htmlHelper);
+
+            // Act
+            var result = target.BreadCrumbsModel;
+
+            // Assert
+            Assert.That(result, Is.EquivalentTo(new[]
+                                                    {
+                                                        rootNode,
+                                                        currentNode
+                                                    }));
+        }
+
+        [Test]
         public void SiteMapModel_should_return_the_root_node()
         {
             // Arrange

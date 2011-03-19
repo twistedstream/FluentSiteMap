@@ -38,6 +38,7 @@ namespace FluentSiteMap
                                            Description = node.Description,
                                            Url = node.Url,
                                            HiddenInMenu = node.HiddenInMenu,
+                                           HiddenInBreadCrumbs = node.HiddenInBreadCrumbs,
                                            Children = new List<FilteredNode>(),
                                            Parent = parent,
                                            Metadata = node.Metadata

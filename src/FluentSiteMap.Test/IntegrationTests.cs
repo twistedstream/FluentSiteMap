@@ -54,6 +54,7 @@ namespace FluentSiteMap.Test
             Assert.That(child.Description, Is.Null);
             Assert.That(child.Url, Is.Null);
             Assert.That(child.HiddenInMenu, Is.True);
+            Assert.That(child.HiddenInBreadCrumbs, Is.True);
             Assert.That(child.Children.Count, Is.EqualTo(3));
 
             var grandChild = child.Children[0];

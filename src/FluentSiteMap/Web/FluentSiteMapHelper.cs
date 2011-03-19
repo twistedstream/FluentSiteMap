@@ -64,7 +64,9 @@ namespace FluentSiteMap.Web
             var currentNode = SiteMapHelper.CurrentNode;
             while (currentNode != null)
             {
-                yield return currentNode;
+                if (!currentNode.HiddenInBreadCrumbs)
+                    yield return currentNode;
+
                 currentNode = currentNode.Parent;
             }
         }

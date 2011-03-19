@@ -31,6 +31,11 @@ namespace FluentSiteMap
         public bool HiddenInMenu { get; set; }
 
         /// <summary>
+        /// Gets or sets whether or not the node is to be rendered in a bread crumbs view.
+        /// </summary>
+        public bool HiddenInBreadCrumbs { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the node is the current node 
         /// relative to the current HTTP request.
         /// </summary>

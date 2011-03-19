@@ -223,5 +223,16 @@ namespace FluentSiteMap.Builders
         {
             return new HiddenInMenuNodeBuilder(inner);
         }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that configures a node so that it won't be rendered in a bread crumbs view.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        public static INodeBuilder HiddenInBreadCrumbs(this INodeBuilder inner)
+        {
+            return new HiddenInBreadCrumbsNodeBuilder(inner);
+        }
     }
 }
