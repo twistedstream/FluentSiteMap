@@ -42,7 +42,7 @@ namespace FluentSiteMap.Sample.Models
                                                         .WithTitle(p.Name)
                                                         .WithDescription(p.Description)
                                                         .ForAction("View").WithUrlFromMvc(new {id = p.Id})
-                                                        .WithMetadata("MenuImage", p.ImageName)),
+                                                        .WithMetadata("Price", p.Price)),
                         Node()
                             .WithTitle("Site Map").WithDescriptionSameAsTitle()
                             .ForAction("SiteMap").WithUrlFromMvc(),

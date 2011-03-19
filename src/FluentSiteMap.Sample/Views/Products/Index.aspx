@@ -3,7 +3,12 @@
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
     <% foreach (var child in SiteMapHelper.CurrentNode.Children) { %>
 
-        <p><% Html.FluentSiteMap().Node(child); %></p>
+        <p>
+            <% Html.FluentSiteMap().Node(child); %>
+            <% if (child.Metadata.ContainsKey("Price")) { %>
+                ($<%: child.Metadata["Price"] %>)
+            <% } %>
+        </p>
 
     <% } %>
 </asp:Content>

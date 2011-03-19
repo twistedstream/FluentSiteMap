@@ -7,4 +7,7 @@
     <p>
         Description: <strong><%: Model.Description %></strong>
     </p>
+    <p>
+        Price: <strong>$<%: Model.Price %></strong>
+    </p>
 </asp:Content>
