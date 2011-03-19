@@ -48,6 +48,9 @@ namespace FluentSiteMap
         {
             get
             {
+                // return mock node if it's set
+                if (_mockRootNode != null) return _mockRootNode;
+
                 // build concrete HTTP request context
                 var requestContext = BuildRequestContext();
 
@@ -64,6 +67,9 @@ namespace FluentSiteMap
         {
             get
             {
+                // return mock node if it's set
+                if (_mockCurrentNode != null) return _mockCurrentNode;
+
                 // build concrete HTTP request context
                 var requestContext = BuildRequestContext();
 
@@ -97,5 +103,21 @@ namespace FluentSiteMap
                 throw new InvalidOperationException(
                     "RegisterRootSiteMap must be called before the root node can be generated.");
         }
+
+        #region Unit test support
+
+        private static FilteredNode _mockRootNode;
+        internal static void InjectRootNode(FilteredNode rootNode)
+        {
+            _mockRootNode = rootNode;
+        }
+
+        private static FilteredNode _mockCurrentNode;
+        internal static void InjectCurrentNode(FilteredNode currentNode)
+        {
+            _mockCurrentNode = currentNode;
+        }
+
+        #endregion
     }
 }

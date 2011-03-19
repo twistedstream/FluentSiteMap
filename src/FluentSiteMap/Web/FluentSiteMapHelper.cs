@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace FluentSiteMap.Web
@@ -27,6 +29,52 @@ namespace FluentSiteMap.Web
         public HtmlHelper HtmlHelper
         {
             get { return _htmlHelper; }
+        }
+
+        /// <summary>
+        /// Gets the model used to render a title partial vide.
+        /// </summary>
+        public FilteredNode TitleModel
+        {
+            get { return SiteMapHelper.CurrentNode; }
+        }
+
+        /// <summary>
+        /// Gets the model used to render a menu partial view.
+        /// </summary>
+        public FilteredNode MenuModel
+        {
+            get { return SiteMapHelper.RootNode; }
+        }
+
+        /// <summary>
+        /// Gets the model used to render a bread crumbs partial view.
+        /// </summary>
+        public IEnumerable<FilteredNode> BreadCrumbsModel
+        {
+            get
+            {
+                var model = BuildBreadCrumbsTrail().Reverse().ToList();
+                return model;
+            }
+        }
+
+        private static IEnumerable<FilteredNode> BuildBreadCrumbsTrail()
+        {
+            var currentNode = SiteMapHelper.CurrentNode;
+            while (currentNode != null)
+            {
+                yield return currentNode;
+                currentNode = currentNode.Parent;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model used to render a site map partial view.
+        /// </summary>
+        public FilteredNode SiteMapModel
+        {
+            get { return SiteMapHelper.RootNode; }
         }
     }
 }

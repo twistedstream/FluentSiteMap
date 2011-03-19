@@ -38,6 +38,8 @@ namespace FluentSiteMap.Test
         public virtual void Setup()
         {
             RouteTable.Routes.Clear();
+            SiteMapHelper.InjectRootNode(null);
+            SiteMapHelper.InjectCurrentNode(null);
         }
 
         /// <summary>

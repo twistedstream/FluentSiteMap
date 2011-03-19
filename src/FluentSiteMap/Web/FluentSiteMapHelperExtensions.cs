@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc.Html;
+﻿using System.Web.Mvc.Html;
 
 namespace FluentSiteMap.Web
 {
@@ -17,7 +15,7 @@ namespace FluentSiteMap.Web
         /// </param>
         public static void Title(this FluentSiteMapHelper helper)
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapTitle", SiteMapHelper.CurrentNode);
+            helper.HtmlHelper.RenderPartial("FluentSiteMapTitle", helper.TitleModel);
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace FluentSiteMap.Web
         /// </param>
         public static void Menu(this FluentSiteMapHelper helper)
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapMenu", SiteMapHelper.RootNode);
+            helper.HtmlHelper.RenderPartial("FluentSiteMapMenu", helper.MenuModel);
         }
 
         /// <summary>
@@ -53,19 +51,7 @@ namespace FluentSiteMap.Web
         /// </param>
         public static void BreadCrumbs(this FluentSiteMapHelper helper)
         {
-            var viewModel = BuildBreadCrumbsTrail().Reverse().ToList();
-
-            helper.HtmlHelper.RenderPartial("FluentSiteMapBreadCrumbs", viewModel);
-        }
-
-        private static IEnumerable<FilteredNode> BuildBreadCrumbsTrail()
-        {
-            var currentNode = SiteMapHelper.CurrentNode;
-            while (currentNode != null)
-            {
-                yield return currentNode;
-                currentNode = currentNode.Parent;
-            }
+            helper.HtmlHelper.RenderPartial("FluentSiteMapBreadCrumbs", helper.BreadCrumbsModel);
         }
 
         /// <summary>
@@ -76,7 +62,7 @@ namespace FluentSiteMap.Web
         /// </param>
         public static void SiteMap(this FluentSiteMapHelper helper)
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapSiteMap", SiteMapHelper.RootNode);
+            helper.HtmlHelper.RenderPartial("FluentSiteMapSiteMap", helper.SiteMapModel);
         }
 
         /// <summary>
