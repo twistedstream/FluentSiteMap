@@ -80,7 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecursiveNodeFilterTests.cs" />
     <Compile Include="SiteMapHelperTests.cs" />
-    <Compile Include="BaseSiteMapTests.cs" />
+    <Compile Include="SiteMapTests.cs" />
     <Compile Include="SiteMapCoordinatorTests.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Web\FluentSiteMapHelperTests.cs" />
