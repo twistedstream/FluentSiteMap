@@ -46,7 +46,7 @@ namespace FluentSiteMap.Test.Web
         {
             // Arrange
             var currentNode = new FilteredNode();
-            SiteMapHelper.InjectCurrentNode(currentNode);
+            SiteMap.InjectCurrentNode(currentNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
 
@@ -68,7 +68,7 @@ namespace FluentSiteMap.Test.Web
 
             rootNode.Children = new[] {child1Node, child2Node};
 
-            SiteMapHelper.InjectRootNode(rootNode);
+            SiteMap.InjectRootNode(rootNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
 
@@ -92,8 +92,8 @@ namespace FluentSiteMap.Test.Web
             currentNode.Parent = parentNode;
             parentNode.Parent = rootNode;
 
-            SiteMapHelper.InjectRootNode(rootNode);
-            SiteMapHelper.InjectCurrentNode(currentNode);
+            SiteMap.InjectRootNode(rootNode);
+            SiteMap.InjectCurrentNode(currentNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
 
@@ -121,8 +121,8 @@ namespace FluentSiteMap.Test.Web
             parentNode.Parent = rootNode;
             parentNode.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey] = true;
 
-            SiteMapHelper.InjectRootNode(rootNode);
-            SiteMapHelper.InjectCurrentNode(currentNode);
+            SiteMap.InjectRootNode(rootNode);
+            SiteMap.InjectCurrentNode(currentNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
 
@@ -142,7 +142,7 @@ namespace FluentSiteMap.Test.Web
         {
             // Arrange
             var rootNode = new FilteredNode();
-            SiteMapHelper.InjectRootNode(rootNode);
+            SiteMap.InjectRootNode(rootNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
 

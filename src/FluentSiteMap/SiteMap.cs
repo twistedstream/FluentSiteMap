@@ -7,9 +7,9 @@ using System.Web.Routing;
 namespace FluentSiteMap
 {
     /// <summary>
-    /// Main entry point into FluentSiteMap.
+    /// Main static entry point into the FluentSiteMap API.
     /// </summary>
-    public static class SiteMapHelper
+    public static class SiteMap
     {
         private static SiteMapCoordinator _coordinator;
 

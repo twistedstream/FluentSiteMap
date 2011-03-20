@@ -9,7 +9,7 @@ using Rhino.Mocks;
 namespace FluentSiteMap.Test
 {
     [TestFixture]
-    public class SiteMapHelperTests
+    public class SiteMapTests
         : TestBase
     {
         private FilteredNode _rootNode;
@@ -30,26 +30,26 @@ namespace FluentSiteMap.Test
         public void RegisterRootSiteMap_should_require_a_site_map()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => SiteMapHelper.RegisterRootSiteMap(null));
+                () => SiteMap.RegisterRootSiteMap(null));
 
             Assert.That(ex.ParamName, Is.EqualTo("siteMap"));
         }
 
         private void ArrangeSiteMapHelper(HttpContextBase httpContext)
         {
-            SiteMapHelper.InjectHttpContext(httpContext);
+            SiteMap.InjectHttpContext(httpContext);
 
             var recursiveNodeFilter = MockRepository.GenerateStub<IRecursiveNodeFilter>();
             recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Is.Anything, Arg<Node>.Is.Anything))
                 .Return(_rootNode);
-            SiteMapHelper.InjectRecursiveNodeFilter(recursiveNodeFilter);
+            SiteMap.InjectRecursiveNodeFilter(recursiveNodeFilter);
 
             var defaultFilterProvider = MockRepository.GenerateStub<IDefaultFilterProvider>();
             defaultFilterProvider
                 .Stub(p => p.GetFilters())
                 .Return(new INodeFilter[] { });
-            SiteMapHelper.InjectDefaultFilterProvider(defaultFilterProvider);
+            SiteMap.InjectDefaultFilterProvider(defaultFilterProvider);
         }
 
         private void ArrangeSiteMapHelperWithMvcHandlder(RequestContext requestContext)
@@ -71,7 +71,7 @@ namespace FluentSiteMap.Test
 
             // Act
             Assert.Throws<InvalidOperationException>(
-                () => { var result = SiteMapHelper.RootNode; });
+                () => { var result = SiteMap.RootNode; });
         }
 
         [Test]
@@ -85,10 +85,10 @@ namespace FluentSiteMap.Test
             siteMap
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, requestContext))))
                 .Return(new Node(new List<INodeFilter>()));
-            SiteMapHelper.RegisterRootSiteMap(siteMap);
+            SiteMap.RegisterRootSiteMap(siteMap);
 
             // Act
-            var result = SiteMapHelper.RootNode;
+            var result = SiteMap.RootNode;
 
             // Assert
             Assert.That(result, Is.EqualTo(_rootNode));
@@ -105,10 +105,10 @@ namespace FluentSiteMap.Test
             siteMap
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext.HttpContext, httpContext))))
                 .Return(new Node(new List<INodeFilter>()));
-            SiteMapHelper.RegisterRootSiteMap(siteMap);
+            SiteMap.RegisterRootSiteMap(siteMap);
 
             // Act
-            var result = SiteMapHelper.RootNode;
+            var result = SiteMap.RootNode;
 
             // Assert
             Assert.That(result, Is.EqualTo(_rootNode));
@@ -123,7 +123,7 @@ namespace FluentSiteMap.Test
 
             // Act
             Assert.Throws<InvalidOperationException>(
-                () => { var result = SiteMapHelper.CurrentNode; });
+                () => { var result = SiteMap.CurrentNode; });
         }
 
         [Test]
@@ -137,10 +137,10 @@ namespace FluentSiteMap.Test
             siteMap
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, requestContext))))
                 .Return(new Node(new List<INodeFilter>()));
-            SiteMapHelper.RegisterRootSiteMap(siteMap);
+            SiteMap.RegisterRootSiteMap(siteMap);
 
             // Act
-            var result = SiteMapHelper.CurrentNode;
+            var result = SiteMap.CurrentNode;
 
             // Assert
             Assert.That(result, Is.EqualTo(_currentNode));
@@ -157,10 +157,10 @@ namespace FluentSiteMap.Test
             siteMap
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext.HttpContext, httpContext))))
                 .Return(new Node(new List<INodeFilter>()));
-            SiteMapHelper.RegisterRootSiteMap(siteMap);
+            SiteMap.RegisterRootSiteMap(siteMap);
 
             // Act
-            var result = SiteMapHelper.CurrentNode;
+            var result = SiteMap.CurrentNode;
 
             // Assert
             Assert.That(result, Is.EqualTo(_currentNode));
