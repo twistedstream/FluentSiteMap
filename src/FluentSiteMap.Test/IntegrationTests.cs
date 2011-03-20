@@ -83,23 +83,23 @@ namespace FluentSiteMap.Test
 
             grandChild = child.Children[0];
             Assert.That(grandChild.Title, Is.EqualTo("Foo Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Foo Widgets are big"));
+            Assert.That(grandChild.Description, Is.EqualTo("Foo Widgets are spendy"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/100"));
-            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Foo.png"));
+            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)100));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             grandChild = child.Children[1];
             Assert.That(grandChild.Title, Is.EqualTo("Bar Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Bar Widgets are really big"));
+            Assert.That(grandChild.Description, Is.EqualTo("Bar Widgets are really spendy"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/101"));
-            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Bar.png"));
+            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)150));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             grandChild = child.Children[2];
             Assert.That(grandChild.Title, Is.EqualTo("Baz Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Baz Widgets are kinda small"));
+            Assert.That(grandChild.Description, Is.EqualTo("Baz Widgets are pretty cheap"));
             Assert.That(grandChild.Url, Is.EqualTo("/Products/View/102"));
-            Assert.That(grandChild.Metadata["MenuImage"], Is.EqualTo("Baz.png"));
+            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)25));
             Assert.That(grandChild.Children.Count, Is.EqualTo(0));
 
             child = root.Children[3];
