@@ -7,7 +7,7 @@ using Rhino.Mocks;
 namespace FluentSiteMap.Test
 {
     [TestFixture]
-    public class SiteMapTests
+    public class BaseSiteMapTests
         : TestBase
     {
         private BuilderContext _context;
@@ -37,7 +37,7 @@ namespace FluentSiteMap.Test
         public void Build_should_require_a_context()
         {
             // Arrange
-            var target = MockRepository.GeneratePartialMock<SiteMap>();
+            var target = MockRepository.GeneratePartialMock<BaseSiteMap>();
 
             // Act
             var ex = Assert.Throws<ArgumentNullException>(
@@ -51,7 +51,7 @@ namespace FluentSiteMap.Test
         public void Build_should_require_that_Root_is_set()
         {
             // Arrange
-            var target = MockRepository.GeneratePartialMock<SiteMap>();
+            var target = MockRepository.GeneratePartialMock<BaseSiteMap>();
 
             // Act, Assert
             Assert.Throws<InvalidOperationException>(
@@ -100,7 +100,7 @@ namespace FluentSiteMap.Test
         public void Filters_should_require_that_Root_is_set()
         {
             // Arrange
-            var target = MockRepository.GeneratePartialMock<SiteMap>();
+            var target = MockRepository.GeneratePartialMock<BaseSiteMap>();
 
             // Act, Assert
             Assert.Throws<InvalidOperationException>(
@@ -128,7 +128,7 @@ namespace FluentSiteMap.Test
         }
 
         private class TestSiteMap
-            : SiteMap
+            : BaseSiteMap
         {
             public TestSiteMap(INodeBuilder rootBuilder)
             {

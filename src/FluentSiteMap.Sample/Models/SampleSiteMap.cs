@@ -4,7 +4,7 @@ using FluentSiteMap.Filters;
 namespace FluentSiteMap.Sample.Models
 {
     public class SampleSiteMap
-        : SiteMap
+        : BaseSiteMap
     {
         public SampleSiteMap(IProductRepository productRepository)
         {
