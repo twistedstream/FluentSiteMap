@@ -119,7 +119,7 @@ namespace FluentSiteMap.Test.Web
 
             currentNode.Parent = parentNode;
             parentNode.Parent = rootNode;
-            parentNode.HiddenInBreadCrumbs = true;
+            parentNode.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey] = true;
 
             SiteMapHelper.InjectRootNode(rootNode);
             SiteMapHelper.InjectCurrentNode(currentNode);

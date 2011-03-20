@@ -78,7 +78,7 @@ namespace FluentSiteMap.Web
             var currentNode = SiteMapHelper.CurrentNode;
             while (currentNode != null)
             {
-                if (!currentNode.HiddenInBreadCrumbs)
+                if (!currentNode.Metadata.IsTrue(HiddenInBreadCrumbsNodeBuilder.MetadataKey))
                     yield return currentNode;
 
                 currentNode = currentNode.Parent;
