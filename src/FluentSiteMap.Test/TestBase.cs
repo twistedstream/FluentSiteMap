@@ -38,12 +38,12 @@ namespace FluentSiteMap.Test
         public virtual void Setup()
         {
             RouteTable.Routes.Clear();
-            SiteMap.InjectRootNode(null);
-            SiteMap.InjectCurrentNode(null);
-            SiteMap.InjectHttpContext(null);
-            SiteMap.ClearCoordinator();
-            SiteMap.InjectRecursiveNodeFilter(null);
-            SiteMap.InjectDefaultFilterProvider(null);
+            SiteMapHelper.InjectRootNode(null);
+            SiteMapHelper.InjectCurrentNode(null);
+            SiteMapHelper.InjectHttpContext(null);
+            SiteMapHelper.ClearCoordinator();
+            SiteMapHelper.InjectRecursiveNodeFilter(null);
+            SiteMapHelper.InjectDefaultFilterProvider(null);
         }
 
         /// <summary>

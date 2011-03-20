@@ -67,7 +67,7 @@
     <Compile Include="IDefaultFilterProvider.cs" />
     <Compile Include="MetadataExtensions.cs" />
     <Compile Include="BaseSiteMap.cs" />
-    <Compile Include="SiteMap.cs" />
+    <Compile Include="SiteMapHelper.cs" />
     <Compile Include="IRecursiveNodeFilter.cs" />
     <Compile Include="RecursiveNodeFilter.cs" />
     <Compile Include="SiteMapCoordinator.cs" />

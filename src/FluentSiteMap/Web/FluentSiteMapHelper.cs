@@ -37,7 +37,7 @@ namespace FluentSiteMap.Web
         /// </summary>
         public FilteredNode TitleModel
         {
-            get { return SiteMap.CurrentNode; }
+            get { return SiteMapHelper.CurrentNode; }
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace FluentSiteMap.Web
         {
             get
             {
-                var model = BuildMenuModel(SiteMap.RootNode);
+                var model = BuildMenuModel(SiteMapHelper.RootNode);
                 return model;
             }
         }
@@ -75,7 +75,7 @@ namespace FluentSiteMap.Web
 
         private static IEnumerable<FilteredNode> BuildBreadCrumbsTrail()
         {
-            var currentNode = SiteMap.CurrentNode;
+            var currentNode = SiteMapHelper.CurrentNode;
             while (currentNode != null)
             {
                 if (!currentNode.Metadata.IsTrue(HiddenInBreadCrumbsNodeBuilder.MetadataKey))
@@ -90,7 +90,7 @@ namespace FluentSiteMap.Web
         /// </summary>
         public FilteredNode SiteMapModel
         {
-            get { return SiteMap.RootNode; }
+            get { return SiteMapHelper.RootNode; }
         }
     }
 }

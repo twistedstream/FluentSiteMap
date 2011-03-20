@@ -32,7 +32,7 @@ namespace FluentSiteMap.Sample
             RegisterRoutes(RouteTable.Routes);
 
             var siteMap = new SampleSiteMap(new ProductRepository());
-            SiteMap.RegisterRootSiteMap(siteMap);
+            SiteMapHelper.RegisterRootSiteMap(siteMap);
         }
     }
 }
