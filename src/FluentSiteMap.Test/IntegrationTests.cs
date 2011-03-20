@@ -1,6 +1,7 @@
 ﻿using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Routing;
+using FluentSiteMap.Builders;
 using FluentSiteMap.Sample.Models;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,7 +54,7 @@ namespace FluentSiteMap.Test
             Assert.That(child.Title, Is.EqualTo("Account"));
             Assert.That(child.Description, Is.Null);
             Assert.That(child.Url, Is.Null);
-            Assert.That(child.HiddenInMenu, Is.True);
+            Assert.That(child.Metadata.IsTrue(HiddenInMenuNodeBuilder.MetadataKey));
             Assert.That(child.HiddenInBreadCrumbs, Is.True);
             Assert.That(child.Children.Count, Is.EqualTo(3));
 

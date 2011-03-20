@@ -8,6 +8,11 @@
         : DecoratingNodeBuilder
     {
         /// <summary>
+        /// The metadata key used to indicate whether or not a node is hidden in a menu.
+        /// </summary>
+        public const string MetadataKey = "HiddenInMenu";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HiddenInMenuNodeBuilder"/> class.
         /// </summary>
         /// <param name="inner">
@@ -24,7 +29,7 @@
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
-            node.HiddenInMenu = true;
+            node.Metadata[MetadataKey] = true;
         }
     }
 }

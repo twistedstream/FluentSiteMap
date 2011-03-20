@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using FluentSiteMap.Builders;
 
 namespace FluentSiteMap.Web
 {
@@ -56,7 +57,7 @@ namespace FluentSiteMap.Web
             return new MenuModelNode(
                 node, 
                 node.Children
-                    .Where(n => !n.HiddenInMenu)
+                    .Where(n => !n.Metadata.IsTrue(HiddenInMenuNodeBuilder.MetadataKey))
                     .Select(BuildMenuModel));
         }
 

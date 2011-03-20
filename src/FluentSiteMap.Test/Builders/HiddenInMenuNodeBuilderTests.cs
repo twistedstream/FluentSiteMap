@@ -17,7 +17,7 @@ namespace FluentSiteMap.Test.Builders
             var result = target.Build(Context);
 
             // Assert
-            Assert.That(result.HiddenInMenu, Is.True);
+            Assert.That(result.Metadata.IsTrue(HiddenInMenuNodeBuilder.MetadataKey));
         }
     }
 }

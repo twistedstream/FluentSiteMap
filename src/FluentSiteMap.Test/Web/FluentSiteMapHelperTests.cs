@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using FluentSiteMap.Builders;
 using FluentSiteMap.Web;
 using NUnit.Framework;
 
@@ -62,10 +63,8 @@ namespace FluentSiteMap.Test.Web
             // Arrange
             var rootNode = new FilteredNode();
             var child1Node = new FilteredNode();
-            var child2Node = new FilteredNode
-                                 {
-                                     HiddenInMenu = true
-                                 };
+            var child2Node = new FilteredNode();
+            child2Node.Metadata[HiddenInMenuNodeBuilder.MetadataKey] = true;
 
             rootNode.Children = new[] {child1Node, child2Node};
 
