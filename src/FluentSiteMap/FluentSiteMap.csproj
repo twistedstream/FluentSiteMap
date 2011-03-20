@@ -65,6 +65,7 @@
     <Compile Include="Filters\AuthenticationNodeFilter.cs" />
     <Compile Include="Filters\CurrentNodeFilter.cs" />
     <Compile Include="IDefaultFilterProvider.cs" />
+    <Compile Include="MetadataExtensions.cs" />
     <Compile Include="SiteMap.cs" />
     <Compile Include="SiteMapHelper.cs" />
     <Compile Include="IRecursiveNodeFilter.cs" />
