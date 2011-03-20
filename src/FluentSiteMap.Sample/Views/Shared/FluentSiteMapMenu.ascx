@@ -1,9 +1,9 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<FilteredNode>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MenuModelNode>" %>
 
 <ul id="menu">
-    <% foreach (var child in Model.Children.Where(n => !n.HiddenInMenu)) { %>
+    <% foreach (var child in Model.Children) { %>
     
-    <li><% Html.FluentSiteMap().Node(child); %></li>
+    <li><% Html.FluentSiteMap().Node(child.Node); %></li>
 
     <% } %>
 </ul>

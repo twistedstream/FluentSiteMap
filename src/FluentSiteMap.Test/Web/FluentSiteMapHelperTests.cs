@@ -57,10 +57,18 @@ namespace FluentSiteMap.Test.Web
         }
 
         [Test]
-        public void MenuModel_should_return_the_root_node()
+        public void MenuModel_should_return_a_node_hierarchy_where_non_menu_nodes_are_filterd_out()
         {
             // Arrange
             var rootNode = new FilteredNode();
+            var child1Node = new FilteredNode();
+            var child2Node = new FilteredNode
+                                 {
+                                     HiddenInMenu = true
+                                 };
+
+            rootNode.Children = new[] {child1Node, child2Node};
+
             SiteMapHelper.InjectRootNode(rootNode);
 
             var target = new FluentSiteMapHelper(_htmlHelper);
@@ -69,7 +77,9 @@ namespace FluentSiteMap.Test.Web
             var result = target.MenuModel;
 
             // Assert
-            Assert.That(result, Is.EqualTo(rootNode));
+            Assert.That(result.Node, Is.EqualTo(rootNode));
+            Assert.That(result.Children.Count, Is.EqualTo(1));
+            Assert.That(result.Children[0].Node, Is.EqualTo(child1Node));
         }
 
         [Test]
