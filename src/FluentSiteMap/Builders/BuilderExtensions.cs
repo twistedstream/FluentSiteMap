@@ -221,7 +221,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder HiddenInMenu(this INodeBuilder inner)
         {
-            return new HiddenInMenuNodeBuilder(inner);
+            return inner.SetHiddenInMenu();
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder HiddenInBreadCrumbs(this INodeBuilder inner)
         {
-            return new HiddenInBreadCrumbsNodeBuilder(inner);
+            return inner.SetHiddenInBreadCrumbs();
         }
     }
 }

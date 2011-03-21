@@ -64,7 +64,7 @@ namespace FluentSiteMap.Test.Web
             var rootNode = new FilteredNode();
             var child1Node = new FilteredNode();
             var child2Node = new FilteredNode();
-            child2Node.Metadata[HiddenInMenuNodeBuilder.MetadataKey] = true;
+            child2Node.Metadata[MetadataExtensions.HiddenInMenuKey] = true;
 
             rootNode.Children = new[] {child1Node, child2Node};
 
@@ -119,7 +119,7 @@ namespace FluentSiteMap.Test.Web
 
             currentNode.Parent = parentNode;
             parentNode.Parent = rootNode;
-            parentNode.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey] = true;
+            parentNode.Metadata[MetadataExtensions.HiddenInBreadCrumbsKey] = true;
 
             SiteMapHelper.InjectRootNode(rootNode);
             SiteMapHelper.InjectCurrentNode(currentNode);

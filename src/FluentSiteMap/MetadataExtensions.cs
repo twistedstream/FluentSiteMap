@@ -1,24 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
+using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
 {
     /// <summary>
-    /// Provides extension methods to help work with node metadata.
+    /// Contains extension methods for working with node metadata.
     /// </summary>
     public static class MetadataExtensions
     {
         /// <summary>
-        /// Returns true if the specified metadata key exists and returns true.
+        /// Gets a strongly-typed metadata value from the specified <see cref="FilteredNode"/>.
         /// </summary>
-        public static bool IsTrue(this IDictionary<string, object> metadata, string key)
+        /// <typeparam name="T">
+        /// The type of the metadata value.
+        /// </typeparam>
+        public static T GetMetadataValue<T>(this FilteredNode node, string key)
         {
-            if (metadata == null) throw new ArgumentNullException("metadata");
+            if (node == null) throw new ArgumentNullException("node");
             if (key == null) throw new ArgumentNullException("key");
 
-            return 
-                metadata.ContainsKey(key) 
-                && (metadata[key].Equals(true));
+            if (!node.Metadata.ContainsKey(key))
+                return default(T);
+
+            return (T)node.Metadata[key];
+        }
+
+        /// <summary>
+        /// The metadata key used to store whether or not a node is hidden in a menu.
+        /// </summary>
+        public const string HiddenInMenuKey = "HiddenInMenu";
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
+        /// so that it will be hidden in a menu.
+        /// </summary>
+        public static INodeBuilder SetHiddenInMenu(this INodeBuilder nodeBuilder)
+        {
+            if (nodeBuilder == null) throw new ArgumentNullException("nodeBuilder");
+
+            return nodeBuilder.WithMetadata(HiddenInMenuKey, true);
+        }
+
+        /// <summary>
+        /// Determines if the specified node should be hidden in a menu.
+        /// </summary>
+        public static bool IsHiddenInMenu(this FilteredNode node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return node.GetMetadataValue<bool>(HiddenInMenuKey);
+        }
+
+        /// <summary>
+        /// The metadata key used to store whether or not a node is hidden in a bread crumbs view.
+        /// </summary>
+        public const string HiddenInBreadCrumbsKey = "HiddenInBreadCrumbs";
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
+        /// so that it will be hidden in a menu.
+        /// </summary>
+        public static INodeBuilder SetHiddenInBreadCrumbs(this INodeBuilder nodeBuilder)
+        {
+            if (nodeBuilder == null) throw new ArgumentNullException("nodeBuilder");
+
+            return nodeBuilder.WithMetadata(HiddenInBreadCrumbsKey, true);
+        }
+
+        /// <summary>
+        /// Determines if the specified node should be hidden in a menu.
+        /// </summary>
+        public static bool IsHiddenInBreadCrumbs(this FilteredNode node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return node.GetMetadataValue<bool>(HiddenInBreadCrumbsKey);
         }
     }
 }

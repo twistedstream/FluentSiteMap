@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Routing;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace FluentSiteMap.Test
 {
@@ -9,76 +11,168 @@ namespace FluentSiteMap.Test
         : TestBase
     {
         [Test]
-        public void IsTrue_should_require_a_metadata_collection()
+        public void GetMetadataValue_should_require_a_node()
         {
-            // Arrange
-            IDictionary<string, object> metadata = null;
+            FilteredNode node = null;
 
-            // Act
             var ex = Assert.Throws<ArgumentNullException>(
-                () => metadata.IsTrue("foo"));
+                () => node.GetMetadataValue<string>("foo"));
 
-            // Assert
-            Assert.That(ex.ParamName, Is.EqualTo("metadata"));
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
         }
 
         [Test]
-        public void IsTrue_should_require_a_key()
+        public void GetMetadataValue_should_require_a_key()
         {
-            // Arrange
-            var metadata = new Dictionary<string, object>();
+            var node = new FilteredNode();
 
-            // Act
             var ex = Assert.Throws<ArgumentNullException>(
-                () => metadata.IsTrue(null));
+                () => node.GetMetadataValue<string>(null));
 
-            // Assert
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
 
         [Test]
-        public void IsTrue_should_return_false_if_the_key_does_not_exist()
+        public void GetMetadataValue_should_return_a_default_value_if_key_does_not_exist()
         {
             // Arrange
-            var metadata = new Dictionary<string, object>
-                               {
-                                   {"bar", true}
-                               };
+            var node = new FilteredNode();
 
             // Act
-            var result = metadata.IsTrue("foo");
+            var result = node.GetMetadataValue<string>("foo");
 
             // Assert
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void IsTrue_should_return_false_if_the_value_is_not_true()
+        public void GetMetadataValue_should_return_a_value_if_the_key_exists()
         {
             // Arrange
-            var metadata = new Dictionary<string, object>
-                               {
-                                   {"foo", "bar"}
-                               };
+            var node = new FilteredNode
+                           {
+                               Metadata = new Dictionary<string, object>
+                                              {
+                                                  {"foo", "bar"}
+                                              }
+                           };
 
             // Act
-            var result = metadata.IsTrue("foo");
+            var result = node.GetMetadataValue<string>("foo");
 
             // Assert
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.EqualTo("bar"));
         }
 
         [Test]
-        public void IsTrue_should_return_true_if_the_metadata_key_exists_and_has_a_value_of_true()
+        public void SetHiddenInMenu_should_require_a_node_builder()
+        {
+            INodeBuilder nodeBuilder = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => nodeBuilder.SetHiddenInMenu());
+
+            Assert.That(ex.ParamName, Is.EqualTo("nodeBuilder"));
+        }
+
+        [Test]
+        public void SetHiddenInMenu_should_return_a_node_builder_that_sets_the_correct_metadata_value()
         {
             // Arrange
-            var metadata = new Dictionary<string, object>
-                               {
-                                   {"foo", true}
-                               };
+            var nodeBuilder = new BaseNodeBuilder();
 
             // Act
-            var result = metadata.IsTrue("foo");
+            var result = nodeBuilder.SetHiddenInMenu();
+
+            // Assert
+            var node = result.Build(new BuilderContext(new RequestContext()));
+            Assert.That(node.Metadata[MetadataExtensions.HiddenInMenuKey], Is.True);
+        }
+
+        [Test]
+        public void IsHiddenInMenu_should_require_a_node()
+        {
+            FilteredNode node = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => node.IsHiddenInMenu());
+
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
+        }
+
+
+        [Test]
+        public void IsHiddenInMenu_should_return_the_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Metadata = new Dictionary<string, object>
+                                              {
+                                                  {MetadataExtensions.HiddenInMenuKey, true}
+                                              }
+                           };
+
+            // Act
+            var result = node.IsHiddenInMenu();
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+
+
+        [Test]
+        public void SetHiddenInBreadCrumbs_should_require_a_node_builder()
+        {
+            INodeBuilder nodeBuilder = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => nodeBuilder.SetHiddenInBreadCrumbs());
+
+            Assert.That(ex.ParamName, Is.EqualTo("nodeBuilder"));
+        }
+
+        [Test]
+        public void SetHiddenInBreadCrumbs_should_return_a_node_builder_that_sets_the_correct_metadata_value()
+        {
+            // Arrange
+            var nodeBuilder = new BaseNodeBuilder();
+
+            // Act
+            var result = nodeBuilder.SetHiddenInBreadCrumbs();
+
+            // Assert
+            var node = result.Build(new BuilderContext(new RequestContext()));
+            Assert.That(node.Metadata[MetadataExtensions.HiddenInBreadCrumbsKey], Is.True);
+        }
+
+        [Test]
+        public void IsHiddenInBreadCrumbs_should_require_a_node()
+        {
+            FilteredNode node = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => node.IsHiddenInBreadCrumbs());
+
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
+        }
+
+
+        [Test]
+        public void IsHiddenInBreadCrumbs_should_return_the_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+            {
+                Metadata = new Dictionary<string, object>
+                                              {
+                                                  {MetadataExtensions.HiddenInBreadCrumbsKey, true}
+                                              }
+            };
+
+            // Act
+            var result = node.IsHiddenInBreadCrumbs();
 
             // Assert
             Assert.That(result, Is.True);

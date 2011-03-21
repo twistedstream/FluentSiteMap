@@ -50,8 +50,6 @@
     </Compile>
     <Compile Include="Builders\ActionNodeBuilder.cs" />
     <Compile Include="Builders\ControllerNodeBuilder.cs" />
-    <Compile Include="Builders\HiddenInBreadCrumbsNodeBuilder.cs" />
-    <Compile Include="Builders\HiddenInMenuNodeBuilder.cs" />
     <Compile Include="Builders\MetadataNodeBuilder.cs" />
     <Compile Include="Builders\DescriptionNodeBuilder.cs" />
     <Compile Include="Builders\DynamicChildNodeBuilder.cs" />

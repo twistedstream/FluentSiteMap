@@ -57,7 +57,7 @@ namespace FluentSiteMap.Web
             return new MenuModelNode(
                 node, 
                 node.Children
-                    .Where(n => !n.Metadata.IsTrue(HiddenInMenuNodeBuilder.MetadataKey))
+                    .Where(n => !n.IsHiddenInMenu())
                     .Select(BuildMenuModel));
         }
 
@@ -78,7 +78,7 @@ namespace FluentSiteMap.Web
             var currentNode = SiteMapHelper.CurrentNode;
             while (currentNode != null)
             {
-                if (!currentNode.Metadata.IsTrue(HiddenInBreadCrumbsNodeBuilder.MetadataKey))
+                if (!currentNode.IsHiddenInBreadCrumbs())
                     yield return currentNode;
 
                 currentNode = currentNode.Parent;
