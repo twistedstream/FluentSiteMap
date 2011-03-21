@@ -13,9 +13,12 @@ namespace FluentSiteMap.Web
         /// <param name="helper">
         /// The <see cref="FluentSiteMapHelper"/> instance to render the partial view against.
         /// </param>
-        public static void Title(this FluentSiteMapHelper helper)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void Title(this FluentSiteMapHelper helper, string viewName = "FluentSiteMapTitle")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapTitle", helper.TitleModel);
+            helper.HtmlHelper.RenderPartial(viewName, helper.TitleModel);
         }
 
         /// <summary>
@@ -24,9 +27,12 @@ namespace FluentSiteMap.Web
         /// <param name="helper">
         /// The <see cref="FluentSiteMapHelper"/> instance to render the partial view against.
         /// </param>
-        public static void Menu(this FluentSiteMapHelper helper)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void Menu(this FluentSiteMapHelper helper, string viewName = "FluentSiteMapMenu")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapMenu", helper.MenuModel);
+            helper.HtmlHelper.RenderPartial(viewName, helper.MenuModel);
         }
 
         /// <summary>
@@ -38,9 +44,12 @@ namespace FluentSiteMap.Web
         /// <param name="node">
         /// The <see cref="FilteredNode"/> to render.
         /// </param>
-        public static void Node(this FluentSiteMapHelper helper, FilteredNode node)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void Node(this FluentSiteMapHelper helper, FilteredNode node, string viewName = "FluentSiteMapNode")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapNode", node);
+            helper.HtmlHelper.RenderPartial(viewName, node);
         }
 
         /// <summary>
@@ -49,9 +58,12 @@ namespace FluentSiteMap.Web
         /// <param name="helper">
         /// The <see cref="FluentSiteMapHelper"/> instance to render the partial view against.
         /// </param>
-        public static void BreadCrumbs(this FluentSiteMapHelper helper)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void BreadCrumbs(this FluentSiteMapHelper helper, string viewName = "FluentSiteMapBreadCrumbs")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapBreadCrumbs", helper.BreadCrumbsModel);
+            helper.HtmlHelper.RenderPartial(viewName, helper.BreadCrumbsModel);
         }
 
         /// <summary>
@@ -60,9 +72,12 @@ namespace FluentSiteMap.Web
         /// <param name="helper">
         /// The <see cref="FluentSiteMapHelper"/> instance to render the partial view against.
         /// </param>
-        public static void SiteMap(this FluentSiteMapHelper helper)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void SiteMap(this FluentSiteMapHelper helper, string viewName = "FluentSiteMapSiteMap")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapSiteMap", helper.SiteMapModel);
+            helper.HtmlHelper.RenderPartial(viewName, helper.SiteMapModel);
         }
 
         /// <summary>
@@ -74,9 +89,12 @@ namespace FluentSiteMap.Web
         /// <param name="node">
         /// The <see cref="FilteredNode"/> to render.
         /// </param>
-        public static void SiteMapNode(this FluentSiteMapHelper helper, FilteredNode node)
+        /// <param name="viewName">
+        /// An optional view name other than the default.
+        /// </param>
+        public static void SiteMapNode(this FluentSiteMapHelper helper, FilteredNode node, string viewName = "FluentSiteMapSiteMapNode")
         {
-            helper.HtmlHelper.RenderPartial("FluentSiteMapSiteMapNode", node);
+            helper.HtmlHelper.RenderPartial(viewName, node);
         }
     }
 }
