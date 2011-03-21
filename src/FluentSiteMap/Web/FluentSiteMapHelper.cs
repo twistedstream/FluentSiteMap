@@ -43,22 +43,9 @@ namespace FluentSiteMap.Web
         /// <summary>
         /// Gets the model used to render a menu partial view.
         /// </summary>
-        public MenuModelNode MenuModel
+        public FilteredNode MenuModel
         {
-            get
-            {
-                var model = BuildMenuModel(SiteMapHelper.RootNode);
-                return model;
-            }
-        }
-
-        private static MenuModelNode BuildMenuModel(FilteredNode node)
-        {
-            return new MenuModelNode(
-                node, 
-                node.Children
-                    .Where(n => !n.IsHiddenInMenu())
-                    .Select(BuildMenuModel));
+            get { return SiteMapHelper.RootNode; }
         }
 
         /// <summary>

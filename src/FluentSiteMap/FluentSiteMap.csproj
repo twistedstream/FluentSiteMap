@@ -83,7 +83,6 @@
     <Compile Include="Web\FluentSiteMapHelper.cs" />
     <Compile Include="Web\FluentSiteMapHelperExtensions.cs" />
     <Compile Include="Web\HtmlHelperExtensions.cs" />
-    <Compile Include="Web\MenuModelNode.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
