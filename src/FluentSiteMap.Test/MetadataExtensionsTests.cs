@@ -64,24 +64,24 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void SetHiddenInMenu_should_require_a_node_builder()
+        public void HiddenInMenu_should_require_a_node_builder()
         {
             INodeBuilder nodeBuilder = null;
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => nodeBuilder.SetHiddenInMenu());
+                () => nodeBuilder.HiddenInMenu());
 
             Assert.That(ex.ParamName, Is.EqualTo("nodeBuilder"));
         }
 
         [Test]
-        public void SetHiddenInMenu_should_return_a_node_builder_that_sets_the_correct_metadata_value()
+        public void HiddenInMenu_should_return_a_node_builder_that_sets_the_correct_metadata_value()
         {
             // Arrange
             var nodeBuilder = new BaseNodeBuilder();
 
             // Act
-            var result = nodeBuilder.SetHiddenInMenu();
+            var result = nodeBuilder.HiddenInMenu();
 
             // Assert
             var node = result.Build(new BuilderContext(new RequestContext()));
@@ -122,24 +122,24 @@ namespace FluentSiteMap.Test
 
 
         [Test]
-        public void SetHiddenInBreadCrumbs_should_require_a_node_builder()
+        public void HiddenInBreadCrumbs_should_require_a_node_builder()
         {
             INodeBuilder nodeBuilder = null;
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => nodeBuilder.SetHiddenInBreadCrumbs());
+                () => nodeBuilder.HiddenInBreadCrumbs());
 
             Assert.That(ex.ParamName, Is.EqualTo("nodeBuilder"));
         }
 
         [Test]
-        public void SetHiddenInBreadCrumbs_should_return_a_node_builder_that_sets_the_correct_metadata_value()
+        public void HiddenInBreadCrumbs_should_return_a_node_builder_that_sets_the_correct_metadata_value()
         {
             // Arrange
             var nodeBuilder = new BaseNodeBuilder();
 
             // Act
-            var result = nodeBuilder.SetHiddenInBreadCrumbs();
+            var result = nodeBuilder.HiddenInBreadCrumbs();
 
             // Assert
             var node = result.Build(new BuilderContext(new RequestContext()));

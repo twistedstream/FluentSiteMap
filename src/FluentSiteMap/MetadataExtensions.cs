@@ -36,7 +36,7 @@ namespace FluentSiteMap
         /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
         /// so that it will be hidden in a menu.
         /// </summary>
-        public static INodeBuilder SetHiddenInMenu(this INodeBuilder nodeBuilder)
+        public static INodeBuilder HiddenInMenu(this INodeBuilder nodeBuilder)
         {
             if (nodeBuilder == null) throw new ArgumentNullException("nodeBuilder");
 
@@ -62,7 +62,7 @@ namespace FluentSiteMap
         /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
         /// so that it will be hidden in a menu.
         /// </summary>
-        public static INodeBuilder SetHiddenInBreadCrumbs(this INodeBuilder nodeBuilder)
+        public static INodeBuilder HiddenInBreadCrumbs(this INodeBuilder nodeBuilder)
         {
             if (nodeBuilder == null) throw new ArgumentNullException("nodeBuilder");
 

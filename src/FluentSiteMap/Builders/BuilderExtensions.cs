@@ -212,27 +212,5 @@ namespace FluentSiteMap.Builders
         {
             return new MetadataNodeBuilder(inner, key, value);
         }
-
-        /// <summary>
-        /// Generates a <see cref="INodeBuilder"/> that configures a node so that it won't be rendered in a website menu.
-        /// </summary>
-        /// <param name="inner">
-        /// The previous <see cref="INodeBuilder"/> instance in the chain.
-        /// </param>
-        public static INodeBuilder HiddenInMenu(this INodeBuilder inner)
-        {
-            return inner.SetHiddenInMenu();
-        }
-
-        /// <summary>
-        /// Generates a <see cref="INodeBuilder"/> that configures a node so that it won't be rendered in a bread crumbs view.
-        /// </summary>
-        /// <param name="inner">
-        /// The previous <see cref="INodeBuilder"/> instance in the chain.
-        /// </param>
-        public static INodeBuilder HiddenInBreadCrumbs(this INodeBuilder inner)
-        {
-            return inner.SetHiddenInBreadCrumbs();
-        }
     }
 }
