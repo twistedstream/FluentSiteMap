@@ -54,8 +54,8 @@ namespace FluentSiteMap.Test
             Assert.That(child.Title, Is.EqualTo("Account"));
             Assert.That(child.Description, Is.Null);
             Assert.That(child.Url, Is.Null);
-            Assert.That(child.Metadata[MetadataExtensions.HiddenInMenuKey], Is.True);
-            Assert.That(child.Metadata[MetadataExtensions.HiddenInBreadCrumbsKey], Is.True);
+            Assert.That(child.Metadata[HiddenInMenuNodeBuilder.MetadataKey], Is.True);
+            Assert.That(child.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey], Is.True);
             Assert.That(child.Children.Count, Is.EqualTo(3));
 
             var grandChild = child.Children[0];

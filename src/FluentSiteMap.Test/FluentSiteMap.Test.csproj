@@ -56,6 +56,8 @@
     <Compile Include="BaseNodeBuilderTests.cs" />
     <Compile Include="BuilderContextTests.cs" />
     <Compile Include="Builders\ActionNodeBuilderTests.cs" />
+    <Compile Include="Builders\HiddenInBreadCrumbsNodeBuilderTests.cs" />
+    <Compile Include="Builders\HiddenInMenuNodeBuilderTests.cs" />
     <Compile Include="Builders\MetadataNodeBuilderTests.cs" />
     <Compile Include="Builders\DynamicChildNodeBuilderTests.cs" />
     <Compile Include="Builders\StaticChildNodeBuilderTests.cs" />

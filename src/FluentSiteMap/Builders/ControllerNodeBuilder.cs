@@ -34,7 +34,7 @@ namespace FluentSiteMap.Builders
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
-            context.SetMetadata(MetadataExtensions.ControllerKey, _controllerName);
+            context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, _controllerName);
         }
     }
 }

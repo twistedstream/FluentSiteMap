@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using FluentSiteMap.Builders;
 using FluentSiteMap.Web;
 using NUnit.Framework;
 
@@ -110,7 +111,7 @@ namespace FluentSiteMap.Test.Web
 
             currentNode.Parent = parentNode;
             parentNode.Parent = rootNode;
-            parentNode.Metadata[MetadataExtensions.HiddenInBreadCrumbsKey] = true;
+            parentNode.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey] = true;
 
             SiteMapHelper.InjectRootNode(rootNode);
             SiteMapHelper.InjectCurrentNode(currentNode);

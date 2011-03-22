@@ -27,8 +27,8 @@ namespace FluentSiteMap.Test.Builders
 
             _builderContext = new BuilderContext(requestContext);
 
-            _builderContext.SetMetadata(MetadataExtensions.ControllerKey, "foo");
-            _builderContext.SetMetadata(MetadataExtensions.ActionKey, "bar");
+            _builderContext.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
+            _builderContext.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");
 
             _inner = MockRepository.GenerateStub<INodeBuilder>();
             _inner
@@ -60,37 +60,6 @@ namespace FluentSiteMap.Test.Builders
 
             // Assert
             Assert.That(result.Url, Is.EqualTo("/foo/bar/baz"));
-        }
-
-        [Test]
-        public void OnBuild_should_set_the_controller_and_action_node_metadata_values()
-        {
-            // Arrange
-            var target = new UrlFromMvcNodeBuilder(_inner, null);
-
-            // Act
-            var result = target.Build(_builderContext);
-
-            // Assert
-            Assert.That(result.Metadata[MetadataExtensions.ControllerKey], Is.EqualTo("foo"));
-            Assert.That(result.Metadata[MetadataExtensions.ActionKey], Is.EqualTo("bar"));
-        }
-
-        [Test]
-        public void OnBuild_should_set_the_route_values_node_metadata_value_if_specified()
-        {
-            // Arrange
-            var routeValues = new {id = "baz"};
-            var target = new UrlFromMvcNodeBuilder(_inner, routeValues);
-
-            // Act
-            var result = target.Build(_builderContext);
-
-            // Assert
-            Assert.That(result.Metadata[MetadataExtensions.ControllerKey], Is.EqualTo("foo"));
-            Assert.That(result.Metadata[MetadataExtensions.ActionKey], Is.EqualTo("bar"));
-            var convertedRouteValues = (IDictionary<string, object>) result.Metadata[MetadataExtensions.RouteValuesKey];
-            Assert.That(convertedRouteValues["id"], Is.EqualTo("baz"));
         }
     }
 }
