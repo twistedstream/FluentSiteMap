@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace FluentSiteMap.Test
 {
@@ -158,24 +157,119 @@ namespace FluentSiteMap.Test
             Assert.That(ex.ParamName, Is.EqualTo("node"));
         }
 
-
         [Test]
         public void IsHiddenInBreadCrumbs_should_return_the_metadata_value()
         {
             // Arrange
             var node = new FilteredNode
-            {
-                Metadata = new Dictionary<string, object>
+                           {
+                               Metadata = new Dictionary<string, object>
                                               {
                                                   {MetadataExtensions.HiddenInBreadCrumbsKey, true}
                                               }
-            };
+                           };
 
             // Act
             var result = node.IsHiddenInBreadCrumbs();
 
             // Assert
             Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void ControllerName_should_require_a_node()
+        {
+            FilteredNode node = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => node.ControllerName());
+
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
+        }
+
+        [Test]
+        public void ControllerName_should_return_the_controller_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Metadata = new Dictionary<string, object>
+                                              {
+                                                  {MetadataExtensions.ControllerKey, "foo"}
+                                              }
+                           };
+
+            // Act
+            var result = node.ControllerName();
+
+            // Assert
+            Assert.That(result, Is.EqualTo("foo"));
+        }
+
+        [Test]
+        public void ActionName_should_require_a_node()
+        {
+            FilteredNode node = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => node.ActionName());
+
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
+        }
+
+        [Test]
+        public void ActionName_should_return_the_action_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Metadata = new Dictionary<string, object>
+                                              {
+                                                  {MetadataExtensions.ActionKey, "bar"}
+                                              }
+                           };
+
+            // Act
+            var result = node.ActionName();
+
+            // Assert
+            Assert.That(result, Is.EqualTo("bar"));
+        }
+
+        [Test]
+        public void RouteValues_should_require_a_node()
+        {
+            FilteredNode node = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => node.RouteValues());
+
+            Assert.That(ex.ParamName, Is.EqualTo("node"));
+        }
+
+        [Test]
+        public void RouteValues_should_return_the_route_values_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Metadata = new Dictionary<string, object>
+                                              {
+                                                  {
+                                                      MetadataExtensions.RouteValuesKey,
+                                                      new Dictionary<string, object>
+                                                          {
+                                                              {"id", "baz"}
+                                                          }
+                                                      }
+                                              }
+                           };
+
+            // Act
+            var result = node.RouteValues();
+
+            // Assert
+            Assert.That(result["id"], Is.EqualTo("baz"));
         }
     }
 }

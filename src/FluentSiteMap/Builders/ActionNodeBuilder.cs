@@ -9,11 +9,6 @@ namespace FluentSiteMap.Builders
     public class ActionNodeBuilder
         : DecoratingNodeBuilder
     {
-        /// <summary>
-        /// The key used to store the action name in the <see cref="BuilderContext"/> metadata.
-        /// </summary>
-        public const string ActionMetadataKey = "action";
-
         private readonly string _actionName;
 
         /// <summary>
@@ -39,7 +34,7 @@ namespace FluentSiteMap.Builders
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
-            context.SetMetadata(ActionMetadataKey, _actionName);
+            context.SetMetadata(MetadataExtensions.ActionKey, _actionName);
         }
     }
 }

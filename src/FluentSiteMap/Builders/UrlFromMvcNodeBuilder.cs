@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 
 namespace FluentSiteMap.Builders
 {
@@ -34,13 +35,24 @@ namespace FluentSiteMap.Builders
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
-            var controller = context.GetMetadata<string>(ControllerNodeBuilder.ControllerMetadataKey);
-            var action = context.GetMetadata<string>(ActionNodeBuilder.ActionMetadataKey);
+            var controller = context.GetMetadata<string>(MetadataExtensions.ControllerKey);
+            var action = context.GetMetadata<string>(MetadataExtensions.ActionKey);
 
+            // set URL
             var urlHelper = new UrlHelper(context.RequestContext);
             node.Url = _routeValues == null
                            ? urlHelper.Action(action, controller)
                            : urlHelper.Action(action, controller, _routeValues);
+
+            // set controller and action metadata values
+            node.Metadata[MetadataExtensions.ControllerKey] = controller;
+            node.Metadata[MetadataExtensions.ActionKey] = action;
+            // set route values metadata value, converting the anonymous type to a dictionary
+            if (_routeValues != null)
+                node.Metadata[MetadataExtensions.RouteValuesKey] = _routeValues
+                    .GetType()
+                    .GetProperties()
+                    .ToDictionary(p => p.Name, p => p.GetValue(_routeValues, null));
         }
     }
 }

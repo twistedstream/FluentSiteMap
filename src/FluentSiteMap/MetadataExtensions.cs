@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
@@ -28,7 +30,7 @@ namespace FluentSiteMap
         /// <summary>
         /// The metadata key used to store whether or not a node is hidden in a menu.
         /// </summary>
-        public const string HiddenInMenuKey = "HiddenInMenu";
+        public const string HiddenInMenuKey = "hidden-in-menu";
 
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
@@ -54,7 +56,7 @@ namespace FluentSiteMap
         /// <summary>
         /// The metadata key used to store whether or not a node is hidden in a bread crumbs view.
         /// </summary>
-        public const string HiddenInBreadCrumbsKey = "HiddenInBreadCrumbs";
+        public const string HiddenInBreadCrumbsKey = "hidden-in-bread-crumbs";
 
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> instance that configures the node 
@@ -75,6 +77,51 @@ namespace FluentSiteMap
             if (node == null) throw new ArgumentNullException("node");
 
             return node.GetMetadataValue<bool>(HiddenInBreadCrumbsKey);
+        }
+
+        /// <summary>
+        /// The key used to store the controller name in metadata.
+        /// </summary>
+        public const string ControllerKey = "controller";
+
+        /// <summary>
+        /// Gets the controller name associated with the specified node.
+        /// </summary>
+        public static string ControllerName(this FilteredNode node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return node.GetMetadataValue<string>(ControllerKey);
+        }
+
+        /// <summary>
+        /// The key used to store the action name in metadata.
+        /// </summary>
+        public const string ActionKey = "action";
+
+        /// <summary>
+        /// Gets the action name associated with the specified node.
+        /// </summary>
+        public static string ActionName(this FilteredNode node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return node.GetMetadataValue<string>(ActionKey);
+        }
+
+        /// <summary>
+        /// The key used to store route values in metadata.
+        /// </summary>
+        public const string RouteValuesKey = "route-values";
+
+        /// <summary>
+        /// Gets the action name associated with the specified node.
+        /// </summary>
+        public static IDictionary<string, object> RouteValues(this FilteredNode node)
+        {
+            if (node == null) throw new ArgumentNullException("node");
+
+            return node.GetMetadataValue<IDictionary<string, object>>(RouteValuesKey);
         }
     }
 }
