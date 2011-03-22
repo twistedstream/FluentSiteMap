@@ -17,7 +17,7 @@ namespace FluentSiteMap
         /// <param name="filters">
         /// The filters that will be applied to this node during filtering.
         /// </param>
-        internal Node(IList<INodeFilter> filters)
+        public Node(IList<INodeFilter> filters)
         {
             if (filters == null) throw new ArgumentNullException("filters");
 
