@@ -6,7 +6,7 @@ namespace FluentSiteMap
     /// A <see cref="INodeBuilder"/> class whose instance 
     /// is the base for a chain of decorator <see cref="INodeBuilder"/> instances.
     /// </summary>
-    internal sealed class BaseNodeBuilder
+    public sealed class BaseNodeBuilder
         : INodeBuilder
     {
         private readonly IList<INodeFilter> _filters = new List<INodeFilter>();
