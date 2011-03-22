@@ -64,6 +64,56 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
+        public void GetMetadataValue_should_return_a_default_value_if_the_key_exists_in_ancestor_but_recursion_is_disabled()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Parent = new FilteredNode
+                                            {
+                                                Parent = new FilteredNode
+                                                             {
+                                                                 Metadata = new Dictionary<string, object>
+                                                                                {
+                                                                                    {"foo", "bar"}
+                                                                                }
+                                                             }
+                                            }
+                           };
+
+            // Act
+            var result = node.GetMetadataValue<string>("foo", false);
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void GetMetadataValue_should_return_a_value_if_the_key_exists_in_ancestor()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Parent = new FilteredNode
+                                            {
+                                                Parent = new FilteredNode
+                                                             {
+                                                                 Metadata = new Dictionary<string, object>
+                                                                                {
+                                                                                    {"foo", "bar"}
+                                                                                }
+                                                             }
+                                            }
+                           };
+
+            // Act
+            var result = node.GetMetadataValue<string>("foo");
+
+            // Assert
+            Assert.That(result, Is.EqualTo("bar"));
+        }
+
+        [Test]
         public void HiddenInMenu_should_require_a_node_builder()
         {
             INodeBuilder nodeBuilder = null;
@@ -174,6 +224,29 @@ namespace FluentSiteMap.Test
 
             // Assert
             Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void IsHiddenInBreadCrumbs_should_not_return_an_ancestor_metadata_value()
+        {
+            // Arrange
+            var node = new FilteredNode
+                           {
+                               Parent =
+                                   new FilteredNode
+                                       {
+                                           Metadata = new Dictionary<string, object>
+                                                          {
+                                                              {MetadataExtensions.HiddenInBreadCrumbsKey, true}
+                                                          }
+                                       }
+                           };
+
+            // Act
+            var result = node.IsHiddenInBreadCrumbs();
+
+            // Assert
+            Assert.That(result, Is.False);
         }
 
         [Test]

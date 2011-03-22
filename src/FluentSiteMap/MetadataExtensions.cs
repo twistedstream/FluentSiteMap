@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using FluentSiteMap.Builders;
 
 namespace FluentSiteMap
@@ -11,20 +10,36 @@ namespace FluentSiteMap
     public static class MetadataExtensions
     {
         /// <summary>
-        /// Gets a strongly-typed metadata value from the specified <see cref="FilteredNode"/>.
+        /// Gets a strongly-typed metadata value from the specified <see cref="FilteredNode"/> 
+        /// or one of its ancestors.
         /// </summary>
         /// <typeparam name="T">
         /// The type of the metadata value.
         /// </typeparam>
-        public static T GetMetadataValue<T>(this FilteredNode node, string key)
+        /// <param name="node">
+        /// The node to examine.
+        /// </param>
+        /// <param name="key">
+        /// The key of the metadata value to obtain.
+        /// </param>
+        /// <param name="recursive">
+        /// True (default) to search ancestor nodes if the value is not found in <paramref name="node"/>.
+        /// </param>
+        public static T GetMetadataValue<T>(this FilteredNode node, string key, bool recursive = true)
         {
             if (node == null) throw new ArgumentNullException("node");
             if (key == null) throw new ArgumentNullException("key");
 
-            if (!node.Metadata.ContainsKey(key))
-                return default(T);
+            if (recursive)
+                while (node != null && !node.Metadata.ContainsKey(key))
+                    node = node.Parent;
+            
+            else if (!node.Metadata.ContainsKey(key))
+                node = null;
 
-            return (T)node.Metadata[key];
+            return node == null
+                       ? default(T)
+                       : (T) node.Metadata[key];
         }
 
         /// <summary>
@@ -76,7 +91,7 @@ namespace FluentSiteMap
         {
             if (node == null) throw new ArgumentNullException("node");
 
-            return node.GetMetadataValue<bool>(HiddenInBreadCrumbsKey);
+            return node.GetMetadataValue<bool>(HiddenInBreadCrumbsKey, false);
         }
 
         /// <summary>
