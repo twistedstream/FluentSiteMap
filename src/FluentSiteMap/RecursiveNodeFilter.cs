@@ -30,10 +30,19 @@ namespace FluentSiteMap
             if (soureNodes == null) throw new ArgumentNullException("soureNodes");
             if (context == null) throw new ArgumentNullException("context");
 
+            var keyIndex = 0;
             foreach (var node in soureNodes)
             {
+                // generate node key
+                const string pathDelimiter = "/";
+                var key = parent == null
+                    ? pathDelimiter
+                    : parent.Key + (parent.Key.EndsWith(pathDelimiter) ? string.Empty : pathDelimiter) + keyIndex;
+                keyIndex++;
+
                 var filteredNode = new FilteredNode
                                        {
+                                           Key = key,
                                            Title = node.Title,
                                            Description = node.Description,
                                            Url = node.Url,

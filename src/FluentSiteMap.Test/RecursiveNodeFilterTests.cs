@@ -206,5 +206,36 @@ namespace FluentSiteMap.Test
             // Assert
             Assert.That(result, Is.Null);
         }
+
+        [Test]
+        public void Filter_should_generate_nodes_with_the_expected_keys()
+        {
+            // Arrange            
+            _rootNode = new Node(new INodeFilter[] {})
+                            {
+                                Children = new[]
+                                               {
+                                                   new Node(new INodeFilter[] {}),
+                                                   new Node(new INodeFilter[] {})
+                                                       {
+                                                           Children = new[]
+                                                                          {
+                                                                              new Node(new INodeFilter[] {}),
+                                                                          },
+                                                       }
+                                               }
+                            };
+
+            IRecursiveNodeFilter target = new RecursiveNodeFilter();
+
+            // Act
+            var result = target.Filter(_context, _rootNode);
+
+            // Assert
+            Assert.That(result.Key, Is.EqualTo("/"));
+            Assert.That(result.Children[0].Key, Is.EqualTo("/0"));
+            Assert.That(result.Children[1].Key, Is.EqualTo("/1"));
+            Assert.That(result.Children[1].Children[0].Key, Is.EqualTo("/1/0"));
+        }
     }
 }

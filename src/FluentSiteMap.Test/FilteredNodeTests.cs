@@ -40,5 +40,18 @@ namespace FluentSiteMap.Test
             Assert.Throws<ArgumentNullException>(
                 () => target.Metadata = null);
         }
+
+        [Test]
+        public void Instances_should_be_equatable_by_key()
+        {
+            var node1 = new FilteredNode {Key = "foo"};
+            var node2 = new FilteredNode {Key = "foo"};
+
+            // test object.Equals
+            Assert.That(node1, Is.EqualTo(node2));
+
+            // test IEquatable<T>
+            Assert.That(node1.Equals(node2));
+        }
     }
 }

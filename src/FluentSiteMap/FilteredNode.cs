@@ -9,7 +9,13 @@ namespace FluentSiteMap
     /// </summary>
     [DebuggerDisplay("Title = {Title}, Url = {Url}, IsCurrent = {IsCurrent}")]
     public class FilteredNode
+        : IEquatable<FilteredNode>
     {
+        /// <summary>
+        /// Gets or sets the unique key of the node.
+        /// </summary>
+        public string Key { get; set; }
+
         /// <summary>
         /// Gets or sets the node title.
         /// </summary>
@@ -66,5 +72,39 @@ namespace FluentSiteMap
                 _metadata = value;
             }
         }
+
+        #region IEquatable<T> implementation
+
+        /// <summary>
+        /// Implements the <see cref="IEquatable{T}.Equals(T)"/> method.
+        /// </summary>
+        public bool Equals(FilteredNode other)
+        {
+            if (other == null)
+                return false;
+
+            return other.Key == Key;
+        }
+
+        /// <summary>
+        /// Overrides the <see cref="object.Equals(object)"/> 
+        /// in order to properly implement <see cref="IEquatable{T}"/>.
+        /// </summary>
+        public override bool Equals(object obj)
+        {
+            var other = obj as FilteredNode;
+            return Equals(other);
+        }
+
+        /// <summary>
+        /// Overrides the <see cref="object.GetHashCode()"/> 
+        /// in order to properly implement <see cref="IEquatable{T}"/>.
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return Key.GetHashCode();
+        }
+
+        #endregion
     }
 }
