@@ -144,6 +144,17 @@ namespace FluentSiteMap.Test
             Assert.That(result, Is.True);
         }
 
+
+        [Test]
+        public void IsHiddenInMenu_should_return_false_if_the_metadata_value_is_missing()
+        {
+            var node = new FilteredNode();
+
+            var result = node.IsHiddenInMenu();
+
+            Assert.That(result, Is.False);
+        }
+
         [Test]
         public void IsHiddenInBreadCrumbs_should_require_a_node()
         {
@@ -194,6 +205,16 @@ namespace FluentSiteMap.Test
             var result = node.IsHiddenInBreadCrumbs();
 
             // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void IsHiddenInBreadCrumbs_should_return_false_if_the_metadata_value_is_missing()
+        {
+            var node = new FilteredNode();
+
+            var result = node.IsHiddenInBreadCrumbs();
+
             Assert.That(result, Is.False);
         }
     }
