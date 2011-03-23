@@ -34,9 +34,9 @@ namespace FluentSiteMap
         {
             if (siteMap == null) throw new ArgumentNullException("siteMap");
 
-            var recursiveNodeFilter = _mockRecursiveNodeFilter ?? new RecursiveNodeFilter();
+            var recursiveNodeFilter = _stubRecursiveNodeFilter ?? new RecursiveNodeFilter();
 
-            var defaultFilterProvider = _mockDefaultFilterProvider ?? new DefaultFilterProvider();
+            var defaultFilterProvider = _stubDefaultFilterProvider ?? new DefaultFilterProvider();
 
             _coordinator = new SiteMapCoordinator(recursiveNodeFilter, defaultFilterProvider, siteMap);
         }
@@ -49,7 +49,7 @@ namespace FluentSiteMap
             get
             {
                 // return mock node if it's set
-                if (_mockRootNode != null) return _mockRootNode;
+                if (_stubRootNode != null) return _stubRootNode;
 
                 // build concrete HTTP request context
                 var requestContext = BuildRequestContext();
@@ -68,7 +68,7 @@ namespace FluentSiteMap
             get
             {
                 // return mock node if it's set
-                if (_mockCurrentNode != null) return _mockCurrentNode;
+                if (_stubCurrentNode != null) return _stubCurrentNode;
 
                 // build concrete HTTP request context
                 var requestContext = BuildRequestContext();
@@ -83,8 +83,8 @@ namespace FluentSiteMap
         {
             HttpContextBase httpContext;
 
-            if (_mockHttpContext != null)
-                httpContext = _mockHttpContext;
+            if (_stubHttpContext != null)
+                httpContext = _stubHttpContext;
 
             else
             {
@@ -114,39 +114,51 @@ namespace FluentSiteMap
 
         #region Unit test support
 
-        private static FilteredNode _mockRootNode;
-        internal static void InjectRootNode(FilteredNode rootNode)
+        private static FilteredNode _stubRootNode;
+        /// <summary>
+        /// Used by unit tests to inject a stubbed root node.
+        /// </summary>
+        public static void InjectRootNode(FilteredNode rootNode)
         {
-            _mockRootNode = rootNode;
+            _stubRootNode = rootNode;
         }
 
-        private static FilteredNode _mockCurrentNode;
-        internal static void InjectCurrentNode(FilteredNode currentNode)
+        private static FilteredNode _stubCurrentNode;
+        /// <summary>
+        /// Used by unit tests to inject a stubbed current node.
+        /// </summary>
+        public static void InjectCurrentNode(FilteredNode currentNode)
         {
-            _mockCurrentNode = currentNode;
+            _stubCurrentNode = currentNode;
         }
 
-        private static HttpContextBase _mockHttpContext;
-        internal static void InjectHttpContext(HttpContextBase httpContext)
+        private static HttpContextBase _stubHttpContext;
+        /// <summary>
+        /// Used by unit tests to inject a stubbed HTTP context.
+        /// </summary>
+        public static void InjectHttpContext(HttpContextBase httpContext)
         {
-            _mockHttpContext = httpContext;
+            _stubHttpContext = httpContext;
         }
 
-        internal static void ClearCoordinator()
+        /// <summary>
+        /// Used by unit tests to clear the coordinator instance.
+        /// </summary>
+        public static void ClearCoordinator()
         {
             _coordinator = null;
         }
 
-        private static IRecursiveNodeFilter _mockRecursiveNodeFilter;
+        private static IRecursiveNodeFilter _stubRecursiveNodeFilter;
         internal static void InjectRecursiveNodeFilter(IRecursiveNodeFilter recursiveNodeFilter)
         {
-            _mockRecursiveNodeFilter = recursiveNodeFilter;
+            _stubRecursiveNodeFilter = recursiveNodeFilter;
         }
 
-        private static IDefaultFilterProvider _mockDefaultFilterProvider;
+        private static IDefaultFilterProvider _stubDefaultFilterProvider;
         internal static void InjectDefaultFilterProvider(IDefaultFilterProvider defaultFilterProvider)
         {
-            _mockDefaultFilterProvider = defaultFilterProvider;
+            _stubDefaultFilterProvider = defaultFilterProvider;
         }
 
         #endregion
