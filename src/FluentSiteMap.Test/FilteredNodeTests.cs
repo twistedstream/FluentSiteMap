@@ -53,5 +53,18 @@ namespace FluentSiteMap.Test
             // test IEquatable<T>
             Assert.That(node1.Equals(node2));
         }
+
+        [Test]
+        public void Instances_should_not_be_equal_if_they_have_null_keys()
+        {
+            var node1 = new FilteredNode();
+            var node2 = new FilteredNode();
+
+            // test object.Equals
+            Assert.That(node1, Is.Not.EqualTo(node2));
+
+            // test IEquatable<T>
+            Assert.That(!node1.Equals(node2));
+        }
     }
 }

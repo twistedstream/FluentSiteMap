@@ -83,7 +83,10 @@ namespace FluentSiteMap
             if (other == null)
                 return false;
 
-            return other.Key == Key;
+            if (other.Key != null && Key != null)
+                return other.Key == Key;
+
+            return (ReferenceEquals(other, this));
         }
 
         /// <summary>
@@ -102,7 +105,9 @@ namespace FluentSiteMap
         /// </summary>
         public override int GetHashCode()
         {
-            return Key.GetHashCode();
+            return Key == null
+                       ? base.GetHashCode()
+                       : Key.GetHashCode();
         }
 
         #endregion
