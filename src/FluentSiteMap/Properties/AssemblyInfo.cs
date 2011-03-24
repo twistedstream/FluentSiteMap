@@ -9,3 +9,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("91022af9-0f14-4f75-ba13-fefee70f3273")]
 
 [assembly: InternalsVisibleTo("FluentSiteMap.Test")]
+[assembly: InternalsVisibleTo("FluentSiteMap.Testing")]
