@@ -91,6 +91,10 @@
       <Project>{164AD247-437D-410B-A260-ACAF21C7A439}</Project>
       <Name>FluentSiteMap.Sample</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluentSiteMap.Testing\FluentSiteMap.Testing.csproj">
+      <Project>{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}</Project>
+      <Name>FluentSiteMap.Testing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentSiteMap\FluentSiteMap.csproj">
       <Project>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</Project>
       <Name>FluentSiteMap</Name>
