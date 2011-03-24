@@ -1,18 +1,28 @@
 ﻿using System;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 
 namespace FluentSiteMap.Test.Builders
 {
     [TestFixture]
     public class MetadataNodeBuilderTests
-        : NodeBuilderTestBase
+        : TestBase
     {
+        private DecoratingNodeBuilderTestHelper _helper;
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            _helper = new DecoratingNodeBuilderTestHelper();
+        }
+
         [Test]
         public void Instances_should_require_a_key()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new MetadataNodeBuilder(InnerBuilder, null, null));
+                () => new MetadataNodeBuilder(_helper.InnerBuilder, null, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
@@ -21,10 +31,10 @@ namespace FluentSiteMap.Test.Builders
         public void OnBuild_should_set_the_node_metadata()
         {
             // Arrange
-            var target = new MetadataNodeBuilder(InnerBuilder, "foo", "bar");
+            var target = new MetadataNodeBuilder(_helper.InnerBuilder, "foo", "bar");
 
             // Act
-            var result = target.Build(Context);
+            var result = target.Build(_helper.Context);
 
             // Assert
             Assert.That(result.Metadata["foo"], Is.EqualTo("bar"));

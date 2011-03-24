@@ -1,18 +1,28 @@
 ﻿using System;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 
 namespace FluentSiteMap.Test.Builders
 {
     [TestFixture]
     public class UrlNodeBuilderTests
-        : NodeBuilderTestBase
+        : TestBase
     {
+        private DecoratingNodeBuilderTestHelper _helper;
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            _helper = new DecoratingNodeBuilderTestHelper();
+        }
+
         [Test]
         public void Instances_should_require_a_url_generator()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new UrlNodeBuilder(InnerBuilder, null));
+                () => new UrlNodeBuilder(_helper.InnerBuilder, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("urlGenerator"));
         }
@@ -23,10 +33,10 @@ namespace FluentSiteMap.Test.Builders
             // Arrange
             Func<Node, string> urlGenerator = n => "/foo";
 
-            var target = new UrlNodeBuilder(InnerBuilder, urlGenerator);
+            var target = new UrlNodeBuilder(_helper.InnerBuilder, urlGenerator);
 
             // Act
-            var result = target.Build(Context);
+            var result = target.Build(_helper.Context);
 
             // Assert
             Assert.That(result.Url, Is.EqualTo("/foo"));

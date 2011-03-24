@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -8,8 +9,10 @@ namespace FluentSiteMap.Test.Builders
 {
     [TestFixture]
     public class StaticChildNodeBuilderTests
-        : NodeBuilderTestBase
+        : TestBase
     {
+        private DecoratingNodeBuilderTestHelper _helper;
+
         private Node _childNode;
         private INodeBuilder _childBuilder;
 
@@ -17,10 +20,12 @@ namespace FluentSiteMap.Test.Builders
         {
             base.Setup();
 
+            _helper = new DecoratingNodeBuilderTestHelper();
+
             _childNode = new Node(new List<INodeFilter>());
             _childBuilder = MockRepository.GenerateStub<INodeBuilder>();
             _childBuilder
-                .Stub(b => b.Build(Arg<BuilderContext>.Matches(c => c.Parent.Equals(Context))))
+                .Stub(b => b.Build(Arg<BuilderContext>.Matches(c => c.Parent.Equals(_helper.Context))))
                 .Return(_childNode);
         }
 
@@ -28,7 +33,7 @@ namespace FluentSiteMap.Test.Builders
         public void Instances_should_require_child_builders()
         {
             var ex = Assert.Throws<ArgumentNullException>(
-                () => new StaticChildNodeBuilder(InnerBuilder, null));
+                () => new StaticChildNodeBuilder(_helper.InnerBuilder, null));
 
             Assert.That(ex.ParamName, Is.EqualTo("childBuilders"));
         }
@@ -39,10 +44,10 @@ namespace FluentSiteMap.Test.Builders
             // Arrange
             var childBuilders = new[] {_childBuilder};
 
-            var target = new StaticChildNodeBuilder(InnerBuilder, childBuilders);
+            var target = new StaticChildNodeBuilder(_helper.InnerBuilder, childBuilders);
 
             // Act
-            var result = target.Build(Context);
+            var result = target.Build(_helper.Context);
 
             // Assert
             Assert.That(result.Children.Count, Is.EqualTo(1));
@@ -56,14 +61,14 @@ namespace FluentSiteMap.Test.Builders
             // Arrange
             var childBuilders = new[] { _childBuilder };
 
-            var target = new StaticChildNodeBuilder(InnerBuilder, childBuilders);
+            var target = new StaticChildNodeBuilder(_helper.InnerBuilder, childBuilders);
 
             // Act
-            var result = target.Build(Context);
+            var result = target.Build(_helper.Context);
 
             // Assert
             var child = result.Children[0];
-            Assert.That(child.Parent, Is.EqualTo(InnerNode));
+            Assert.That(child.Parent, Is.EqualTo(_helper.InnerNode));
         }
     }
 }
