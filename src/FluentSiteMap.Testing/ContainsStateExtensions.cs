@@ -129,9 +129,9 @@ namespace FluentSiteMap.Testing
 
             // expected is not contained within actual
             return new ContainsStateResult(location,
-                                           "Actual value '{0}' is not equal to expected value '{1}'.",
-                                           actual,
-                                           expected);
+                                           "Actual value {0} is not equal to expected value {1}.",
+                                           actual.FailMessageFormatted(),
+                                           expected.FailMessageFormatted());
         }
 
         private static string Append(this string location, object value)
@@ -139,6 +139,18 @@ namespace FluentSiteMap.Testing
             return string.Concat(location,
                                  location.EndsWith(LocationDelimiter) ? string.Empty : LocationDelimiter,
                                  value);
+        }
+
+        private static string FailMessageFormatted(this object value)
+        {
+            if (value == null)
+                return "{null}";
+
+            var stringValue = value as string;
+            if (stringValue != null)
+                return "'" + stringValue + "'";
+
+            return value.ToString();
         }
     }
 }

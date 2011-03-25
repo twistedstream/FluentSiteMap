@@ -30,10 +30,8 @@ namespace FluentSiteMap.Testing.Test
             Assert.That(result.Success, Is.True);
         }
 
-        private static object[] _primitiveAndSimpleObjectNotEqualCases =
+        private static object[] _primitiveObjectNotEqualCases =
             {
-                // primitive types:
-
                 // bool
                 new object[] {true, false},
                 new object[] {(bool?) true, (bool?) false},
@@ -87,23 +85,43 @@ namespace FluentSiteMap.Testing.Test
                 new object[] {(float?) 1, (float?) 2},
                 new object[] {(float) 1, (float) 2},
                 new object[] {(float?) 1, (float?) 2},
-
-                // simple types:
-
-                new object[] {"foo", "bar"},
             };
 
         [Test]
-        [TestCaseSource("_primitiveAndSimpleObjectNotEqualCases")]
-        public void ContainsState_should_fail_if_primative_or_simple_objects_are_not_equal(object actual, object expected)
+        [TestCaseSource("_primitiveObjectNotEqualCases")]
+        public void ContainsState_should_fail_if_primative_objects_are_not_equal(object actual, object expected)
         {
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            var expectedFailReason = string.Format("/: Actual value '{0}' is not equal to expected value '{1}'.",
+            var expectedFailReason = string.Format("/: Actual value {0} is not equal to expected value {1}.",
                                                    actual,
                                                    expected);
             Assert.That(result.FailReason, Is.EqualTo(expectedFailReason));
+        }
+
+        [Test]
+        public void ContainsState_should_fail_if_strings_are_not_equal()
+        {
+            object actual = "foo";
+            object expected = "bar";
+
+            var result = actual.ContainsState(expected);
+
+            Assert.That(result.Success, Is.False);
+            Assert.That(result.FailReason, Is.EqualTo("/: Actual value 'foo' is not equal to expected value 'bar'."));
+        }
+
+        [Test]
+        public void ContainsState_should_format_nulls_correctly_in_the_fail_message()
+        {
+            object actual = "foo";
+            object expected = null;
+
+            var result = actual.ContainsState(expected);
+
+            Assert.That(result.Success, Is.False);
+            Assert.That(result.FailReason, Is.EqualTo("/: Actual value 'foo' is not equal to expected value {null}."));
         }
 
         [Test]
