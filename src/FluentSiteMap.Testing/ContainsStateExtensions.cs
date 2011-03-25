@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentSiteMap.Testing
@@ -25,8 +27,15 @@ namespace FluentSiteMap.Testing
         /// </remarks>
         public static ContainsStateResult ContainsState(this object actual, object expected)
         {
-            return actual.ContainsState(expected, string.Empty);
+            return actual.ContainsState(expected, LocationDelimiter);
         }
+
+        private const string LocationDelimiter = "/";
+
+        private static readonly HashSet<Type> SimpleTypes = new HashSet<Type>
+                                                                {
+                                                                    typeof (string)
+                                                                };
 
         private static ContainsStateResult ContainsState(this object actual, object expected, string location)
         {
@@ -34,65 +43,102 @@ namespace FluentSiteMap.Testing
             if (Equals(actual, expected))
                 return new ContainsStateResult();
 
-            // check for collection equality
-            var actualEnumerable = actual as IEnumerable;
-            var expectedEnumerable = expected as IEnumerable;
-            if (actualEnumerable != null && expectedEnumerable != null)
-            {
-                var expectedEnumerator = expectedEnumerable.GetEnumerator();
-                var actualEnumerator = expectedEnumerable.GetEnumerator();
-                var index = 0;
-
-                while (expectedEnumerator.MoveNext())
-                {
-                    // actual collection not big enough
-                    if (!actualEnumerator.MoveNext())
-                        return new ContainsStateResult(location,
-                                                       "Actual collection is not as large as expected.  Size exceeded at index {1}.",
-                                                       index);
-
-                    // compare collection items
-                    var result = actualEnumerator.Current.ContainsState(expectedEnumerator.Current,
-                                                                        location + "/" + index);
-                    if (!result.Success)
-                        return result;
-
-                    index++;
-                }
-            }
-
-            // check for property equality
+            // only continue more complex examination if both values are not null
             if (actual != null && expected != null)
             {
-                var actualProperties = actual.GetType().GetProperties().ToDictionary(p => p.Name);
-                var expectedProperties = expected.GetType().GetProperties();
+                var actualType = actual.GetType();
+                var expectedType = expected.GetType();
 
-                foreach (var expectedProperty in expectedProperties)
+                // only continue more complex examination if object is not a primitive or simple type
+                if (!expectedType.IsPrimitive
+                    &&
+                    // Nullable of primitive type
+                    !(expectedType.IsGenericType && Equals(expectedType.GetGenericTypeDefinition(), typeof (Nullable<>)) &&
+                      expectedType.GetGenericArguments()[0].IsPrimitive)
+                    &&
+                    // one of the simple types
+                    !SimpleTypes.Contains(expectedType))
                 {
-                    var propertyLocation = location + "/" + expectedProperty.Name;
 
-                    // actual property doesn't exist
-                    if (!actualProperties.ContainsKey(expectedProperty.Name))
-                        return new ContainsStateResult(propertyLocation, 
-                            "Actual property is missing.");
+                    // check for collection equality
+                    if (!(actual is string) && !(expected is string))
+                    {
+                        var actualEnumerable = actual as IEnumerable;
+                        var expectedEnumerable = expected as IEnumerable;
+                        if (actualEnumerable != null && expectedEnumerable != null)
+                        {
+                            var actualEnumerator = actualEnumerable.GetEnumerator();
+                            var expectedEnumerator = expectedEnumerable.GetEnumerator();
+                            var index = 0;
 
-                    // compare property values
-                    var actualProperty = actualProperties[expectedProperty.Name];
-                    var actualValue = actualProperty.GetValue(actual, null);
-                    var expectedValue = expectedProperty.GetValue(expected, null);
+                            while (expectedEnumerator.MoveNext())
+                            {
+                                // actual collection not big enough
+                                if (!actualEnumerator.MoveNext())
+                                    return new ContainsStateResult(location,
+                                                                   "Actual collection (size = {0}) is smaller than expected collection.",
+                                                                   index);
 
-                    var result = actualValue.ContainsState(expectedValue,
-                                                           propertyLocation);
-                    if (!result.Success)
-                        return result;
+                                // compare collection items
+                                var result = actualEnumerator.Current.ContainsState(expectedEnumerator.Current,
+                                                                                    location.Append(index));
+                                if (!result.Success)
+                                    return result;
+
+                                index++;
+                            }
+
+                            // make sure actual collection doesn't contain any more items
+                            if (actualEnumerator.MoveNext())
+                                return new ContainsStateResult(location,
+                                                               "Actual collection is larger than expected collection (size = {0}).",
+                                                               index);
+
+                            // collections were equal
+                            return new ContainsStateResult();
+                        }
+                    }
+
+                    // check for property equality
+                    var actualProperties = actualType.GetProperties().ToDictionary(p => p.Name);
+                    var expectedProperties = expectedType.GetProperties();
+
+                    foreach (var expectedProperty in expectedProperties)
+                    {
+                        // actual property doesn't exist
+                        if (!actualProperties.ContainsKey(expectedProperty.Name))
+                            return new ContainsStateResult(location,
+                                                           "Expected property '{0}' is missing in actual object.",
+                                                           expectedProperty.Name);
+
+                        // compare property values
+                        var actualProperty = actualProperties[expectedProperty.Name];
+                        var actualValue = actualProperty.GetValue(actual, null);
+                        var expectedValue = expectedProperty.GetValue(expected, null);
+
+                        var result = actualValue.ContainsState(expectedValue,
+                                                               location.Append(expectedProperty.Name));
+                        if (!result.Success)
+                            return result;
+                    }
+
+                    // properties were equal
+                    return new ContainsStateResult();
                 }
             }
 
             // expected is not contained within actual
             return new ContainsStateResult(location,
-                                           "Actual value '{1}' is not equal to expected value '{2}'.",
+                                           "Actual value '{0}' is not equal to expected value '{1}'.",
                                            actual,
                                            expected);
+        }
+
+        private static string Append(this string location, object value)
+        {
+            return string.Concat(location,
+                                 location.EndsWith(LocationDelimiter) ? string.Empty : LocationDelimiter,
+                                 value);
         }
     }
 }
