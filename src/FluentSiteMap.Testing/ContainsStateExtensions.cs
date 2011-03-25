@@ -37,7 +37,7 @@ namespace FluentSiteMap.Testing
                                                                     typeof (string)
                                                                 };
 
-        private static ContainsStateResult ContainsState(this object actual, object expected, string location)
+        private static ContainsStateResult ContainsState(this object actual, object expected, string location, Type actualType = null)
         {
             // check for object equality
             if (Equals(actual, expected))
@@ -46,7 +46,8 @@ namespace FluentSiteMap.Testing
             // only continue more complex examination if both values are not null
             if (actual != null && expected != null)
             {
-                var actualType = actual.GetType();
+                if (actualType == null)
+                    actualType = actual.GetType();
                 var expectedType = expected.GetType();
 
                 // only continue more complex examination if object is not a primitive or simple type
@@ -117,7 +118,8 @@ namespace FluentSiteMap.Testing
                         var expectedValue = expectedProperty.GetValue(expected, null);
 
                         var result = actualValue.ContainsState(expectedValue,
-                                                               location.Append(expectedProperty.Name));
+                                                               location.Append(expectedProperty.Name),
+                                                               actualProperty.PropertyType);
                         if (!result.Success)
                             return result;
                     }

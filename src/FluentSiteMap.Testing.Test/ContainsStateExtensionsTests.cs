@@ -264,5 +264,41 @@ namespace FluentSiteMap.Testing.Test
             Assert.That(result.Success, Is.False);
             Assert.That(result.FailReason, Is.EqualTo("/Address/City: Actual value 'NYC' is not equal to expected value 'Minneapolis'."));
         }
+
+        [Test]
+        public void ContainsState_should_succeed_if_a_contained_object_is_typed_differently_through_a_property_than_the_actual_object_type()
+        {
+            var actual = new
+                             {
+                                 // The IBar.Baz property is only accessible via the IBar interface
+                                 Bar = (IBar) new Foo("bing")
+                             };
+            var expected = new
+                               {
+                                   Bar = new
+                                             {
+                                                 Baz = "bing"
+                                             }
+                               };
+
+            var result = actual.ContainsState(expected);
+            Assert.That(result.Success, Is.True);
+        }
+
+        internal interface IBar
+        {
+            string Baz { get; }
+        }
+
+        internal class Foo
+            : IBar
+        {
+            public Foo(string baz)
+            {
+                _baz = baz;
+            }
+            private readonly string _baz;
+            string IBar.Baz { get { return _baz; } }
+        }
     }
 }
