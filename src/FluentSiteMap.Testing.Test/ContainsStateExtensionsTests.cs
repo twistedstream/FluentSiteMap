@@ -19,6 +19,17 @@ namespace FluentSiteMap.Testing.Test
             Assert.That(result.Success, Is.True);
         }
 
+        [Test]
+        public void ContainsState_should_succeed_if_objects_are_both_null()
+        {
+            object actual = null;
+            object expected = null;
+
+            var result = actual.ContainsState(expected);
+
+            Assert.That(result.Success, Is.True);
+        }
+
         private static object[] _primitiveAndSimpleObjectNotEqualCases =
             {
                 // primitive types:
