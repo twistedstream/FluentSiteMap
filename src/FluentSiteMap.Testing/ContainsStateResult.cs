@@ -22,6 +22,7 @@
         public ContainsStateResult()
         {
             Success = true;
+            FailReason = string.Empty;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@
         /// with the associated location and message.
         /// </summary>
         public ContainsStateResult(string location, string message)
-            : this(location, message, null)
+            : this(location, message, new object[] {})
         {
         }
 
