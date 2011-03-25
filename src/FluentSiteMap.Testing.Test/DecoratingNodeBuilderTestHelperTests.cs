@@ -11,17 +11,16 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            object @null = null;
             var result = target.ContainsState(
                 new
                     {
                         Context = new
                                       {
-                                          Parent = @null,
+                                          Parent = Contains.Null,
                                           RequestContext = new
                                                                {
-                                                                   HttpContext = @null,
-                                                                   RouteData = @null
+                                                                   HttpContext = Contains.Null,
+                                                                   RouteData = Contains.Null
                                                                },
                                       }
                     });
@@ -33,21 +32,18 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            //TODO: add helpers for null and empty collection
-
-            object @null = null;
             var result = target.ContainsState(
                 new
                     {
                         InnerNode = new
                                         {
-                                            Children = new object[] {},
-                                            Description = @null,
-                                            Filters = new object[] {},
-                                            Metadata = new object[] {},
-                                            Parent = @null,
-                                            Title = @null,
-                                            Url = @null
+                                            Children = Contains.EmptyCollection,
+                                            Description = Contains.Null,
+                                            Filters = Contains.EmptyCollection,
+                                            Metadata = Contains.EmptyCollection,
+                                            Parent = Contains.Null,
+                                            Title = Contains.Null,
+                                            Url = Contains.Null
                                         }
                     });
             Assert.That(result.Success, Is.True, result.FailReason);
@@ -63,7 +59,7 @@ namespace FluentSiteMap.Testing.Test
                     {
                         InnerBuilder = new
                                            {
-                                               Filters = new object[] {},
+                                               Filters = Contains.EmptyCollection,
                                            }
                     });
             Assert.That(result.Success, Is.True, result.FailReason);

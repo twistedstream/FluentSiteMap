@@ -48,6 +48,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Contains.cs" />
     <Compile Include="ContainsStateResult.cs" />
     <Compile Include="DecoratingNodeBuilderTestHelper.cs">
       <SubType>Code</SubType>
