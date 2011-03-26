@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Sample;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
 
@@ -18,14 +19,8 @@ namespace FluentSiteMap.Test.Builders
 
             _helper = new DecoratingNodeBuilderTestHelper();
 
-            RouteTable.Routes.MapRoute(
-                "Default",
-                "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
-
-            var requestContext = MockRequestContextForRouting();
-
-            _helper.Context = new BuilderContext(requestContext);
+            var siteMapTestHelper = new SiteMapTestHelper(MvcApplication.RegisterRoutes);
+            _helper.Context = siteMapTestHelper.Context;
 
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");

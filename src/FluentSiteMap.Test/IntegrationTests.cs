@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using System.Web.Mvc;
-using System.Web.Routing;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Sample;
 using FluentSiteMap.Sample.Models;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
@@ -15,19 +14,14 @@ namespace FluentSiteMap.Test
     public class IntegrationTests
         : TestBase
     {
-        private RequestContext _requestContext;
+        private SiteMapTestHelper _helper;
         private ISiteMap _siteMap;
 
         public override void Setup()
         {
             base.Setup();
 
-            RouteTable.Routes.MapRoute(
-                "Default",
-                "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
-
-            _requestContext = MockRequestContextForRouting();
+            _helper = new SiteMapTestHelper(MvcApplication.RegisterRoutes);
 
             _siteMap = new SampleSiteMap(new ProductRepository());
         }
@@ -35,9 +29,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_node_hierarchy_when_the_site_map_is_built()
         {
-            var builderContext = new BuilderContext(_requestContext);
-
-            var root = _siteMap.Build(builderContext);
+            var root = _siteMap.Build(_helper.Context);
 
             Assert.That(root, ContainsState.With(
                 new
@@ -163,14 +155,14 @@ namespace FluentSiteMap.Test
                 .Stub(p => p.Identity)
                 .Return(identity);
 
-            _requestContext.HttpContext.User = principal;
+            _helper.Context.RequestContext.HttpContext.User = principal;
 
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(), 
                 _siteMap);
 
-            var filteredRoot = coordinator.GetRootNode(_requestContext);
+            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
 
             // only /Account/Login should be visble
             var accountNode = filteredRoot.Children[1];
@@ -206,14 +198,14 @@ namespace FluentSiteMap.Test
                 .Stub(p => p.Identity)
                 .Return(identity);
 
-            _requestContext.HttpContext.User = principal;
+            _helper.Context.RequestContext.HttpContext.User = principal;
 
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            var filteredRoot = coordinator.GetRootNode(_requestContext);
+            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
 
             // only /Account/Logout should be visble
             var accountNode = filteredRoot.Children[1];
@@ -252,14 +244,14 @@ namespace FluentSiteMap.Test
                 // not in Admin role
                 .Return(false);
 
-            _requestContext.HttpContext.User = principal;
+            _helper.Context.RequestContext.HttpContext.User = principal;
 
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            var filteredRoot = coordinator.GetRootNode(_requestContext);
+            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
 
             // /Admin should not be visible
             Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
@@ -283,14 +275,14 @@ namespace FluentSiteMap.Test
                 // in Admin role
                 .Return(true);
 
-            _requestContext.HttpContext.User = principal;
+            _helper.Context.RequestContext.HttpContext.User = principal;
 
             var coordinator = new SiteMapCoordinator(
                 new RecursiveNodeFilter(),
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            var filteredRoot = coordinator.GetRootNode(_requestContext);
+            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
 
             // /Admin should be visible
             Assert.That(filteredRoot.Children, ContainsState.With(
@@ -317,9 +309,9 @@ namespace FluentSiteMap.Test
                 .Stub(p => p.Identity)
                 .Return(identity);
 
-            _requestContext.HttpContext.User = principal;
+            _helper.Context.RequestContext.HttpContext.User = principal;
 
-            _requestContext.HttpContext.Request
+            _helper.Context.RequestContext.HttpContext.Request
                 .Stub(r => r.Path)
                 .Return("/Products/View/101");
 
@@ -328,7 +320,7 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            var result = coordinator.GetCurrentNode(_requestContext);
+            var result = coordinator.GetCurrentNode(_helper.Context.RequestContext);
 
             Assert.That(result, ContainsState.With(
                 new
