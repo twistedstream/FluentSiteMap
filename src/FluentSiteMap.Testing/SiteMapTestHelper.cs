@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
 using Rhino.Mocks;
@@ -28,6 +29,11 @@ namespace FluentSiteMap.Testing
             registerRoutes(RouteTable.Routes);
 
             // build context
+            BuildContent();
+        }
+
+        private void BuildContent()
+        {
             var httpRequest = MockRepository.GenerateStub<HttpRequestBase>();
             httpRequest
                 .Stub(r => r.AppRelativeCurrentExecutionFilePath)
@@ -55,6 +61,126 @@ namespace FluentSiteMap.Testing
                         RouteData = RouteTable.Routes.GetRouteData(httpContext),
                         HttpContext = httpContext
                     });
+        }
+
+        /// <summary>
+        /// Generates a filtered root node from the specified site map 
+        /// when the current user is authenticated.
+        /// </summary>
+        public FilteredNode GetRootNodeWhenUserIsAuthenticated(ISiteMap siteMap)
+        {
+            var principal = SetStubPrincipal();
+
+            principal.Identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
+            var coordinator = CreateCoordinator(siteMap);
+
+            return coordinator.GetRootNode(Context.RequestContext);
+        }
+
+        /// <summary>
+        /// Generates a filtered root node from the specified site map 
+        /// when the current user is not authenticated.
+        /// </summary>
+        public FilteredNode GetRootNodeWhenUserIsNotAuthenticated(ISiteMap siteMap)
+        {
+            var principal = SetStubPrincipal();
+            
+            principal.Identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(false);
+
+            var coordinator = CreateCoordinator(siteMap);
+
+            return coordinator.GetRootNode(Context.RequestContext);
+        }
+
+        /// <summary>
+        /// Generates a filtered root node from the specified site map 
+        /// when the current user is a member of the specified role.
+        /// </summary>
+        public FilteredNode GetRootNodeWhenUserIsInRole(ISiteMap siteMap, string role)
+        {
+            var principal = SetStubPrincipal();
+
+            principal.Identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
+            principal
+                .Stub(p => p.IsInRole(role))
+                .Return(true);
+
+            var coordinator = CreateCoordinator(siteMap);
+
+            return coordinator.GetRootNode(Context.RequestContext);
+        }
+
+        /// <summary>
+        /// Generates a filtered root node from the specified site map 
+        /// when the current user not is a member of the specified role.
+        /// </summary>
+        public FilteredNode GetRootNodeWhenUserIsNotInRole(ISiteMap siteMap, string role)
+        {
+            var principal = SetStubPrincipal();
+
+            principal.Identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
+            principal
+                .Stub(p => p.IsInRole(role))
+                .Return(false);
+
+            var coordinator = CreateCoordinator(siteMap);
+
+            return coordinator.GetRootNode(Context.RequestContext);
+        }
+
+
+        /// <summary>
+        /// Generates a filtered root node from the specified site map 
+        /// when the current user not is a member of the specified role.
+        /// </summary>
+        public FilteredNode GetCurrentNodeWhenHttpRequestUrlIs(ISiteMap siteMap, string url)
+        {
+            var principal = SetStubPrincipal();
+
+            principal.Identity
+                .Stub(i => i.IsAuthenticated)
+                .Return(true);
+
+            Context.RequestContext.HttpContext.Request
+                .Stub(r => r.Path)
+                .Return(url);
+
+            var coordinator = CreateCoordinator(siteMap);
+
+            return coordinator.GetCurrentNode(Context.RequestContext);
+        }
+
+        private IPrincipal SetStubPrincipal()
+        {
+            var identity = MockRepository.GenerateStub<IIdentity>();
+
+            var principal = MockRepository.GenerateStub<IPrincipal>();
+            principal
+                .Stub(p => p.Identity)
+                .Return(identity);
+
+            Context.RequestContext.HttpContext.User = principal;
+
+            return principal;
+        }
+
+        private static SiteMapCoordinator CreateCoordinator(ISiteMap siteMap)
+        {
+            return new SiteMapCoordinator(
+                new RecursiveNodeFilter(),
+                new DefaultFilterProvider(),
+                siteMap);
         }
     }
 }

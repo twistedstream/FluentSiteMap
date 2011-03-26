@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Sample;
 using FluentSiteMap.Sample.Models;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace FluentSiteMap.Test
 {
@@ -144,25 +142,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_authenticated()
         {
-            var identity = MockRepository.GenerateStub<IIdentity>();
-            identity
-                .Stub(i => i.IsAuthenticated)
-                // not authenticated
-                .Return(false);
-
-            var principal = MockRepository.GenerateStub<IPrincipal>();
-            principal
-                .Stub(p => p.Identity)
-                .Return(identity);
-
-            _helper.Context.RequestContext.HttpContext.User = principal;
-
-            var coordinator = new SiteMapCoordinator(
-                new RecursiveNodeFilter(),
-                new DefaultFilterProvider(), 
-                _siteMap);
-
-            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
+            var filteredRoot = _helper.GetRootNodeWhenUserIsNotAuthenticated(_siteMap);
 
             // only /Account/Login should be visble
             var accountNode = filteredRoot.Children[1];
@@ -187,25 +167,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_authenticated()
         {
-            var identity = MockRepository.GenerateStub<IIdentity>();
-            identity
-                .Stub(i => i.IsAuthenticated)
-                // authenticated
-                .Return(true);
-
-            var principal = MockRepository.GenerateStub<IPrincipal>();
-            principal
-                .Stub(p => p.Identity)
-                .Return(identity);
-
-            _helper.Context.RequestContext.HttpContext.User = principal;
-
-            var coordinator = new SiteMapCoordinator(
-                new RecursiveNodeFilter(),
-                new DefaultFilterProvider(),
-                _siteMap);
-
-            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
+            var filteredRoot = _helper.GetRootNodeWhenUserIsAuthenticated(_siteMap);
 
             // only /Account/Logout should be visble
             var accountNode = filteredRoot.Children[1];
@@ -230,28 +192,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_an_administrator()
         {
-            var identity = MockRepository.GenerateStub<IIdentity>();
-            identity
-                .Stub(i => i.IsAuthenticated)
-                .Return(true);
-
-            var principal = MockRepository.GenerateStub<IPrincipal>();
-            principal
-                .Stub(p => p.Identity)
-                .Return(identity);
-            principal
-                .Stub(p => p.IsInRole("Admin"))
-                // not in Admin role
-                .Return(false);
-
-            _helper.Context.RequestContext.HttpContext.User = principal;
-
-            var coordinator = new SiteMapCoordinator(
-                new RecursiveNodeFilter(),
-                new DefaultFilterProvider(),
-                _siteMap);
-
-            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
+            var filteredRoot = _helper.GetRootNodeWhenUserIsNotInRole(_siteMap, "Admin");
 
             // /Admin should not be visible
             Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
@@ -261,28 +202,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_an_administrator()
         {
-            var identity = MockRepository.GenerateStub<IIdentity>();
-            identity
-                .Stub(i => i.IsAuthenticated)
-                .Return(true);
-
-            var principal = MockRepository.GenerateStub<IPrincipal>();
-            principal
-                .Stub(p => p.Identity)
-                .Return(identity);
-            principal
-                .Stub(p => p.IsInRole("Admin"))
-                // in Admin role
-                .Return(true);
-
-            _helper.Context.RequestContext.HttpContext.User = principal;
-
-            var coordinator = new SiteMapCoordinator(
-                new RecursiveNodeFilter(),
-                new DefaultFilterProvider(),
-                _siteMap);
-
-            var filteredRoot = coordinator.GetRootNode(_helper.Context.RequestContext);
+            var filteredRoot = _helper.GetRootNodeWhenUserIsInRole(_siteMap, "Admin");
 
             // /Admin should be visible
             Assert.That(filteredRoot.Children, ContainsState.With(
@@ -299,28 +219,7 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_return_the_expected_current_node()
         {
-            var identity = MockRepository.GenerateStub<IIdentity>();
-            identity
-                .Stub(i => i.IsAuthenticated)
-                .Return(true);
-
-            var principal = MockRepository.GenerateStub<IPrincipal>();
-            principal
-                .Stub(p => p.Identity)
-                .Return(identity);
-
-            _helper.Context.RequestContext.HttpContext.User = principal;
-
-            _helper.Context.RequestContext.HttpContext.Request
-                .Stub(r => r.Path)
-                .Return("/Products/View/101");
-
-            var coordinator = new SiteMapCoordinator(
-                new RecursiveNodeFilter(),
-                new DefaultFilterProvider(),
-                _siteMap);
-
-            var result = coordinator.GetCurrentNode(_helper.Context.RequestContext);
+            var result = _helper.GetCurrentNodeWhenHttpRequestUrlIs(_siteMap, "/Products/View/101");
 
             Assert.That(result, ContainsState.With(
                 new
