@@ -30,68 +30,44 @@ namespace FluentSiteMap.Testing.Test
             Assert.That(result.Success, Is.True);
         }
 
-        private static object[] _primitiveObjectNotEqualCases =
+        private static IEnumerable<object> SimpleObjectNotEqualCases
+        {
+            get
             {
-                // bool
-                new object[] {true, false},
-                new object[] {(bool?) true, (bool?) false},
+                var cases = new[]
+                                {
+                                    new object[] {true, false},
+                                    new object[] {(byte) 1, (byte) 2},
+                                    new object[] {(sbyte) 1, (sbyte) 2},
+                                    new object[] {(Int16) 1, (Int16) 2},
+                                    new object[] {(UInt16) 1, (UInt16) 2},
+                                    new object[] {1, 2},
+                                    new object[] {(UInt32) 1, (UInt32) 2},
+                                    new object[] {(Int64) 1, (Int64) 2},
+                                    new object[] {(UInt64) 1, (UInt64) 2},
+                                    new object[] {(IntPtr) 1, (IntPtr) 2},
+                                    new object[] {(UIntPtr) 1, (UIntPtr) 2},
+                                    new object[] {(char) 1, (char) 2},
+                                    new object[] {(double) 1, (double) 2},
+                                    new object[] {(float) 1, (float) 2},
+                                    new object[] {"foo", "bar"},
+                                };
+                foreach (var @case in cases)
+                {
+                    // return case
+                    yield return @case;
 
-                // byte
-                new object[] {(byte) 1, (byte) 2},
-                new object[] {(byte?) 1, (byte?) 2},
-
-                // sbyte
-                new object[] {(sbyte) 1, (sbyte) 2},
-                new object[] {(sbyte?) 1, (sbyte?) 2},
-
-                // Int16
-                new object[] {(Int16) 1, (Int16) 2},
-                new object[] {(Int16?) 1, (Int16?) 2},
-                new object[] {(UInt16) 1, (UInt16) 2},
-                new object[] {(UInt16?) 1, (UInt16?) 2},
-
-                // Int32
-                new object[] {1, 2},
-                new object[] {(Int32?) 1, (Int32?) 2},
-                new object[] {(UInt32) 1, (UInt32) 2},
-                new object[] {(UInt32?) 1, (UInt32?) 2},
-
-                // Int64
-                new object[] {(Int64) 1, (Int64) 2},
-                new object[] {(Int64?) 1, (Int64?) 2},
-                new object[] {(UInt64) 1, (UInt64) 2},
-                new object[] {(UInt64?) 1, (UInt64?) 2},
-
-                // IntPtr
-                new object[] {(IntPtr) 1, (IntPtr) 2},
-                new object[] {(IntPtr?) 1, (IntPtr?) 2},
-                new object[] {(UIntPtr) 1, (UIntPtr) 2},
-                new object[] {(UIntPtr?) 1, (UIntPtr?) 2},
-
-                // char
-                new object[] {(char) 1, (char) 2},
-                new object[] {(char?) 1, (char?) 2},
-                new object[] {(char) 1, (char) 2},
-                new object[] {(char?) 1, (char?) 2},
-
-                // double
-                new object[] {(double) 1, (double) 2},
-                new object[] {(double?) 1, (double?) 2},
-                new object[] {(double) 1, (double) 2},
-                new object[] {(double?) 1, (double?) 2},
-
-                // float (Single)
-                new object[] {(float) 1, (float) 2},
-                new object[] {(float?) 1, (float?) 2},
-                new object[] {(float) 1, (float) 2},
-                new object[] {(float?) 1, (float?) 2},
-            };
-
-        //TODO: include string, Guid in above list and get rid of dedicated string test
+                    // return Nullable case if a value type
+                    var caseType = @case.GetType();
+                    if (caseType.IsValueType)
+                        yield return typeof (Nullable<>).MakeGenericType(caseType);
+                }
+            }
+        }
 
         [Test]
-        [TestCaseSource("_primitiveObjectNotEqualCases")]
-        public void ContainsState_should_fail_if_primative_objects_are_not_equal(object actual, object expected)
+        [TestCaseSource("SimpleObjectNotEqualCases")]
+        public void ContainsState_should_fail_if_simple_objects_are_not_equal(object actual, object expected)
         {
             var result = actual.ContainsState(expected);
 
@@ -99,20 +75,6 @@ namespace FluentSiteMap.Testing.Test
             Assert.That(result.FailReason, Is.EqualTo("/: Actual value is not equal to expected value."));
             Assert.That(result.Actual, Is.EqualTo(actual));
             Assert.That(result.Expected, Is.EqualTo(expected));
-        }
-
-        [Test]
-        public void ContainsState_should_fail_if_strings_are_not_equal()
-        {
-            object actual = "foo";
-            object expected = "bar";
-
-            var result = actual.ContainsState(expected);
-
-            Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/: Actual value is not equal to expected value."));
-            Assert.That(result.Actual, Is.EqualTo("foo"));
-            Assert.That(result.Expected, Is.EqualTo("bar"));
         }
 
         [Test]
