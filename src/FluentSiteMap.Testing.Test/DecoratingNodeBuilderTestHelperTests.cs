@@ -11,7 +11,7 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            var result = target.ContainsState(
+            Assert.That(target, Contains.State(
                 new
                     {
                         Context = new
@@ -23,8 +23,7 @@ namespace FluentSiteMap.Testing.Test
                                                                    RouteData = Contains.Null
                                                                },
                                       }
-                    });
-            Assert.That(result.Success, Is.True, result.FailReason);
+                    }));
         }
 
         [Test]
@@ -32,7 +31,7 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            var result = target.ContainsState(
+            Assert.That(target, Contains.State(
                 new
                     {
                         InnerNode = new
@@ -45,8 +44,7 @@ namespace FluentSiteMap.Testing.Test
                                             Title = Contains.Null,
                                             Url = Contains.Null
                                         }
-                    });
-            Assert.That(result.Success, Is.True, result.FailReason);
+                    }));
         }
 
         [Test]
@@ -54,15 +52,14 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            var result = target.ContainsState(
+            Assert.That(target, Contains.State(
                 new
                     {
                         InnerBuilder = new
                                            {
                                                Filters = Contains.EmptyCollection,
                                            }
-                    });
-            Assert.That(result.Success, Is.True, result.FailReason);
+                    }));
         }
 
         [Test]
