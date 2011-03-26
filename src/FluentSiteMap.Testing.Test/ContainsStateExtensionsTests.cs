@@ -87,6 +87,8 @@ namespace FluentSiteMap.Testing.Test
                 new object[] {(float?) 1, (float?) 2},
             };
 
+        //TODO: include string, Guid in above list and get rid of dedicated string test
+
         [Test]
         [TestCaseSource("_primitiveObjectNotEqualCases")]
         public void ContainsState_should_fail_if_primative_objects_are_not_equal(object actual, object expected)
@@ -94,10 +96,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            var expectedFailReason = string.Format("/: Actual value {0} is not equal to expected value {1}.",
-                                                   actual,
-                                                   expected);
-            Assert.That(result.FailReason, Is.EqualTo(expectedFailReason));
+            Assert.That(result.FailReason, Is.EqualTo("/: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo(actual));
+            Assert.That(result.Expected, Is.EqualTo(expected));
         }
 
         [Test]
@@ -109,7 +110,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/: Actual value 'foo' is not equal to expected value 'bar'."));
+            Assert.That(result.FailReason, Is.EqualTo("/: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo("foo"));
+            Assert.That(result.Expected, Is.EqualTo("bar"));
         }
 
         [Test]
@@ -121,7 +124,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/: Actual value 'foo' is not equal to expected value {null}."));
+            Assert.That(result.FailReason, Is.EqualTo("/: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo("foo"));
+            Assert.That(result.Expected, Is.Null);
         }
 
         [Test]
@@ -157,7 +162,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/2: Actual value 'foo' is not equal to expected value 'three'."));
+            Assert.That(result.FailReason, Is.EqualTo("/2: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo("foo"));
+            Assert.That(result.Expected, Is.EqualTo("three"));
         }
 
         [Test]
@@ -232,7 +239,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/Addresses/1: Actual value '456 Elm St.' is not equal to expected value '456 Elm Street'."));
+            Assert.That(result.FailReason, Is.EqualTo("/Addresses/1: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo("456 Elm St."));
+            Assert.That(result.Expected, Is.EqualTo("456 Elm Street"));
         }
 
         [Test]
@@ -262,7 +271,9 @@ namespace FluentSiteMap.Testing.Test
             var result = actual.ContainsState(expected);
 
             Assert.That(result.Success, Is.False);
-            Assert.That(result.FailReason, Is.EqualTo("/Address/City: Actual value 'NYC' is not equal to expected value 'Minneapolis'."));
+            Assert.That(result.FailReason, Is.EqualTo("/Address/City: Actual value is not equal to expected value."));
+            Assert.That(result.Actual, Is.EqualTo("NYC"));
+            Assert.That(result.Expected, Is.EqualTo("Minneapolis"));
         }
 
         [Test]

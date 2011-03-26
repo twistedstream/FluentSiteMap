@@ -20,5 +20,14 @@ namespace FluentSiteMap.Testing.Test
 
             Assert.That(result.Count, Is.EqualTo(0));
         }
+
+        [Test]
+        public void State_should_return_a_NUnit_constraint_that_perform_a_state_compare()
+        {
+            var result = Contains.State("foo");
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.TypeOf(typeof(ContainsStateConstraint)));
+        }
     }
 }

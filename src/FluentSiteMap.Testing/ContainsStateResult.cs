@@ -16,6 +16,16 @@
         public string FailReason { get; private set; }
 
         /// <summary>
+        /// If <see cref="Success"/> is false, gets or sets the actual value.
+        /// </summary>
+        public object Actual { get; set; }
+
+        /// <summary>
+        /// If <see cref="Success"/> is false, gets or sets the expected value.
+        /// </summary>
+        public object Expected { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ContainsStateResult"/> class 
         /// that represents a successful state comparison (<see cref="Success"/> is true).
         /// </summary>
@@ -31,7 +41,7 @@
         /// with the associated location and message.
         /// </summary>
         public ContainsStateResult(string location, string message)
-            : this(location, message, new object[] {})
+            : this(location, message, new object[] { })
         {
         }
 

@@ -50,6 +50,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ContainsStateConstraintTests.cs" />
     <Compile Include="ContainsStateExtensionsTests.cs" />
     <Compile Include="ContainsStateResultTests.cs" />
     <Compile Include="ContainsTests.cs" />

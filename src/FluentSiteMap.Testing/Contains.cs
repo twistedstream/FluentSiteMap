@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 namespace FluentSiteMap.Testing
 {
@@ -24,6 +25,19 @@ namespace FluentSiteMap.Testing
             {
                 yield break;
             }
+        }
+
+        /// <summary>
+        /// Generates an NUnit <see cref="Constraint"/> that invokes the 
+        /// <see cref="ContainsStateExtensions.ContainsState"/> extension method inline 
+        /// with an NUnit assertion.
+        /// </summary>
+        /// <param name="expected">
+        /// The state that is expected to be contained within actual object.
+        /// </param>
+        public static Constraint State(object expected)
+        {
+            return new ContainsStateConstraint(expected);
         }
     }
 }
