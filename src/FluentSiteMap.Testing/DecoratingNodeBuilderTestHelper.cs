@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Routing;
+using Rhino.Mocks;
 
 namespace FluentSiteMap.Testing
 {
@@ -33,29 +34,16 @@ namespace FluentSiteMap.Testing
         {
             Context = new BuilderContext(new RequestContext());
             InnerNode = new Node(new List<INodeFilter>());
-            InnerBuilder = new StubNodeBuilder(InnerNode);
-        }
-
-        private class StubNodeBuilder
-            : INodeBuilder
-        {
-            private readonly Node _innerNode;
-            private readonly IList<INodeFilter> _filters = new List<INodeFilter>();
-
-            public StubNodeBuilder(Node innerNode)
-            {
-                _innerNode = innerNode;
-            }
-
-            Node INodeBuilder.Build(BuilderContext context)
-            {
-                return _innerNode;
-            }
-
-            IList<INodeFilter> INodeBuilder.Filters
-            {
-                get { return _filters; }
-            }
+            InnerBuilder = MockRepository.GenerateStub<INodeBuilder>();
+            
+            InnerBuilder
+                .Stub(b => b.Build(Arg<BuilderContext>.Is.Anything))
+                .Return(InnerNode);
+            
+            var filters = new List<INodeFilter>();
+            InnerBuilder
+                .Stub(b => b.Filters)
+                .Return(filters);
         }
     }
 }
