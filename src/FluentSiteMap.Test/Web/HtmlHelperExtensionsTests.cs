@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using FluentSiteMap.Testing;
 using FluentSiteMap.Web;
 using NUnit.Framework;
 
@@ -18,8 +19,11 @@ namespace FluentSiteMap.Test.Web
             var result = htmlHelper.FluentSiteMap();
 
             // assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.HtmlHelper, Is.EqualTo(htmlHelper));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        HtmlHelper = htmlHelper
+                    }));
         }
     }
 }

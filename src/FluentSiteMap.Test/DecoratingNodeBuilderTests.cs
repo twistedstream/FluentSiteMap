@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Routing;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -93,8 +94,12 @@ namespace FluentSiteMap.Test
             target.Build(_context);
 
             // Assert
-            Assert.That(target.OnBuildNode, Is.EqualTo(_node));
-            Assert.That(target.OnBuildContext, Is.EqualTo(_context));
+            Assert.That(target, ContainsState.With(
+                new
+                    {
+                        OnBuildNode = _node,
+                        OnBuildContext = _context
+                    }));
         }
 
         [Test]

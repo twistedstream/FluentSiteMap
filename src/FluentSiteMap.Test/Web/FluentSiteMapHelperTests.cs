@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Testing;
 using FluentSiteMap.Web;
 using NUnit.Framework;
 
@@ -93,12 +94,13 @@ namespace FluentSiteMap.Test.Web
             var result = target.BreadCrumbsModel;
 
             // Assert
-            Assert.That(result, Is.EquivalentTo(new[]
-                                                    {
-                                                        rootNode,
-                                                        parentNode,
-                                                        currentNode
-                                                    }));
+            Assert.That(result, ContainsState.With(
+                new[]
+                    {
+                        rootNode,
+                        parentNode,
+                        currentNode
+                    }));
         }
 
         [Test]
@@ -122,11 +124,12 @@ namespace FluentSiteMap.Test.Web
             var result = target.BreadCrumbsModel;
 
             // Assert
-            Assert.That(result, Is.EquivalentTo(new[]
-                                                    {
-                                                        rootNode,
-                                                        currentNode
-                                                    }));
+            Assert.That(result, ContainsState.With(
+                new[]
+                    {
+                        rootNode,
+                        currentNode
+                    }));
         }
 
         [Test]

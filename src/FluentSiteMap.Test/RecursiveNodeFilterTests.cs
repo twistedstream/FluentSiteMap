@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Routing;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -114,11 +115,19 @@ namespace FluentSiteMap.Test
             filter1.VerifyAllExpectations();
             filter2.VerifyAllExpectations();
 
-            Assert.That(result.Title, Is.EqualTo("Foo"));
-            Assert.That(result.Children.Count, Is.EqualTo(1));
-            var child = result.Children[0];
-            Assert.That(child.Title, Is.EqualTo("Bar"));
-            Assert.That(child.Parent, Is.EqualTo(result));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = "Foo",
+                        Children = new[]
+                                       {
+                                           new
+                                               {
+                                                   Title = "Bar",
+                                                   Parent = result
+                                               }
+                                       }
+                    }));
         }
 
         [Test]
@@ -173,11 +182,18 @@ namespace FluentSiteMap.Test
             var result = target.Filter(_context, _rootNode);
 
             // Assert
-            Assert.That(result.Title, Is.EqualTo("Foo"));
-            Assert.That(result.Children.Count, Is.EqualTo(1));
-
-            var child = result.Children[0];
-            Assert.That(child.Title, Is.EqualTo("Baz"));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = "Foo",
+                        Children = new[]
+                                       {
+                                           new
+                                               {
+                                                   Title = "Baz"
+                                               }
+                                       }
+                    }));
         }
 
         [Test]
@@ -232,10 +248,23 @@ namespace FluentSiteMap.Test
             var result = target.Filter(_context, _rootNode);
 
             // Assert
-            Assert.That(result.Key, Is.EqualTo("/"));
-            Assert.That(result.Children[0].Key, Is.EqualTo("/0"));
-            Assert.That(result.Children[1].Key, Is.EqualTo("/1"));
-            Assert.That(result.Children[1].Children[0].Key, Is.EqualTo("/1/0"));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Key = "/",
+                        Children = new object[]
+                                       {
+                                           new {Key = "/0"},
+                                           new
+                                               {
+                                                   Key = "/1",
+                                                   Children = new[]
+                                                                  {
+                                                                      new {Key = "/1/0"}
+                                                                  }
+                                               },
+                                       }
+                    }));
         }
     }
 }

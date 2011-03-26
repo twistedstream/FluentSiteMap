@@ -1,4 +1,5 @@
 ﻿using System.Web.Routing;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -30,11 +31,15 @@ namespace FluentSiteMap.Test
             var result = target.Build(context);
             
             // Assert
-            Assert.That(result.Title, Is.Null);
-            Assert.That(result.Description, Is.Null);
-            Assert.That(result.Url, Is.Null);
-            Assert.That(result.Children.Count, Is.EqualTo(0));
-            Assert.That(result.Filters.Count, Is.EqualTo(0));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = ContainsState.Null,
+                        Description = ContainsState.Null,
+                        Url = ContainsState.Null,
+                        Children = ContainsState.EmptyCollection,
+                        Filters = ContainsState.EmptyCollection
+                    }));
         }
 
         [Test]
@@ -55,8 +60,11 @@ namespace FluentSiteMap.Test
             var result = node.Filters;
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[0], Is.EqualTo(filter));
+            Assert.That(result, ContainsState.With(
+                new[]
+                    {
+                        filter
+                    }));
         }
     }
 }

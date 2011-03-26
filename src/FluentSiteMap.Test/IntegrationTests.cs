@@ -1,8 +1,11 @@
-﻿using System.Security.Principal;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Sample.Models;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -39,81 +42,114 @@ namespace FluentSiteMap.Test
             var root = _siteMap.Build(builderContext);
 
             // Assert
-            Assert.That(root.Title, Is.EqualTo("Home"));
-            Assert.That(root.Description, Is.EqualTo("Welcome to Foo.com!"));
-            Assert.That(root.Url, Is.EqualTo("/"));
-            Assert.That(root.Children.Count, Is.EqualTo(5));
-
-            var child = root.Children[0];
-            Assert.That(child.Title, Is.EqualTo("About Us"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Home/About"));
-            Assert.That(child.Children.Count, Is.EqualTo(0));
-
-            child = root.Children[1];
-            Assert.That(child.Title, Is.EqualTo("Account"));
-            Assert.That(child.Description, Is.Null);
-            Assert.That(child.Url, Is.Null);
-            Assert.That(child.Metadata[HiddenInMenuNodeBuilder.MetadataKey], Is.True);
-            Assert.That(child.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey], Is.True);
-            Assert.That(child.Children.Count, Is.EqualTo(3));
-
-            var grandChild = child.Children[0];
-            Assert.That(grandChild.Title, Is.EqualTo("Sign In"));
-            Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
-            Assert.That(grandChild.Url, Is.EqualTo("/Account/LogOn"));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            grandChild = child.Children[1];
-            Assert.That(grandChild.Title, Is.EqualTo("Sign Out"));
-            Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
-            Assert.That(grandChild.Url, Is.EqualTo("/Account/LogOff"));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            grandChild = child.Children[2];
-            Assert.That(grandChild.Title, Is.EqualTo("Register"));
-            Assert.That(grandChild.Description, Is.EqualTo(grandChild.Title));
-            Assert.That(grandChild.Url, Is.EqualTo("/Account/Register"));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            child = root.Children[2];
-            Assert.That(child.Title, Is.EqualTo("Products"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Products"));
-            Assert.That(child.Children.Count, Is.EqualTo(3));
-
-            grandChild = child.Children[0];
-            Assert.That(grandChild.Title, Is.EqualTo("Foo Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Foo Widgets are spendy"));
-            Assert.That(grandChild.Url, Is.EqualTo("/Products/View/100"));
-            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)100));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            grandChild = child.Children[1];
-            Assert.That(grandChild.Title, Is.EqualTo("Bar Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Bar Widgets are really spendy"));
-            Assert.That(grandChild.Url, Is.EqualTo("/Products/View/101"));
-            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)150));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            grandChild = child.Children[2];
-            Assert.That(grandChild.Title, Is.EqualTo("Baz Widget"));
-            Assert.That(grandChild.Description, Is.EqualTo("Baz Widgets are pretty cheap"));
-            Assert.That(grandChild.Url, Is.EqualTo("/Products/View/102"));
-            Assert.That(grandChild.Metadata["Price"], Is.EqualTo((decimal)25));
-            Assert.That(grandChild.Children.Count, Is.EqualTo(0));
-
-            child = root.Children[3];
-            Assert.That(child.Title, Is.EqualTo("Site Map"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Home/SiteMap"));
-            Assert.That(child.Children.Count, Is.EqualTo(0));
-
-            child = root.Children[4];
-            Assert.That(child.Title, Is.EqualTo("Administration"));
-            Assert.That(child.Description, Is.EqualTo(child.Title));
-            Assert.That(child.Url, Is.EqualTo("/Admin"));
-            Assert.That(child.Children.Count, Is.EqualTo(0));
+            Assert.That(root, ContainsState.With(
+                new
+                    {
+                        Title = "Home",
+                        Description = "Welcome to Foo.com!",
+                        Url = "/",
+                        Children = new object[]
+                                       {
+                                           new
+                                               {
+                                                   Title = "About Us",
+                                                   Description = "About Us",
+                                                   Url = "/Home/About",
+                                                   Children = ContainsState.EmptyCollection
+                                               },
+                                           new
+                                               {
+                                                   Title = "Account",
+                                                   Description = ContainsState.Null,
+                                                   Url = ContainsState.Null,
+                                                   Metadata = new Dictionary<string, object>
+                                                                  {
+                                                                      {HiddenInMenuNodeBuilder.MetadataKey, true},
+                                                                      {HiddenInBreadCrumbsNodeBuilder.MetadataKey, true},
+                                                                  },
+                                                   Children = new object[]
+                                                                  {
+                                                                      new
+                                                                          {
+                                                                              Title = "Sign In",
+                                                                              Description = "Sign In",
+                                                                              Url = "/Account/LogOn",
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                      new
+                                                                          {
+                                                                              Title = "Sign Out",
+                                                                              Description = "Sign Out",
+                                                                              Url = "/Account/LogOff",
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                      new
+                                                                          {
+                                                                              Title = "Register",
+                                                                              Description = "Register",
+                                                                              Url = "/Account/Register",
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                  }
+                                               },
+                                           new
+                                               {
+                                                   Title = "Products",
+                                                   Description = "Products",
+                                                   Url = "/Products",
+                                                   Children = new object[]
+                                                                  {
+                                                                      new
+                                                                          {
+                                                                              Title = "Foo Widget",
+                                                                              Description = "Foo Widgets are spendy",
+                                                                              Url = "/Products/View/100",
+                                                                              Metadata = new Dictionary<string, object>
+                                                                                             {
+                                                                                                 {"Price", (decimal) 100},
+                                                                                             },
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                      new
+                                                                          {
+                                                                              Title = "Bar Widget",
+                                                                              Description = "Bar Widgets are really spendy",
+                                                                              Url = "/Products/View/101",
+                                                                              Metadata = new Dictionary<string, object>
+                                                                                             {
+                                                                                                 {"Price", (decimal) 150},
+                                                                                             },
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                      new
+                                                                          {
+                                                                              Title = "Baz Widget",
+                                                                              Description = "Baz Widgets are pretty cheap",
+                                                                              Url = "/Products/View/102",
+                                                                              Metadata = new Dictionary<string, object>
+                                                                                             {
+                                                                                                 {"Price", (decimal) 25},
+                                                                                             },
+                                                                              Children = ContainsState.EmptyCollection
+                                                                          },
+                                                                  }
+                                               },
+                                           new
+                                               {
+                                                   Title = "Site Map",
+                                                   Description = "Site Map",
+                                                   Url = "/Home/SiteMap",
+                                                   Children = ContainsState.EmptyCollection
+                                               },
+                                           new
+                                               {
+                                                   Title = "Administration",
+                                                   Description = "Administration",
+                                                   Url = "/Admin",
+                                                   Children = ContainsState.EmptyCollection
+                                               },
+                                       }
+                    }));
         }
 
         [Test]
@@ -143,14 +179,23 @@ namespace FluentSiteMap.Test
 
             // Assert - only /Account/Login should be visble
             var accountNode = filteredRoot.Children[1];
-            Assert.That(accountNode.Title, Is.EqualTo("Account"));
-            Assert.That(accountNode.Children.Count, Is.EqualTo(2));
 
-            var child = accountNode.Children[0];
-            Assert.That(child.Url, Is.EqualTo("/Account/LogOn"));
-
-            child = accountNode.Children[1];
-            Assert.That(child.Url, Is.EqualTo("/Account/Register"));
+            Assert.That(accountNode, ContainsState.With(
+                new
+                    {
+                        Title = "Account",
+                        Children = new object[]
+                                       {
+                                           new
+                                               {
+                                                   Url = "/Account/LogOn"
+                                               },
+                                           new
+                                               {
+                                                   Url = "/Account/Register"
+                                               },
+                                       }
+                    }));
         }
 
         [Test]
@@ -180,14 +225,23 @@ namespace FluentSiteMap.Test
 
             // Assert - only /Account/Logout should be visble
             var accountNode = filteredRoot.Children[1];
-            Assert.That(accountNode.Title, Is.EqualTo("Account"));
-            Assert.That(accountNode.Children.Count, Is.EqualTo(2));
 
-            var child = accountNode.Children[0];
-            Assert.That(child.Url, Is.EqualTo("/Account/LogOff"));
-
-            child = accountNode.Children[1];
-            Assert.That(child.Url, Is.EqualTo("/Account/Register"));
+            Assert.That(accountNode, ContainsState.With(
+                new
+                {
+                    Title = "Account",
+                    Children = new object[]
+                                       {
+                                           new
+                                               {
+                                                   Url = "/Account/LogOff"
+                                               },
+                                           new
+                                               {
+                                                   Url = "/Account/Register"
+                                               },
+                                       }
+                }));
         }
 
         [Test]
@@ -220,10 +274,7 @@ namespace FluentSiteMap.Test
 
             // Assert - /Admin should not be visible
             Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
-            Assert.That(filteredRoot.Children[0].Url, Is.EqualTo("/Home/About"));
-            Assert.That(filteredRoot.Children[1].Title, Is.EqualTo("Account"));
-            Assert.That(filteredRoot.Children[2].Url, Is.EqualTo("/Products"));
-            Assert.That(filteredRoot.Children[3].Url, Is.EqualTo("/Home/SiteMap"));
+            Assert.That(filteredRoot.Children.Any(n => n.Url == "/Admin"), Is.False);
         }
 
         [Test]
@@ -255,8 +306,15 @@ namespace FluentSiteMap.Test
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
             // Assert - /Admin should be visible
-            Assert.That(filteredRoot.Children.Count, Is.EqualTo(5));
-            Assert.That(filteredRoot.Children[4].Url, Is.EqualTo("/Admin"));
+            Assert.That(filteredRoot.Children, ContainsState.With(
+                new object[]
+                    {
+                        new {},
+                        new {},
+                        new {},
+                        new {},
+                        new { Url = "/Admin"},
+                    }));
         }
 
         [Test]

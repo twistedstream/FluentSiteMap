@@ -50,9 +50,11 @@ namespace FluentSiteMap.Test.Builders
             var result = target.Build(_helper.Context);
 
             // Assert
-            Assert.That(result.Children.Count, Is.EqualTo(1));
-            var child = result.Children[0];
-            Assert.That(child, Is.EqualTo(_childNode));
+            Assert.That(result.Children, ContainsState.With(
+                new[]
+                    {
+                        _childNode
+                    }));
         }
 
         [Test]
@@ -67,8 +69,11 @@ namespace FluentSiteMap.Test.Builders
             var result = target.Build(_helper.Context);
 
             // Assert
-            var child = result.Children[0];
-            Assert.That(child.Parent, Is.EqualTo(_helper.InnerNode));
+            Assert.That(result.Children, ContainsState.With(
+                new[]
+                    {
+                        new {Parent = _helper.InnerNode}
+                    }));
         }
     }
 }

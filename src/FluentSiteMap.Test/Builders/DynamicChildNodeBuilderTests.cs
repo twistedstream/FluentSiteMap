@@ -55,15 +55,21 @@ namespace FluentSiteMap.Test.Builders
             var result = target.Build(_helper.Context);
 
             // Assert
-            Assert.That(result.Children.Count, Is.EqualTo(2));
 
-            var child = result.Children[0];
-            Assert.That(child.Title, Is.EqualTo("Foo"));
-            Assert.That(child.Description, Is.EqualTo("Foo Widget"));
-
-            child = result.Children[1];
-            Assert.That(child.Title, Is.EqualTo("Bar"));
-            Assert.That(child.Description, Is.EqualTo("Bar Widget"));
+            Assert.That(result.Children, ContainsState.With(
+                new[]
+                    {
+                        new
+                            {
+                                Title = "Foo",
+                                Description = "Foo Widget"
+                            },
+                        new
+                            {
+                                Title = "Bar",
+                                Description = "Bar Widget"
+                            },
+                    }));
         }
 
         [Test]

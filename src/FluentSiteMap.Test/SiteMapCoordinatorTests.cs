@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Routing;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -74,8 +75,11 @@ namespace FluentSiteMap.Test
             var result = target.DefaultFilters;
 
             // Assert 
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[0], Is.EqualTo(filter));
+            Assert.That(result, ContainsState.With(
+                new[]
+                    {
+                        filter
+                    }));
         }
 
         [Test]
