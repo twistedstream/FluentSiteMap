@@ -4,7 +4,7 @@ namespace FluentSiteMap.Testing
 {
     /// <summary>
     /// An NUnit <see cref="Constraint"/> that will execute the 
-    /// <see cref="ContainsStateExtensions.ContainsState"/> method.
+    /// <see cref="ContainsStateExtensions.ContainsState(object,object)"/> method.
     /// </summary>
     public class ContainsStateConstraint
         : Constraint

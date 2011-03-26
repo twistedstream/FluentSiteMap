@@ -4,7 +4,7 @@ using NUnit.Framework.Constraints;
 namespace FluentSiteMap.Testing
 {
     /// <summary>
-    /// Contains helper members for working with the <see cref="ContainsStateExtensions.ContainsState"/> method.
+    /// Contains helper members for working with the <see cref="ContainsStateExtensions.ContainsState(object,object)"/> method.
     /// </summary>
     public static class ContainsState
     {
@@ -29,7 +29,7 @@ namespace FluentSiteMap.Testing
 
         /// <summary>
         /// Generates an NUnit <see cref="Constraint"/> that invokes the 
-        /// <see cref="ContainsStateExtensions.ContainsState"/> extension method inline 
+        /// <see cref="ContainsStateExtensions.ContainsState(object,object)"/> extension method inline 
         /// with an NUnit assertion.
         /// </summary>
         /// <param name="expected">
