@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using FluentSiteMap.Builders;
+using FluentSiteMap.Testing;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace FluentSiteMap.Test.Builders
 {
@@ -11,12 +10,13 @@ namespace FluentSiteMap.Test.Builders
     public class UrlFromMvcNodeBuilderTests
         : TestBase
     {
-        private BuilderContext _builderContext;
-        private INodeBuilder _inner;
+        private DecoratingNodeBuilderTestHelper _helper;
 
         public override void Setup()
         {
             base.Setup();
+
+            _helper = new DecoratingNodeBuilderTestHelper();
 
             RouteTable.Routes.MapRoute(
                 "Default",
@@ -25,40 +25,29 @@ namespace FluentSiteMap.Test.Builders
 
             var requestContext = MockRequestContextForRouting();
 
-            _builderContext = new BuilderContext(requestContext);
+            _helper.Context = new BuilderContext(requestContext);
 
-            _builderContext.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
-            _builderContext.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");
-
-            _inner = MockRepository.GenerateStub<INodeBuilder>();
-            _inner
-                .Stub(i => i.Build(_builderContext))
-                .Return(new Node(new List<INodeFilter>()));
+            _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
+            _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");
         }
 
         [Test]
         public void OnBuild_should_set_the_node_url_using_builder_context_metadata()
         {
-            // Arrange
-            var target = new UrlFromMvcNodeBuilder(_inner, null);
+            var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, null);
 
-            // Act
-            var result = target.Build(_builderContext);
+            var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Url, Is.EqualTo("/foo/bar"));
         }
 
         [Test]
         public void OnBuild_should_set_the_node_url_using_route_values_when_specified()
         {
-            // Arrange
-            var target = new UrlFromMvcNodeBuilder(_inner, new { id = "baz" });
+            var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, new { id = "baz" });
 
-            // Act
-            var result = target.Build(_builderContext);
+            var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Url, Is.EqualTo("/foo/bar/baz"));
         }
     }

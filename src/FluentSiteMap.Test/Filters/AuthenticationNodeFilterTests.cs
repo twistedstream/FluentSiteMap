@@ -37,68 +37,56 @@ namespace FluentSiteMap.Test.Filters
         [Test]
         public void Filter_should_return_true_if_current_user_is_authenticated_and_require_authentication_is_true()
         {
-            // Arrange
             _identity
                 .Stub(i => i.IsAuthenticated)
                 .Return(true);
 
             var target = new AuthenticationNodeFilter(true);
 
-            // Act
             var result = target.Filter(new FilteredNode(), _filterContext);
 
-            // Assert
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void Filter_should_return_false_if_current_user_is_not_authenticated_and_require_authentication_is_true()
         {
-            // Arrange
             _identity
                 .Stub(i => i.IsAuthenticated)
                 .Return(false);
 
             var target = new AuthenticationNodeFilter(true);
 
-            // Act
             var result = target.Filter(new FilteredNode(), _filterContext);
 
-            // Assert
             Assert.That(result, Is.False);
         }
 
         [Test]
         public void Filter_should_return_false_if_current_user_is_authenticated_and_require_authentication_is_false()
         {
-            // Arrange
             _identity
                 .Stub(i => i.IsAuthenticated)
                 .Return(true);
 
             var target = new AuthenticationNodeFilter(false);
 
-            // Act
             var result = target.Filter(new FilteredNode(), _filterContext);
 
-            // Assert
             Assert.That(result, Is.False);
         }
 
         [Test]
         public void Filter_should_return_true_if_current_user_is_not_authenticated_and_require_authentication_is_false()
         {
-            // Arrange
             _identity
                 .Stub(i => i.IsAuthenticated)
                 .Return(false);
 
             var target = new AuthenticationNodeFilter(false);
 
-            // Act
             var result = target.Filter(new FilteredNode(), _filterContext);
 
-            // Assert
             Assert.That(result, Is.True);
         }
     }
