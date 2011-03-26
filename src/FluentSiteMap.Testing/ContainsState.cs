@@ -6,7 +6,7 @@ namespace FluentSiteMap.Testing
     /// <summary>
     /// Contains helper members for working with the <see cref="ContainsStateExtensions.ContainsState"/> method.
     /// </summary>
-    public static class Contains
+    public static class ContainsState
     {
         /// <summary>
         /// Specifies that an expected object is null.
@@ -35,7 +35,7 @@ namespace FluentSiteMap.Testing
         /// <param name="expected">
         /// The state that is expected to be contained within actual object.
         /// </param>
-        public static Constraint State(object expected)
+        public static Constraint With(object expected)
         {
             return new ContainsStateConstraint(expected);
         }

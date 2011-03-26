@@ -11,16 +11,16 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            Assert.That(target, Contains.State(
+            Assert.That(target, ContainsState.With(
                 new
                     {
                         Context = new
                                       {
-                                          Parent = Contains.Null,
+                                          Parent = ContainsState.Null,
                                           RequestContext = new
                                                                {
-                                                                   HttpContext = Contains.Null,
-                                                                   RouteData = Contains.Null
+                                                                   HttpContext = ContainsState.Null,
+                                                                   RouteData = ContainsState.Null
                                                                },
                                       }
                     }));
@@ -31,18 +31,18 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            Assert.That(target, Contains.State(
+            Assert.That(target, ContainsState.With(
                 new
                     {
                         InnerNode = new
                                         {
-                                            Children = Contains.EmptyCollection,
-                                            Description = Contains.Null,
-                                            Filters = Contains.EmptyCollection,
-                                            Metadata = Contains.EmptyCollection,
-                                            Parent = Contains.Null,
-                                            Title = Contains.Null,
-                                            Url = Contains.Null
+                                            Children = ContainsState.EmptyCollection,
+                                            Description = ContainsState.Null,
+                                            Filters = ContainsState.EmptyCollection,
+                                            Metadata = ContainsState.EmptyCollection,
+                                            Parent = ContainsState.Null,
+                                            Title = ContainsState.Null,
+                                            Url = ContainsState.Null
                                         }
                     }));
         }
@@ -52,12 +52,12 @@ namespace FluentSiteMap.Testing.Test
         {
             var target = new DecoratingNodeBuilderTestHelper();
 
-            Assert.That(target, Contains.State(
+            Assert.That(target, ContainsState.With(
                 new
                     {
                         InnerBuilder = new
                                            {
-                                               Filters = Contains.EmptyCollection,
+                                               Filters = ContainsState.EmptyCollection,
                                            }
                     }));
         }
