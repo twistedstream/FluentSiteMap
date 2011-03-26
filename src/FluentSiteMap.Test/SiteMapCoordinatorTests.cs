@@ -61,7 +61,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Instances_should_populate_the_DefaultFilters_property_with_the_default_filter_provider()
         {
-            // Arrange
             var filter = MockRepository.GenerateStub<INodeFilter>();
 
             _defaultFilterProvider = MockRepository.GenerateStub<IDefaultFilterProvider>();
@@ -71,10 +70,8 @@ namespace FluentSiteMap.Test
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            // Act
             var result = target.DefaultFilters;
 
-            // Assert 
             Assert.That(result, ContainsState.With(
                 new[]
                     {
@@ -95,7 +92,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetRootNode_should_build_the_root_NodeModel_on_the_first_call()
         {
-            // Arrange
             _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
             _rootSiteMap
                 .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
@@ -108,17 +104,14 @@ namespace FluentSiteMap.Test
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            // Act
             target.GetRootNode(_requestContext);
 
-            // Assert
             _rootSiteMap.VerifyAllExpectations();
         }
 
         [Test]
         public void GetRootNode_should_use_the_cached_root_NodeModel_on_subsequent_calls()
         {
-            // Arrange
             _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
             _rootSiteMap
                 .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
@@ -134,10 +127,8 @@ namespace FluentSiteMap.Test
 
             target.GetRootNode(_requestContext);
 
-            // Act
             target.GetRootNode(_requestContext);
 
-            // Assert
             _rootSiteMap.VerifyAllExpectations();
         }
 
@@ -151,7 +142,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetRootNode_should_throw_the_expected_exception_if_filtering_does_not_generate_a_root_node()
         {
-            // Arrange
             _rootSiteMap
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
                 .Return(_rootNode);
@@ -163,7 +153,6 @@ namespace FluentSiteMap.Test
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            // Act, Assert
             Assert.Throws<InvalidOperationException>(
                 () => target.GetRootNode(_requestContext));
         }
@@ -171,7 +160,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetCurrentNode_should_return_the_current_node_if_it_exists()
         {
-            // Arrange
             _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
             _rootSiteMap
                 .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
@@ -190,17 +178,14 @@ namespace FluentSiteMap.Test
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            // Act
             var result = target.GetCurrentNode(_requestContext);
 
-            // Assert
             Assert.That(result, Is.EqualTo(currentNode));
         }
 
         [Test]
         public void GetCurrentNode_should_return_null_if_no_current_node_exists()
         {
-            // Arrange
             _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
             _rootSiteMap
                 .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
@@ -213,10 +198,8 @@ namespace FluentSiteMap.Test
 
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            // Act
             var result = target.GetCurrentNode(_requestContext);
 
-            // Assert
             Assert.That(result, Is.Null);
         }
     }

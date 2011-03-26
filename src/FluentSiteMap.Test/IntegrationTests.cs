@@ -35,13 +35,10 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_node_hierarchy_when_the_site_map_is_built()
         {
-            // Arrange
             var builderContext = new BuilderContext(_requestContext);
 
-            // Act
             var root = _siteMap.Build(builderContext);
 
-            // Assert
             Assert.That(root, ContainsState.With(
                 new
                     {
@@ -155,7 +152,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_authenticated()
         {
-            // Arrange
             var identity = MockRepository.GenerateStub<IIdentity>();
             identity
                 .Stub(i => i.IsAuthenticated)
@@ -174,12 +170,10 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(), 
                 _siteMap);
 
-            // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
-            // Assert - only /Account/Login should be visble
+            // only /Account/Login should be visble
             var accountNode = filteredRoot.Children[1];
-
             Assert.That(accountNode, ContainsState.With(
                 new
                     {
@@ -201,7 +195,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_authenticated()
         {
-            // Arrange
             var identity = MockRepository.GenerateStub<IIdentity>();
             identity
                 .Stub(i => i.IsAuthenticated)
@@ -220,12 +213,10 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
-            // Assert - only /Account/Logout should be visble
+            // only /Account/Logout should be visble
             var accountNode = filteredRoot.Children[1];
-
             Assert.That(accountNode, ContainsState.With(
                 new
                 {
@@ -247,7 +238,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_an_administrator()
         {
-            // Arrange
             var identity = MockRepository.GenerateStub<IIdentity>();
             identity
                 .Stub(i => i.IsAuthenticated)
@@ -269,10 +259,9 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
-            // Assert - /Admin should not be visible
+            // /Admin should not be visible
             Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
             Assert.That(filteredRoot.Children.Any(n => n.Url == "/Admin"), Is.False);
         }
@@ -280,7 +269,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_an_administrator()
         {
-            // Arrange
             var identity = MockRepository.GenerateStub<IIdentity>();
             identity
                 .Stub(i => i.IsAuthenticated)
@@ -302,10 +290,9 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            // Act
             var filteredRoot = coordinator.GetRootNode(_requestContext);
 
-            // Assert - /Admin should be visible
+            // /Admin should be visible
             Assert.That(filteredRoot.Children, ContainsState.With(
                 new object[]
                     {
@@ -320,7 +307,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_return_the_expected_current_node()
         {
-            // Arrange
             var identity = MockRepository.GenerateStub<IIdentity>();
             identity
                 .Stub(i => i.IsAuthenticated)
@@ -342,12 +328,13 @@ namespace FluentSiteMap.Test
                 new DefaultFilterProvider(),
                 _siteMap);
 
-            // Act
             var result = coordinator.GetCurrentNode(_requestContext);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Url, Is.EqualTo("/Products/View/101"));
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Url = "/Products/View/101"
+                    }));
         }
     }
 }

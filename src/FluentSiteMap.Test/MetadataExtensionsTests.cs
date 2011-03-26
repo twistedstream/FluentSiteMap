@@ -34,20 +34,16 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetMetadataValue_should_return_a_default_value_if_key_does_not_exist()
         {
-            // Arrange
             var node = new FilteredNode();
 
-            // Act
             var result = node.GetMetadataValue<string>("foo");
 
-            // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
         public void GetMetadataValue_should_return_a_value_if_the_key_exists()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Metadata = new Dictionary<string, object>
@@ -56,17 +52,14 @@ namespace FluentSiteMap.Test
                                               }
                            };
 
-            // Act
             var result = node.GetMetadataValue<string>("foo");
 
-            // Assert
             Assert.That(result, Is.EqualTo("bar"));
         }
 
         [Test]
         public void GetMetadataValue_should_return_a_default_value_if_the_key_exists_in_ancestor_but_recursion_is_disabled()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Parent = new FilteredNode
@@ -81,17 +74,14 @@ namespace FluentSiteMap.Test
                                             }
                            };
 
-            // Act
             var result = node.GetMetadataValue<string>("foo", false);
 
-            // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
         public void GetMetadataValue_should_return_a_value_if_the_key_exists_in_ancestor()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Parent = new FilteredNode
@@ -106,10 +96,8 @@ namespace FluentSiteMap.Test
                                             }
                            };
 
-            // Act
             var result = node.GetMetadataValue<string>("foo");
 
-            // Assert
             Assert.That(result, Is.EqualTo("bar"));
         }
 
@@ -128,7 +116,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void IsHiddenInMenu_should_return_the_metadata_value()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Metadata = new Dictionary<string, object>
@@ -137,10 +124,8 @@ namespace FluentSiteMap.Test
                                               }
                            };
 
-            // Act
             var result = node.IsHiddenInMenu();
 
-            // Assert
             Assert.That(result, Is.True);
         }
 
@@ -169,7 +154,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void IsHiddenInBreadCrumbs_should_return_the_metadata_value()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Metadata = new Dictionary<string, object>
@@ -178,17 +162,14 @@ namespace FluentSiteMap.Test
                                               }
                            };
 
-            // Act
             var result = node.IsHiddenInBreadCrumbs();
 
-            // Assert
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void IsHiddenInBreadCrumbs_should_not_return_an_ancestor_metadata_value()
         {
-            // Arrange
             var node = new FilteredNode
                            {
                                Parent =
@@ -201,10 +182,8 @@ namespace FluentSiteMap.Test
                                        }
                            };
 
-            // Act
             var result = node.IsHiddenInBreadCrumbs();
 
-            // Assert
             Assert.That(result, Is.False);
         }
 

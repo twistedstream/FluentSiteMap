@@ -30,15 +30,12 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_title_using_the_title_generator()
         {
-            // Arrange
             Func<Node, string> titleGenerator = n => "foo";
 
             var target = new TitleNodeBuilder(_helper.InnerBuilder, titleGenerator);
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Title, Is.EqualTo("foo"));
         }
     }

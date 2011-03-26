@@ -12,25 +12,20 @@ namespace FluentSiteMap.Test
         [Test]
         public void Instances_should_have_an_empty_list_of_filters()
         {
-            // Arrange
             INodeBuilder target = new BaseNodeBuilder();
 
-            // Act, Assert
             Assert.That(target.Filters.Count, Is.EqualTo(0));
         }
 
         [Test]
         public void Build_should_create_an_unpopulated_NodeModel()
         {
-            // Arrange
             var context = new BuilderContext(new RequestContext());
             
             INodeBuilder target = new BaseNodeBuilder();
 
-            // Act
             var result = target.Build(context);
             
-            // Assert
             Assert.That(result, ContainsState.With(
                 new
                     {
@@ -45,7 +40,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Build_should_create_a_NodeModel_whose_filters_are_the_same_as_the_node_builders()
         {
-            // Arrange
             var context = new BuilderContext(new RequestContext());
 
             INodeBuilder target = new BaseNodeBuilder();
@@ -56,10 +50,8 @@ namespace FluentSiteMap.Test
             var filter = MockRepository.GenerateStub<INodeFilter>();
             target.Filters.Add(filter);
 
-            // Act
             var result = node.Filters;
 
-            // Assert
             Assert.That(result, ContainsState.With(
                 new[]
                     {

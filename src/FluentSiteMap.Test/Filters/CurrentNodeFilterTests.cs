@@ -33,7 +33,6 @@ namespace FluentSiteMap.Test.Filters
         [Test]
         public void Filter_should_set_the_node_as_current_if_its_URL_matches_the_current_request_URL()
         {
-            // Arrange
             _httpRequest
                 .Stub(r => r.Path)
                 .Return("/Foo");
@@ -42,17 +41,14 @@ namespace FluentSiteMap.Test.Filters
 
             var target = new CurrentNodeFilter();
 
-            // Act
             target.Filter(node, _filterContext);
 
-            // Assert
             Assert.That(node.IsCurrent, Is.True);
         }
 
         [Test]
         public void Filter_should_not_set_the_node_as_current_if_its_URL_doesnt_match_the_current_request_URL()
         {
-            // Arrange
             _httpRequest
                 .Stub(r => r.Path)
                 .Return("/Foo");
@@ -61,23 +57,18 @@ namespace FluentSiteMap.Test.Filters
 
             var target = new CurrentNodeFilter();
 
-            // Act
             target.Filter(node, _filterContext);
 
-            // Assert
             Assert.That(node.IsCurrent, Is.False);
         }
 
         [Test]
         public void Filter_should_always_return_true()
         {
-            // Arrange
             var target = new CurrentNodeFilter();
 
-            // Act
             var result = target.Filter(new FilteredNode(), _filterContext);
 
-            // Assert
             Assert.That(result, Is.True);
         }
     }

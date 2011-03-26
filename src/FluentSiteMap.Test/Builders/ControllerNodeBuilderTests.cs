@@ -20,13 +20,10 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_builder_context_metadata_value()
         {
-            // Arrange
             var target = new ControllerNodeBuilder(_helper.InnerBuilder, "foo");
 
-            // Act
             target.Build(_helper.Context);
 
-            // Assert
             var controller = _helper.Context.GetMetadata<string>("controller");
             Assert.That(controller, Is.EqualTo("foo"));
         }

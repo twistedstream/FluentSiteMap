@@ -30,13 +30,10 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_metadata()
         {
-            // Arrange
             var target = new MetadataNodeBuilder(_helper.InnerBuilder, "foo", "bar");
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Metadata["foo"], Is.EqualTo("bar"));
         }
     }

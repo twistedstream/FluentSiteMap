@@ -20,13 +20,10 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_hidden_in_bread_crumbs_to_true()
         {
-            // Arrange
             var target = new HiddenInBreadCrumbsNodeBuilder(_helper.InnerBuilder);
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Metadata[HiddenInBreadCrumbsNodeBuilder.MetadataKey], Is.True);
         }
     }

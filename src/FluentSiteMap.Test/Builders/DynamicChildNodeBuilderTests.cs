@@ -48,13 +48,9 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_child_nodes_using_the_output_from_the_source_and_child_template()
         {
-            // Arrange
             var target = new DynamicChildNodeBuilder<Product>(_helper.InnerBuilder, _source, _childTemplate);
 
-            // Act
             var result = target.Build(_helper.Context);
-
-            // Assert
 
             Assert.That(result.Children, ContainsState.With(
                 new[]
@@ -75,13 +71,10 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_parent_node_of_child_nodes()
         {
-            // Arrange
             var target = new DynamicChildNodeBuilder<Product>(_helper.InnerBuilder, _source, _childTemplate);
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             var child = result.Children[0];
             Assert.That(child.Parent, Is.EqualTo(_helper.InnerNode));
         }

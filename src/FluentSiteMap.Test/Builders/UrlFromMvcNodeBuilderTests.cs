@@ -34,26 +34,20 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_url_using_builder_context_metadata()
         {
-            // Arrange
             var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, null);
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Url, Is.EqualTo("/foo/bar"));
         }
 
         [Test]
         public void OnBuild_should_set_the_node_url_using_route_values_when_specified()
         {
-            // Arrange
             var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, new { id = "baz" });
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Url, Is.EqualTo("/foo/bar/baz"));
         }
     }

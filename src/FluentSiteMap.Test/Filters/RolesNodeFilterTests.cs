@@ -25,7 +25,6 @@ namespace FluentSiteMap.Test.Filters
         [Test]
         public void Filter_should_return_true_if_current_user_is_in_one_of_the_roles()
         {
-            // Arrange
             var principal = MockRepository.GenerateStub<IPrincipal>();
             principal
                 .Stub(p => p.IsInRole("foo"))
@@ -40,17 +39,14 @@ namespace FluentSiteMap.Test.Filters
 
             var target = new RolesNodeFilter(new[] {"foo", "bar"});
 
-            // Act
             var result = target.Filter(new FilteredNode(), filterContext);
 
-            // Assert
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void Filter_should_return_false_if_current_user_is_not_in_one_of_the_roles()
         {
-            // Arrange
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             httpContext.User = MockRepository.GenerateStub<IPrincipal>();
 
@@ -60,10 +56,8 @@ namespace FluentSiteMap.Test.Filters
 
             var target = new RolesNodeFilter(new[] { "foo", "bar" });
 
-            // Act
             var result = target.Filter(new FilteredNode(), filterContext);
 
-            // Assert
             Assert.That(result, Is.False);
         }
     }

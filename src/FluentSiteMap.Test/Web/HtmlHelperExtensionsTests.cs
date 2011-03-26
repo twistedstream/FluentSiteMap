@@ -12,13 +12,10 @@ namespace FluentSiteMap.Test.Web
         [Test]
         public void FluentSiteMap_should_return_a_FluentSiteMapHelper_containing_the_passed_HtmlHelper_instance()
         {
-            // arrange
             var htmlHelper = new HtmlHelper(new ViewContext(), new ViewPage());
 
-            // act
             var result = htmlHelper.FluentSiteMap();
 
-            // assert
             Assert.That(result, ContainsState.With(
                 new
                     {

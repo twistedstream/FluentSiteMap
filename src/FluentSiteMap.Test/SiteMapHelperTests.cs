@@ -65,11 +65,9 @@ namespace FluentSiteMap.Test
         [Test]
         public void RootNode_should_require_that_a_default_site_map_was_registered()
         {
-            // Arrange
             var requestContext = new RequestContext();
             ArrangeSiteMapHelperWithMvcHandlder(requestContext);
 
-            // Act
             Assert.Throws<InvalidOperationException>(
                 () => { var result = SiteMapHelper.RootNode; });
         }
@@ -77,7 +75,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void RootNode_should_return_the_root_node_via_a_RequestContext_from_the_MvcHandler_if_it_exists()
         {
-            // Arrange
             var requestContext = new RequestContext();
             ArrangeSiteMapHelperWithMvcHandlder(requestContext);
 
@@ -87,17 +84,14 @@ namespace FluentSiteMap.Test
                 .Return(new Node(new List<INodeFilter>()));
             SiteMapHelper.RegisterRootSiteMap(siteMap);
 
-            // Act
             var result = SiteMapHelper.RootNode;
 
-            // Assert
             Assert.That(result, Is.EqualTo(_rootNode));
         }
 
         [Test]
         public void RootNode_should_return_the_root_node_via_a_generated_RequestContext_if_the_MvcHandler_does_not_exist()
         {
-            // Arrange
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             ArrangeSiteMapHelper(httpContext);
 
@@ -107,21 +101,17 @@ namespace FluentSiteMap.Test
                 .Return(new Node(new List<INodeFilter>()));
             SiteMapHelper.RegisterRootSiteMap(siteMap);
 
-            // Act
             var result = SiteMapHelper.RootNode;
 
-            // Assert
             Assert.That(result, Is.EqualTo(_rootNode));
         }
 
         [Test]
         public void CurrentNode_should_require_that_a_default_site_map_was_registered()
         {
-            // Arrange
             var requestContext = new RequestContext();
             ArrangeSiteMapHelperWithMvcHandlder(requestContext);
 
-            // Act
             Assert.Throws<InvalidOperationException>(
                 () => { var result = SiteMapHelper.CurrentNode; });
         }
@@ -129,7 +119,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void CurrentNode_should_return_the_current_node_via_a_RequestContext_from_the_MvcHandler_if_it_exists()
         {
-            // Arrange
             var requestContext = new RequestContext();
             ArrangeSiteMapHelperWithMvcHandlder(requestContext);
 
@@ -139,17 +128,14 @@ namespace FluentSiteMap.Test
                 .Return(new Node(new List<INodeFilter>()));
             SiteMapHelper.RegisterRootSiteMap(siteMap);
 
-            // Act
             var result = SiteMapHelper.CurrentNode;
 
-            // Assert
             Assert.That(result, Is.EqualTo(_currentNode));
         }
 
         [Test]
         public void CurrentNode_should_return_the_current_node_via_a_generated_RequestContext_if_the_MvcHandler_does_not_exist()
         {
-            // Arrange
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             ArrangeSiteMapHelper(httpContext);
 
@@ -159,10 +145,8 @@ namespace FluentSiteMap.Test
                 .Return(new Node(new List<INodeFilter>()));
             SiteMapHelper.RegisterRootSiteMap(siteMap);
 
-            // Act
             var result = SiteMapHelper.CurrentNode;
 
-            // Assert
             Assert.That(result, Is.EqualTo(_currentNode));
         }
     }

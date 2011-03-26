@@ -36,7 +36,6 @@ namespace FluentSiteMap.Test
         [Test]
         public void Filters_should_return_the_inner_filters()
         {
-            // Arrange
             var filters = new[] {MockRepository.GenerateStub<INodeFilter>()};
 
             _inner
@@ -45,20 +44,16 @@ namespace FluentSiteMap.Test
 
             var target = new TestDecoratingNodeBuilder(_inner);
 
-            // Act
             var result = target.Filters;
 
-            // Assert
             Assert.That(result, Is.EqualTo(filters));
         }
 
         [Test]
         public void Build_should_require_a_context()
         {
-            // Arrange
             var target = new TestDecoratingNodeBuilder(_inner);
 
-            // Act
             var ex = Assert.Throws<ArgumentNullException>(
                 () => target.Build(null));
 
@@ -68,32 +63,26 @@ namespace FluentSiteMap.Test
         [Test]
         public void Build_should_call_the_inner_Build()
         {
-            // Arrange
             _inner = MockRepository.GenerateMock<INodeBuilder>();
 
             var target = new TestDecoratingNodeBuilder(_inner);
 
-            // Act
             target.Build(_context);
 
-            // Assert
             _inner.AssertWasCalled(i => i.Build(_context));
         }
 
         [Test]
         public void Build_should_call_OnBuild()
         {
-            // Arrange
             _inner
                 .Stub(i => i.Build(_context))
                 .Return(_node);
 
             var target = new TestDecoratingNodeBuilder(_inner);
 
-            // Act
             target.Build(_context);
 
-            // Assert
             Assert.That(target, ContainsState.With(
                 new
                     {
@@ -105,17 +94,14 @@ namespace FluentSiteMap.Test
         [Test]
         public void Build_should_return_the_resulting_node()
         {
-            // Arrange
             _inner
                 .Stub(i => i.Build(_context))
                 .Return(_node);
 
             var target = new TestDecoratingNodeBuilder(_inner);
 
-            // Act
             var result = target.Build(_context);
 
-            // Assert
             Assert.That(result, Is.EqualTo(_node));
         }
 

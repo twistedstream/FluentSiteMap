@@ -20,13 +20,10 @@ namespace FluentSiteMap.Test.Builders
         [Test]
         public void OnBuild_should_set_the_node_hidden_in_menu_to_true()
         {
-            // Arrange
             var target = new HiddenInMenuNodeBuilder(_helper.InnerBuilder);
 
-            // Act
             var result = target.Build(_helper.Context);
 
-            // Assert
             Assert.That(result.Metadata[HiddenInMenuNodeBuilder.MetadataKey], Is.True);
         }
     }
