@@ -39,11 +39,11 @@ namespace FluentSiteMap.Testing.Test
                                     new object[] {true, false},
                                     new object[] {(byte) 1, (byte) 2},
                                     new object[] {(sbyte) 1, (sbyte) 2},
-                                    new object[] {(Int16) 1, (Int16) 2},
+                                    new object[] {(short) 1, (short) 2},
                                     new object[] {(UInt16) 1, (UInt16) 2},
                                     new object[] {1, 2},
                                     new object[] {(UInt32) 1, (UInt32) 2},
-                                    new object[] {(Int64) 1, (Int64) 2},
+                                    new object[] {(long) 1, (long) 2},
                                     new object[] {(UInt64) 1, (UInt64) 2},
                                     new object[] {(IntPtr) 1, (IntPtr) 2},
                                     new object[] {(UIntPtr) 1, (UIntPtr) 2},
@@ -51,6 +51,7 @@ namespace FluentSiteMap.Testing.Test
                                     new object[] {(double) 1, (double) 2},
                                     new object[] {(float) 1, (float) 2},
                                     new object[] {"foo", "bar"},
+                                    new object[] {Guid.NewGuid(), Guid.NewGuid()},
                                 };
                 foreach (var @case in cases)
                 {

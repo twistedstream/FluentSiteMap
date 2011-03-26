@@ -32,10 +32,42 @@ namespace FluentSiteMap.Testing
 
         private const string LocationDelimiter = "/";
 
-        private static readonly HashSet<Type> SimpleTypes = new HashSet<Type>
-                                                                {
-                                                                    typeof (string)
-                                                                };
+        private static HashSet<Type> SimpleTypes
+        {
+            get
+            {
+                var types = new[]
+                                {
+                                    // primatives
+                                    typeof (bool),
+                                    typeof (byte),
+                                    typeof (sbyte),
+                                    typeof (short),
+                                    typeof (UInt16),
+                                    typeof (int),
+                                    typeof (UInt32),
+                                    typeof (long),
+                                    typeof (UInt64),
+                                    typeof (IntPtr),
+                                    typeof (UIntPtr),
+                                    typeof (char),
+                                    typeof (double),
+                                    typeof (float),
+
+                                    // other
+                                    typeof (string),
+                                    typeof (Guid),
+                                };
+
+                return new HashSet<Type>(
+                    // combine types above
+                    types
+                        // with the Nullables of all the value types
+                        .Concat(types
+                                    .Where(t => t.IsValueType)
+                                    .Select(t => typeof (Nullable<>).MakeGenericType(t))));
+            }
+        }
 
         private static ContainsStateResult ContainsState(this object actual, object expected, string location, Type actualType = null)
         {
@@ -50,15 +82,8 @@ namespace FluentSiteMap.Testing
                     actualType = actual.GetType();
                 var expectedType = expected.GetType();
 
-                // only continue more complex examination if object is not a primitive or simple type
-                if (!expectedType.IsPrimitive
-                    &&
-                    // Nullable of primitive type
-                    !(expectedType.IsGenericType && Equals(expectedType.GetGenericTypeDefinition(), typeof (Nullable<>)) &&
-                      expectedType.GetGenericArguments()[0].IsPrimitive)
-                    &&
-                    // one of the simple types
-                    !SimpleTypes.Contains(expectedType))
+                // only continue more complex examination if object is not one of the simple types
+                if (!SimpleTypes.Contains(expectedType))
                 {
 
                     // check for collection equality
