@@ -9,7 +9,7 @@ namespace FluentSiteMap.Builders
     public class UrlNodeBuilder
         : DecoratingNodeBuilder
     {
-        private readonly Func<Node, string> _urlGenerator;
+        private readonly Func<Node, BuilderContext, string> _urlGenerator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UrlNodeBuilder"/> class.
@@ -20,7 +20,7 @@ namespace FluentSiteMap.Builders
         /// <param name="urlGenerator">
         /// An expression that generates the node URL.
         /// </param>
-        public UrlNodeBuilder(INodeBuilder inner, Func<Node, string> urlGenerator) 
+        public UrlNodeBuilder(INodeBuilder inner, Func<Node, BuilderContext, string> urlGenerator) 
             : base(inner)
         {
             if (urlGenerator == null) throw new ArgumentNullException("urlGenerator");
@@ -34,7 +34,7 @@ namespace FluentSiteMap.Builders
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
-            node.Url = _urlGenerator(node);
+            node.Url = _urlGenerator(node, context);
         }
     }
 }

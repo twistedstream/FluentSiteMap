@@ -18,7 +18,7 @@ namespace FluentSiteMap.Builders
         /// <param name="titleGenerator">
         /// An expression that generates the node title.
         /// </param>
-        public static INodeBuilder WithTitle(this INodeBuilder inner, Func<Node, string> titleGenerator)
+        public static INodeBuilder WithTitle(this INodeBuilder inner, Func<Node, BuilderContext, string> titleGenerator)
         {
             return new TitleNodeBuilder(inner, titleGenerator);
         }
@@ -35,7 +35,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder WithTitle(this INodeBuilder inner, string title)
         {
-            return WithTitle(inner, n => title);
+            return WithTitle(inner, (n, c) => title);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace FluentSiteMap.Builders
         /// <param name="descriptionGenerator">
         /// An expression that generates the node description.
         /// </param>
-        public static INodeBuilder WithDescription(this INodeBuilder inner, Func<Node, string> descriptionGenerator)
+        public static INodeBuilder WithDescription(this INodeBuilder inner, Func<Node, BuilderContext, string> descriptionGenerator)
         {
             return new DescriptionNodeBuilder(inner, descriptionGenerator);
         }
@@ -65,7 +65,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder WithDescription(this INodeBuilder inner, string description)
         {
-            return WithDescription(inner, n => description);
+            return WithDescription(inner, (n, c) => description);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace FluentSiteMap.Builders
         /// </remarks>
         public static INodeBuilder WithDescriptionSameAsTitle(this INodeBuilder inner)
         {
-            return WithDescription(inner, n => n.Title);
+            return WithDescription(inner, (n, c) => n.Title);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace FluentSiteMap.Builders
         /// <param name="urlGenerator">
         /// An expression that generates the node URL.
         /// </param>
-        public static INodeBuilder WithUrl(this INodeBuilder inner, Func<Node, string> urlGenerator)
+        public static INodeBuilder WithUrl(this INodeBuilder inner, Func<Node, BuilderContext, string> urlGenerator)
         {
             return new UrlNodeBuilder(inner, urlGenerator);
         }
@@ -110,7 +110,7 @@ namespace FluentSiteMap.Builders
         /// </param>
         public static INodeBuilder WithUrl(this INodeBuilder inner, string url)
         {
-            return WithUrl(inner, n => url);
+            return WithUrl(inner, (n, c) => url);
         }
 
         /// <summary>
