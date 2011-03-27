@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Routing;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Sample;
 using FluentSiteMap.Sample.Models;
@@ -12,14 +13,11 @@ namespace FluentSiteMap.Test
     public class IntegrationTests
         : TestBase
     {
-        private SiteMapTestHelper _helper;
         private ISiteMap _siteMap;
 
         public override void Setup()
         {
             base.Setup();
-
-            _helper = new SiteMapTestHelper(MvcApplication.RegisterRoutes);
 
             _siteMap = new SampleSiteMap(new ProductRepository());
         }
@@ -27,7 +25,10 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_node_hierarchy_when_the_site_map_is_built()
         {
-            var root = _siteMap.Build(_helper.Context);
+            var root = _siteMap.Build(
+                new BuilderContext(
+                    new RequestContext()
+                        .ForRouting(MvcApplication.RegisterRoutes)));
 
             Assert.That(root, ContainsState.With(
                 new
@@ -142,10 +143,13 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_authenticated()
         {
-            var filteredRoot = _helper.GetRootNodeWhenUserIsNotAuthenticated(_siteMap);
+            var result = new RequestContext()
+                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithUnauthenticatedUser()
+                .GetRootNode(_siteMap);
 
             // only /Account/Login should be visble
-            var accountNode = filteredRoot.Children[1];
+            var accountNode = result.Children[1];
             Assert.That(accountNode, ContainsState.With(
                 new
                     {
@@ -167,10 +171,13 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_authenticated()
         {
-            var filteredRoot = _helper.GetRootNodeWhenUserIsAuthenticated(_siteMap);
+            var result = new RequestContext()
+                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithAuthenticatedUser()
+                .GetRootNode(_siteMap);
 
             // only /Account/Logout should be visble
-            var accountNode = filteredRoot.Children[1];
+            var accountNode = result.Children[1];
             Assert.That(accountNode, ContainsState.With(
                 new
                 {
@@ -192,20 +199,28 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_an_administrator()
         {
-            var filteredRoot = _helper.GetRootNodeWhenUserIsNotInRole(_siteMap, "Admin");
+            var result = new RequestContext()
+                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithAuthenticatedUser()
+                .WithUserNotInRole("Admin")
+                .GetRootNode(_siteMap);
 
             // /Admin should not be visible
-            Assert.That(filteredRoot.Children.Count, Is.EqualTo(4));
-            Assert.That(filteredRoot.Children.Any(n => n.Url == "/Admin"), Is.False);
+            Assert.That(result.Children.Count, Is.EqualTo(4));
+            Assert.That(result.Children.Any(n => n.Url == "/Admin"), Is.False);
         }
 
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_an_administrator()
         {
-            var filteredRoot = _helper.GetRootNodeWhenUserIsInRole(_siteMap, "Admin");
+            var result = new RequestContext()
+                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithAuthenticatedUser()
+                .WithUserInRole("Admin")
+                .GetRootNode(_siteMap);
 
             // /Admin should be visible
-            Assert.That(filteredRoot.Children, ContainsState.With(
+            Assert.That(result.Children, ContainsState.With(
                 new object[]
                     {
                         new {},
@@ -219,7 +234,11 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_return_the_expected_current_node()
         {
-            var result = _helper.GetCurrentNodeWhenHttpRequestUrlIs(_siteMap, "/Products/View/101");
+            var result = new RequestContext()
+                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithAuthenticatedUser()
+                .WithHttpRequestUrl("/Products/View/101")
+                .GetCurrentNode(_siteMap);
 
             Assert.That(result, ContainsState.With(
                 new

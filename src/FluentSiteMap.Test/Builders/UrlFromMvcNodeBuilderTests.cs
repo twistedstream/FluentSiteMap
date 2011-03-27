@@ -17,10 +17,12 @@ namespace FluentSiteMap.Test.Builders
         {
             base.Setup();
 
-            _helper = new DecoratingNodeBuilderTestHelper();
-
-            var siteMapTestHelper = new SiteMapTestHelper(MvcApplication.RegisterRoutes);
-            _helper.Context = siteMapTestHelper.Context;
+            _helper = new DecoratingNodeBuilderTestHelper
+                          {
+                              Context = new BuilderContext(
+                                  new RequestContext()
+                                      .ForRouting(MvcApplication.RegisterRoutes))
+                          };
 
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");

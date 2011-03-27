@@ -58,7 +58,7 @@
     <Compile Include="ContainsStateTests.cs" />
     <Compile Include="DecoratingNodeBuilderTestHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SiteMapTestHelperTests.cs" />
+    <Compile Include="StubRequestContextExtensionsTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

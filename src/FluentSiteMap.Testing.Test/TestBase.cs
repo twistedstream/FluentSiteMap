@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Impl;
@@ -34,6 +35,7 @@ namespace FluentSiteMap.Testing.Test
         [SetUp]
         public virtual void Setup()
         {
+            RouteTable.Routes.Clear();
         }
 
         /// <summary>
