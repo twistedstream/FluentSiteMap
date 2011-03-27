@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace FluentSiteMap.Testing.Test
 {
@@ -209,6 +211,71 @@ namespace FluentSiteMap.Testing.Test
                 .WithApplicationPath("/foo");
 
             Assert.That(result.HttpContext.Request.ApplicationPath, Is.EqualTo("/foo"));
+        }
+
+        [Test]
+        public void GetCurrentNode_should_return_the_current_node_of_the_site_map()
+        {
+            var siteMap = MockRepository.GenerateStub<ISiteMap>();
+            siteMap
+                .Stub(m => m.Build(Arg<BuilderContext>.Is.Anything))
+                .Return(new Node(new List<INodeFilter>())
+                            {
+                                Title = "Foo",
+                                Url = "/foo",
+                                Children = new List<Node>
+                                               {
+                                                   new Node(new List<INodeFilter>())
+                                                       {
+                                                           Title = "Bar",
+                                                           Url = "/foo/bar"
+                                                       }
+                                               }
+                            });
+
+            var result = new RequestContext()
+                .ForRouting(RegisterRoutes)
+                .WithHttpRequestUrl("/foo/bar")
+                .GetCurrentNode(siteMap);
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = "Bar",
+                        Url = "/foo/bar"
+                    }));
+        }
+
+        [Test]
+        public void GetRootNode_should_return_the_root_node_of_the_site_map()
+        {
+            var siteMap = MockRepository.GenerateStub<ISiteMap>();
+            siteMap
+                .Stub(m => m.Build(Arg<BuilderContext>.Is.Anything))
+                .Return(new Node(new List<INodeFilter>())
+                {
+                    Title = "Foo",
+                    Url = "/foo",
+                    Children = new List<Node>
+                                               {
+                                                   new Node(new List<INodeFilter>())
+                                                       {
+                                                           Title = "Bar",
+                                                           Url = "/foo/bar"
+                                                       }
+                                               }
+                });
+
+            var result = new RequestContext()
+                .ForRouting(RegisterRoutes)
+                .GetRootNode(siteMap);
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = "Foo",
+                        Url = "/foo"
+                    }));
         }
 
         private static void RegisterRoutes(RouteCollection routes)
