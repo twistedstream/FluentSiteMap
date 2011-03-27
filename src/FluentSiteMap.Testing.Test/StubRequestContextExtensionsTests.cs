@@ -181,7 +181,36 @@ namespace FluentSiteMap.Testing.Test
 
             Assert.That(result.HttpContext.Request.Path, Is.EqualTo("/foo"));
         }
-        
+
+        public void WithApplicationPath_should_require_a_context()
+        {
+            RequestContext context = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => context.WithApplicationPath("foo"));
+
+            Assert.That(ex.ParamName, Is.EqualTo("context"));
+        }
+
+        [Test]
+        public void WithApplicationPath_should_require_a_path()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => new RequestContext().WithApplicationPath(null));
+
+            Assert.That(ex.ParamName, Is.EqualTo("path"));
+        }
+
+        [Test]
+        public void WithApplicationPath_should_set_the_application_path()
+        {
+            var result = new RequestContext()
+                .ForRouting(RegisterRoutes)
+                .WithApplicationPath("/foo");
+
+            Assert.That(result.HttpContext.Request.ApplicationPath, Is.EqualTo("/foo"));
+        }
+
         private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

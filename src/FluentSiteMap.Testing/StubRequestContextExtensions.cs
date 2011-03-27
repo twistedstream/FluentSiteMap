@@ -8,7 +8,7 @@ namespace FluentSiteMap.Testing
 {
     /// <summary>
     /// Contains extension methods for stubbing out the state of a <see cref="RequestContext"/> object 
-    /// for unit tests.
+    /// for unit tests, which is useful for testing classes that inherit from <see cref="SiteMap"/>.
     /// </summary>
     public static class StubRequestContextExtensions
     {
@@ -162,6 +162,26 @@ namespace FluentSiteMap.Testing
             context.HttpContext.Request
                 .Stub(r => r.Path)
                 .Return(url);
+
+            return context;
+        }
+
+        /// <summary>
+        /// Configures the specified <see cref="RequestContext"/> 
+        /// to have the specified application path.
+        /// </summary>
+        /// <remarks>
+        /// This method can't be called on the <paramref name="context"/> 
+        /// until the <see cref="ForRouting"/> method has been called first.
+        /// </remarks>
+        public static RequestContext WithApplicationPath(this RequestContext context, string path)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+            if (path == null) throw new ArgumentNullException("path");
+
+            context.HttpContext.Request
+                .Stub(r => r.ApplicationPath)
+                .Return(path);
 
             return context;
         }
