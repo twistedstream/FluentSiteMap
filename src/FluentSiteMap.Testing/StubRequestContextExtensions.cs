@@ -13,22 +13,36 @@ namespace FluentSiteMap.Testing
     public static class StubRequestContextExtensions
     {
         /// <summary>
-        /// Configures the specified <see cref="RequestContext"/> so that it can be used to generate 
-        /// URL's from a routing table.
+        /// Configures the specified <see cref="RequestContext"/> with a stubbed <see cref="HttpContextBase"/> 
+        /// containing a stubbed <see cref="HttpRequestBase"/> and <see cref="HttpContextBase"/>.
         /// </summary>
         /// <param name="context">
-        /// The source <see cref="RequestContext"/> instance.
+        /// The <see cref="RequestContext"/> instance to populate.
         /// </param>
-        /// <param name="registerRoutes">
-        /// A method that will register all the required routes.
+        /// <param name="requestUrl">
+        /// The full request URL used to populate the contained <see cref="HttpRequestBase"/>.
         /// </param>
-        public static RequestContext ForRouting(this RequestContext context, Action<RouteCollection> registerRoutes)
+        /// <param name="applicationPath">
+        /// The relative path of the web application within the <paramref name="requestUrl"/>.
+        /// </param>
+        public static RequestContext WithHttpContext(this RequestContext context, string requestUrl, string applicationPath = "/")
         {
             if (context == null) throw new ArgumentNullException("context");
-            if (registerRoutes == null) throw new ArgumentNullException("registerRoutes");
+            if (requestUrl == null) throw new ArgumentNullException("requestUrl");
+            if (applicationPath == null) throw new ArgumentNullException("applicationPath");
 
-            // register routes
-            registerRoutes(RouteTable.Routes);
+            // calculate AppRelativeCurrentExecutionFilePath
+            var requestUri = new Uri(requestUrl);
+            var applicationUrl = string.Format("{0}{1}{2}{3}{4}",
+                                               requestUri.Scheme,
+                                               Uri.SchemeDelimiter,
+                                               requestUri.Host,
+                                               requestUri.IsDefaultPort ? string.Empty : requestUri.Port.ToString(),
+                                               applicationPath);
+            var appRelativePath = requestUri.ToString().Substring(applicationUrl.Length);
+            var appRelativeCurrentExecutionFilePath = string.Concat("~",
+                                                                    appRelativePath.StartsWith("/") ? string.Empty : "/",
+                                                                    appRelativePath);
 
             // mock HTTP context
             context.HttpContext = MockRepository.GenerateStub<HttpContextBase>();
@@ -36,8 +50,17 @@ namespace FluentSiteMap.Testing
             // mock HTTP request
             var httpRequest = MockRepository.GenerateStub<HttpRequestBase>();
             httpRequest
+                .Stub(r => r.Url)
+                .Return(requestUri);
+            httpRequest
+                .Stub(r => r.Path)
+                .Return(requestUri.AbsolutePath);
+            httpRequest
+                .Stub(r => r.ApplicationPath)
+                .Return(applicationPath);
+            httpRequest
                 .Stub(r => r.AppRelativeCurrentExecutionFilePath)
-                .Return("~/some-url");
+                .Return(appRelativeCurrentExecutionFilePath);
             httpRequest
                 .Stub(r => r.PathInfo)
                 .Return(string.Empty);
@@ -62,6 +85,28 @@ namespace FluentSiteMap.Testing
                 .Return(identity);
             context.HttpContext.User = principal;
 
+            return context;
+        }
+
+        /// <summary>
+        /// Configures the specified <see cref="RequestContext"/> so that it can be used to generate 
+        /// URL's from a routing table.
+        /// </summary>
+        /// <param name="context">
+        /// The <see cref="RequestContext"/> instance to populate.
+        /// </param>
+        /// <remarks>
+        /// This method can't be called on the <paramref name="context"/> 
+        /// until the <see cref="WithHttpContext"/> method has been called first.
+        /// Routes also have to have already been registered in 
+        /// the <see cref="RouteTable.Routes"/> collection.
+        /// </remarks>
+        public static RequestContext WithRouting(this RequestContext context)
+        {
+            if (context == null) throw new ArgumentNullException("context");
+
+            EnsureHttpContext(context);
+
             // mock routes
             context.RouteData = RouteTable.Routes.GetRouteData(context.HttpContext);
 
@@ -74,11 +119,13 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static RequestContext WithAuthenticatedUser(this RequestContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
+
+            EnsureHttpContext(context);
 
             context.HttpContext.User.Identity
                 .Stub(i => i.IsAuthenticated)
@@ -93,11 +140,13 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static RequestContext WithUnauthenticatedUser(this RequestContext context)
         {
             if (context == null) throw new ArgumentNullException("context");
+
+            EnsureHttpContext(context);
 
             context.HttpContext.User.Identity
                 .Stub(i => i.IsAuthenticated)
@@ -112,12 +161,14 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static RequestContext WithUserInRole(this RequestContext context, string role)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (role == null) throw new ArgumentNullException("role");
+
+            EnsureHttpContext(context);
 
             context.HttpContext.User
                 .Stub(p => p.IsInRole(role))
@@ -132,56 +183,18 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static RequestContext WithUserNotInRole(this RequestContext context, string role)
         {
             if (context == null) throw new ArgumentNullException("context");
             if (role == null) throw new ArgumentNullException("role");
 
+            EnsureHttpContext(context);
+
             context.HttpContext.User
                 .Stub(p => p.IsInRole(role))
                 .Return(false);
-
-            return context;
-        }
-
-        /// <summary>
-        /// Configures the specified <see cref="RequestContext"/> 
-        /// to have the specified HTTP request URL.
-        /// </summary>
-        /// <remarks>
-        /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
-        /// </remarks>
-        public static RequestContext WithHttpRequestUrl(this RequestContext context, string url)
-        {
-            if (context == null) throw new ArgumentNullException("context");
-            if (url == null) throw new ArgumentNullException("url");
-
-            context.HttpContext.Request
-                .Stub(r => r.Path)
-                .Return(url);
-
-            return context;
-        }
-
-        /// <summary>
-        /// Configures the specified <see cref="RequestContext"/> 
-        /// to have the specified application path.
-        /// </summary>
-        /// <remarks>
-        /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
-        /// </remarks>
-        public static RequestContext WithApplicationPath(this RequestContext context, string path)
-        {
-            if (context == null) throw new ArgumentNullException("context");
-            if (path == null) throw new ArgumentNullException("path");
-
-            context.HttpContext.Request
-                .Stub(r => r.ApplicationPath)
-                .Return(path);
 
             return context;
         }
@@ -192,10 +205,12 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static FilteredNode GetCurrentNode(this RequestContext context, ISiteMap siteMap)
         {
+            EnsureHttpContext(context);
+
             var coordinator = CreateCoordinator(siteMap);
             return coordinator.GetCurrentNode(context);
         }
@@ -206,12 +221,20 @@ namespace FluentSiteMap.Testing
         /// </summary>
         /// <remarks>
         /// This method can't be called on the <paramref name="context"/> 
-        /// until the <see cref="ForRouting"/> method has been called first.
+        /// until the <see cref="WithHttpContext"/> method has been called first.
         /// </remarks>
         public static FilteredNode GetRootNode(this RequestContext context, ISiteMap siteMap)
         {
+            EnsureHttpContext(context);
+
             var coordinator = CreateCoordinator(siteMap);
             return coordinator.GetRootNode(context);
+        }
+
+        private static void EnsureHttpContext(RequestContext context)
+        {
+            if (context.HttpContext == null)
+                throw new InvalidOperationException("The HttpContext is null.  The WithHttpContext extension method must be called first.");
         }
 
         private static SiteMapCoordinator CreateCoordinator(ISiteMap siteMap)

@@ -12,43 +12,186 @@ namespace FluentSiteMap.Testing.Test
         : TestBase
     {
         [Test]
-        public void ForRouting_should_require_a_context()
+        public void WithHttpContext_should_require_a_context()
         {
             RequestContext context = null;
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => context.ForRouting(RegisterRoutes));
+                () => context.WithHttpContext("http://foo.com"));
 
             Assert.That(ex.ParamName, Is.EqualTo("context"));
         }
 
         [Test]
-        public void ForRouting_should_require_route_registration()
+        public void WithHttpContext_should_require_a_request_URL()
         {
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => new RequestContext().ForRouting(null));
+            var context = new RequestContext();
 
-            Assert.That(ex.ParamName, Is.EqualTo("registerRoutes"));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => context.WithHttpContext(null));
+
+            Assert.That(ex.ParamName, Is.EqualTo("requestUrl"));
         }
 
         [Test]
-        public void ForRouting_should_populate_the_context_so_that_it_supports_URL_generation()
+        public void WithHttpContext_should_require_an_application_path()
         {
-            var result = new RequestContext().ForRouting(RegisterRoutes);
+            var context = new RequestContext();
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => context.WithHttpContext("http://foo.com", null));
+
+            Assert.That(ex.ParamName, Is.EqualTo("applicationPath"));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_populate_the_http_context_structure()
+        {
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com");
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        HttpContext = new
+                                          {
+                                              Request = new {},
+                                              Response = new {},
+                                              User = new
+                                                         {
+                                                             Identity = new {}
+                                                         }
+                                          },
+                    }));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_populate_the_http_request_when_no_absolute_path_is_in_request_URL()
+        {
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com");
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        HttpContext = new
+                                          {
+                                              Request = new
+                                                            {
+                                                                Url = new Uri("http://foo.com/"),
+                                                                Path = "/",
+                                                                ApplicationPath = "/",
+                                                                AppRelativeCurrentExecutionFilePath = "~/",
+                                                                PathInfo = string.Empty,
+                                                            },
+                                          },
+                    }));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_populate_the_http_context_when_an_absolute_path_is_in_request_URL()
+        {
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com/");
+
+            Assert.That(result, ContainsState.With(
+                new
+                {
+                    HttpContext = new
+                    {
+                        Request = new
+                        {
+                            Url = new Uri("http://foo.com/"),
+                            Path = "/",
+                            ApplicationPath = "/",
+                            AppRelativeCurrentExecutionFilePath = "~/",
+                            PathInfo = string.Empty,
+                        },
+                    },
+                }));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_populate_the_http_context_when_the_application_is_at_the_root()
+        {
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com/Bar");
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        HttpContext = new
+                                          {
+                                              Request = new
+                                                            {
+                                                                Url = new Uri("http://foo.com/Bar"),
+                                                                Path = "/Bar",
+                                                                ApplicationPath = "/",
+                                                                AppRelativeCurrentExecutionFilePath = "~/Bar",
+                                                                PathInfo = string.Empty,
+                                                            },
+                                          },
+                    }));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_populate_the_http_context_when_the_application_is_in_a_virtual_directory()
+        {
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com/Bar/Baz", "/Bar");
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        HttpContext = new
+                                          {
+                                              Request = new
+                                                            {
+                                                                Url = new Uri("http://foo.com/Bar/Baz"),
+                                                                Path = "/Bar/Baz",
+                                                                ApplicationPath = "/Bar",
+                                                                AppRelativeCurrentExecutionFilePath = "~/Baz",
+                                                                PathInfo = string.Empty,
+                                                            },
+                                          },
+                    }));
+        }
+
+        [Test]
+        public void WithHttpContext_should_correctly_stub_the_http_response_ApplyAppPathModifier_method()
+        {
+            var context = new RequestContext()
+                .WithHttpContext("http://foo.com");
+
+            var result = context.HttpContext.Response.ApplyAppPathModifier("foo");
+
+            Assert.That(result, Is.EqualTo("foo"));
+        }
+
+        [Test]
+        public void WithRouting_should_require_a_context()
+        {
+            RequestContext context = null;
+
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => context.WithRouting());
+
+            Assert.That(ex.ParamName, Is.EqualTo("context"));
+        }
+
+        [Test]
+        public void WithRouting_should_populate_the_context_so_that_it_supports_URL_generation()
+        {
+            RegisterRoutes(RouteTable.Routes);
+
+            var result = new RequestContext()
+                .WithHttpContext("http://foo.com")
+                .WithRouting();
 
             Assert.That(result, ContainsState.With(
                 new
                     {
                         RouteData = new {},
-                        HttpContext = new
-                                          {
-                                              Request = new
-                                                            {
-                                                                AppRelativeCurrentExecutionFilePath = "~/some-url",
-                                                                PathInfo = string.Empty
-                                                            },
-                                              Response = new {}
-                                          },
                     }));
         }
 
@@ -67,7 +210,7 @@ namespace FluentSiteMap.Testing.Test
         public void WithAuthenticatedUser_should_set_the_identity_to_authenticated()
         {
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
+                .WithHttpContext("http://foo.com")
                 .WithAuthenticatedUser();
 
             Assert.That(result.HttpContext.User.Identity.IsAuthenticated, Is.True);
@@ -88,7 +231,7 @@ namespace FluentSiteMap.Testing.Test
         public void WithUnauthenticatedUser_should_set_the_identity_to_unauthenticated()
         {
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
+                .WithHttpContext("http://foo.com")
                 .WithUnauthenticatedUser();
 
             Assert.That(result.HttpContext.User.Identity.IsAuthenticated, Is.False);
@@ -118,7 +261,7 @@ namespace FluentSiteMap.Testing.Test
         public void WithUserInRole_should_set_principal_to_have_role()
         {
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
+                .WithHttpContext("http://foo.com")
                 .WithUserInRole("foo");
 
             Assert.That(result.HttpContext.User.IsInRole("foo"), Is.True);
@@ -148,69 +291,10 @@ namespace FluentSiteMap.Testing.Test
         public void WithUserNotInRole_should_set_principal_not_to_have_role()
         {
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
+                .WithHttpContext("http://foo.com")
                 .WithUserNotInRole("foo");
 
             Assert.That(result.HttpContext.User.IsInRole("foo"), Is.False);
-        }
-
-        [Test]
-        public void WithHttpRequestUrl_should_require_a_context()
-        {
-            RequestContext context = null;
-
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => context.WithHttpRequestUrl("foo"));
-
-            Assert.That(ex.ParamName, Is.EqualTo("context"));
-        }
-
-        [Test]
-        public void WithHttpRequestUrl_should_require_a_URL()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => new RequestContext().WithHttpRequestUrl(null));
-
-            Assert.That(ex.ParamName, Is.EqualTo("url"));
-        }
-
-        [Test]
-        public void WithHttpRequestUrl_should_set_the_HTTP_request_URL()
-        {
-            var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
-                .WithHttpRequestUrl("/foo");
-
-            Assert.That(result.HttpContext.Request.Path, Is.EqualTo("/foo"));
-        }
-
-        public void WithApplicationPath_should_require_a_context()
-        {
-            RequestContext context = null;
-
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => context.WithApplicationPath("foo"));
-
-            Assert.That(ex.ParamName, Is.EqualTo("context"));
-        }
-
-        [Test]
-        public void WithApplicationPath_should_require_a_path()
-        {
-            var ex = Assert.Throws<ArgumentNullException>(
-                () => new RequestContext().WithApplicationPath(null));
-
-            Assert.That(ex.ParamName, Is.EqualTo("path"));
-        }
-
-        [Test]
-        public void WithApplicationPath_should_set_the_application_path()
-        {
-            var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
-                .WithApplicationPath("/foo");
-
-            Assert.That(result.HttpContext.Request.ApplicationPath, Is.EqualTo("/foo"));
         }
 
         [Test]
@@ -234,8 +318,7 @@ namespace FluentSiteMap.Testing.Test
                             });
 
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
-                .WithHttpRequestUrl("/foo/bar")
+                .WithHttpContext("http://foo.com/foo/bar")
                 .GetCurrentNode(siteMap);
 
             Assert.That(result, ContainsState.With(
@@ -267,7 +350,7 @@ namespace FluentSiteMap.Testing.Test
                 });
 
             var result = new RequestContext()
-                .ForRouting(RegisterRoutes)
+                .WithHttpContext("http://foo.com")
                 .GetRootNode(siteMap);
 
             Assert.That(result, ContainsState.With(
@@ -283,11 +366,10 @@ namespace FluentSiteMap.Testing.Test
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                "Default", 
+                "{controller}/{action}/{id}", 
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional } 
                 );
-
         }
     }
 }

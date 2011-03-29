@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc.Html;
+﻿using System;
+using System.Web.Mvc.Html;
 
 namespace FluentSiteMap.Web
 {
@@ -16,9 +17,14 @@ namespace FluentSiteMap.Web
         /// <param name="viewName">
         /// An optional view name other than the default.
         /// </param>
+        /// <remarks>
+        /// If no current node exists, <see cref="SiteMapHelper.NotFoundNode"/> is used instead.
+        /// </remarks>
         public static void Title(this FluentSiteMapHelper helper, string viewName = "FluentSiteMapTitle")
         {
-            helper.HtmlHelper.RenderPartial(viewName, helper.TitleModel);
+            var model = helper.TitleModel ?? SiteMapHelper.NotFoundNode;
+
+            helper.HtmlHelper.RenderPartial(viewName, model);
         }
 
         /// <summary>

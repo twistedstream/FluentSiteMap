@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using FluentSiteMap.Web;
 
 namespace FluentSiteMap
 {
@@ -24,6 +25,21 @@ namespace FluentSiteMap
                            ? new List<INodeFilter>()
                            : _coordinator.DefaultFilters;
             }
+        }
+
+        private static FilteredNode _noCurrentNodeTitle = new FilteredNode
+                                                              {
+                                                                  Title = "{not found}",
+                                                                  Description = "{node not found in site map}"
+                                                              };
+        /// <summary>
+        /// Gets or sets the node instance used by various partial views that use the current site map node 
+        /// when no current node exists.
+        /// </summary>
+        public static FilteredNode NotFoundNode
+        {
+            get { return _noCurrentNodeTitle; }
+            set { _noCurrentNodeTitle = value; }
         }
 
         /// <summary>

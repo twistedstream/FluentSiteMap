@@ -25,10 +25,13 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_node_hierarchy_when_the_site_map_is_built()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var root = _siteMap.Build(
                 new BuilderContext(
                     new RequestContext()
-                        .ForRouting(MvcApplication.RegisterRoutes)));
+                        .WithHttpContext("http://foo.com/")
+                        .WithRouting()));
 
             Assert.That(root, ContainsState.With(
                 new
@@ -143,8 +146,11 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_authenticated()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var result = new RequestContext()
-                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithHttpContext("http://foo.com/")
+                .WithRouting()
                 .WithUnauthenticatedUser()
                 .GetRootNode(_siteMap);
 
@@ -171,8 +177,11 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_authenticated()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var result = new RequestContext()
-                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithHttpContext("http://foo.com/")
+                .WithRouting()
                 .WithAuthenticatedUser()
                 .GetRootNode(_siteMap);
 
@@ -199,8 +208,11 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_not_an_administrator()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var result = new RequestContext()
-                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithHttpContext("http://foo.com/")
+                .WithRouting()
                 .WithAuthenticatedUser()
                 .WithUserNotInRole("Admin")
                 .GetRootNode(_siteMap);
@@ -213,8 +225,11 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_produce_the_expected_filtered_node_hierachy_when_the_user_is_an_administrator()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var result = new RequestContext()
-                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithHttpContext("http://foo.com/")
+                .WithRouting()
                 .WithAuthenticatedUser()
                 .WithUserInRole("Admin")
                 .GetRootNode(_siteMap);
@@ -234,10 +249,12 @@ namespace FluentSiteMap.Test
         [Test]
         public void Should_return_the_expected_current_node()
         {
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             var result = new RequestContext()
-                .ForRouting(MvcApplication.RegisterRoutes)
+                .WithHttpContext("http://foo.com/Products/View/101")
+                .WithRouting()
                 .WithAuthenticatedUser()
-                .WithHttpRequestUrl("/Products/View/101")
                 .GetCurrentNode(_siteMap);
 
             Assert.That(result, ContainsState.With(

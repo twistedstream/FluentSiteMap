@@ -17,11 +17,14 @@ namespace FluentSiteMap.Test.Builders
         {
             base.Setup();
 
+            MvcApplication.RegisterRoutes(RouteTable.Routes);
+
             _helper = new DecoratingNodeBuilderTestHelper
                           {
                               Context = new BuilderContext(
                                   new RequestContext()
-                                      .ForRouting(MvcApplication.RegisterRoutes))
+                                      .WithHttpContext("http://foo.com/")
+                                      .WithRouting())
                           };
 
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
