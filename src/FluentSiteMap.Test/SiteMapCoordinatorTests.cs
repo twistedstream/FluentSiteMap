@@ -160,25 +160,15 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetCurrentNode_should_return_the_current_node_if_it_exists()
         {
-            _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
-            _rootSiteMap
-                .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
-                .Return(_rootNode);
-
             var currentNode = new FilteredNode {IsCurrent = true};
-            var filteredRootNode = new FilteredNode
+            var rootNode = new FilteredNode
                                        {
                                            Children = new[] {currentNode}
                                        };
 
-            _recursiveNodeFilter
-                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                    Arg<Node>.Is.Equal(_rootNode)))
-                .Return(filteredRootNode);
-
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            var result = target.GetCurrentNode(_requestContext);
+            var result = target.GetCurrentNode(_requestContext, rootNode);
 
             Assert.That(result, Is.EqualTo(currentNode));
         }
@@ -186,19 +176,9 @@ namespace FluentSiteMap.Test
         [Test]
         public void GetCurrentNode_should_return_null_if_no_current_node_exists()
         {
-            _rootSiteMap = MockRepository.GenerateMock<ISiteMap>();
-            _rootSiteMap
-                .Expect(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, _requestContext))))
-                .Return(_rootNode);
-
-            _recursiveNodeFilter
-                .Stub(f => f.Filter(Arg<FilterContext>.Matches(c => Equals(c.RequestContext, _requestContext)),
-                                    Arg<Node>.Is.Equal(_rootNode)))
-                .Return(new FilteredNode());
-
             var target = new SiteMapCoordinator(_recursiveNodeFilter, _defaultFilterProvider, _rootSiteMap);
 
-            var result = target.GetCurrentNode(_requestContext);
+            var result = target.GetCurrentNode(_requestContext, new FilteredNode());
 
             Assert.That(result, Is.Null);
         }

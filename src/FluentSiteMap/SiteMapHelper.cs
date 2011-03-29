@@ -112,9 +112,9 @@ namespace FluentSiteMap
                         // build concrete HTTP request context
                         var requestContext = BuildRequestContext();
 
-                        // invoke coordinator and save in http context
+                        // invoke coordinator and save in http context, using cached RootNode
                         EnsureCoordinator();
-                        httpContext.Items[CurrentNodeKey] = _coordinator.GetCurrentNode(requestContext);
+                        httpContext.Items[CurrentNodeKey] = _coordinator.GetCurrentNode(requestContext, RootNode);
                     }
                 }
                 

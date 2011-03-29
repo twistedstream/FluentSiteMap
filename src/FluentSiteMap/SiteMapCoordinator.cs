@@ -81,10 +81,12 @@ namespace FluentSiteMap
         /// <param name="requestContext">
         /// A <see cref="RequestContext"/> instance used to build and filter the nodes.
         /// </param>
-        public FilteredNode GetCurrentNode(RequestContext requestContext)
+        /// <param name="rootNode">
+        /// The node to use as the root when performing the search for the current node.  
+        /// Typically the <see cref="GetRootNode"/> method is called to get this node.
+        /// </param>
+        public FilteredNode GetCurrentNode(RequestContext requestContext, FilteredNode rootNode)
         {
-            var rootNode = GetRootNode(requestContext);
-
             var allNodes = GetDecendants(new[] {rootNode});
 
             return allNodes.FirstOrDefault(n => n.IsCurrent);

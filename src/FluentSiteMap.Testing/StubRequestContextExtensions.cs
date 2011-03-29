@@ -212,7 +212,7 @@ namespace FluentSiteMap.Testing
             EnsureHttpContext(context);
 
             var coordinator = CreateCoordinator(siteMap);
-            return coordinator.GetCurrentNode(context);
+            return coordinator.GetCurrentNode(context, coordinator.GetRootNode(context));
         }
 
         /// <summary>
