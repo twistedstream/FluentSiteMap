@@ -12,6 +12,7 @@ namespace FluentSiteMap
     /// </summary>
     public static class SiteMapHelper
     {
+        private static readonly object TypeLock = new object();
         private static SiteMapCoordinator _coordinator;
 
         /// <summary>
@@ -57,6 +58,7 @@ namespace FluentSiteMap
             _coordinator = new SiteMapCoordinator(recursiveNodeFilter, defaultFilterProvider, siteMap);
         }
 
+        internal const string RootNodeKey = "0AC35BDB-9943-460F-9C89-C793F25F46F5";
         /// <summary>
         /// Gets the root node of the site map.
         /// </summary>
@@ -67,15 +69,28 @@ namespace FluentSiteMap
                 // return mock node if it's set
                 if (_stubRootNode != null) return _stubRootNode;
 
-                // build concrete HTTP request context
-                var requestContext = BuildRequestContext();
+                var httpContext = GetHttpContext();
 
-                // invoke coordinator
-                EnsureCoordinator();
-                return _coordinator.GetRootNode(requestContext);
+                // load on first request (on this thread)
+                lock (TypeLock)
+                {
+
+                    if (!httpContext.Items.Contains(RootNodeKey))
+                    {
+                        // build concrete HTTP request context
+                        var requestContext = BuildRequestContext();
+
+                        // invoke coordinator and save in http context
+                        EnsureCoordinator();
+                        httpContext.Items[RootNodeKey] = _coordinator.GetRootNode(requestContext);
+                    }
+                }
+                
+                return (FilteredNode) httpContext.Items[RootNodeKey];
             }
         }
 
+        internal const string CurrentNodeKey = "2C7351A8-2C8B-40B2-AC3A-445BF4C659CF";
         /// <summary>
         /// Gets the node who's URL matches the current HTTP request.
         /// </summary>
@@ -86,29 +101,41 @@ namespace FluentSiteMap
                 // return mock node if it's set
                 if (_stubCurrentNode != null) return _stubCurrentNode;
 
-                // build concrete HTTP request context
-                var requestContext = BuildRequestContext();
+                var httpContext = GetHttpContext();
 
-                // invoke coordinator
-                EnsureCoordinator();
-                return _coordinator.GetCurrentNode(requestContext);
+                // load on first request (on this thread)
+                lock (TypeLock)
+                {
+
+                    if (!httpContext.Items.Contains(CurrentNodeKey))
+                    {
+                        // build concrete HTTP request context
+                        var requestContext = BuildRequestContext();
+
+                        // invoke coordinator and save in http context
+                        EnsureCoordinator();
+                        httpContext.Items[CurrentNodeKey] = _coordinator.GetCurrentNode(requestContext);
+                    }
+                }
+                
+                return (FilteredNode) httpContext.Items[CurrentNodeKey];
             }
+        }
+
+        private static HttpContextBase GetHttpContext()
+        {
+            if (_stubHttpContext != null)
+                return _stubHttpContext;
+
+            if (HttpContext.Current == null)
+                throw new InvalidOperationException(
+                    "A current HTTP request is required.");
+            return new HttpContextWrapper(HttpContext.Current);
         }
 
         private static RequestContext BuildRequestContext()
         {
-            HttpContextBase httpContext;
-
-            if (_stubHttpContext != null)
-                httpContext = _stubHttpContext;
-
-            else
-            {
-                if (HttpContext.Current == null)
-                    throw new InvalidOperationException(
-                        "A current HTTP request is required.");
-                httpContext = new HttpContextWrapper(HttpContext.Current);
-            }
+            var httpContext = GetHttpContext();
 
             var mvcHandler = httpContext.Handler as MvcHandler;
 

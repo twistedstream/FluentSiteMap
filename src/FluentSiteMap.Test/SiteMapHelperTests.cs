@@ -39,6 +39,11 @@ namespace FluentSiteMap.Test
         {
             SiteMapHelper.InjectHttpContext(httpContext);
 
+            var items = new Dictionary<object, object>();
+            httpContext
+                .Stub(c => c.Items)
+                .Return(items);
+
             var recursiveNodeFilter = MockRepository.GenerateStub<IRecursiveNodeFilter>();
             recursiveNodeFilter
                 .Stub(f => f.Filter(Arg<FilterContext>.Is.Anything, Arg<Node>.Is.Anything))
@@ -58,6 +63,8 @@ namespace FluentSiteMap.Test
 
             var httpContext = MockRepository.GenerateStub<HttpContextBase>();
             httpContext.Handler = mvcHandler;
+
+            requestContext.HttpContext = httpContext;
 
             ArrangeSiteMapHelper(httpContext);
         }
@@ -107,6 +114,38 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
+        public void RootNode_should_cache_the_root_node_in_the_http_context()
+        {
+            var requestContext = new RequestContext();
+            ArrangeSiteMapHelperWithMvcHandlder(requestContext);
+
+            var siteMap = MockRepository.GenerateStub<ISiteMap>();
+            siteMap
+                .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, requestContext))))
+                .Return(new Node(new List<INodeFilter>()));
+            SiteMapHelper.RegisterRootSiteMap(siteMap);
+
+            var rootNode = SiteMapHelper.RootNode;
+
+            var result = requestContext.HttpContext.Items[SiteMapHelper.RootNodeKey];
+
+            Assert.That(result, Is.EqualTo(rootNode));
+        }
+
+        [Test]
+        public void RootNode_should_get_the_root_node_from_cache_if_it_exists()
+        {
+            var requestContext = new RequestContext();
+            ArrangeSiteMapHelperWithMvcHandlder(requestContext);
+
+            requestContext.HttpContext.Items[SiteMapHelper.RootNodeKey] = _rootNode;
+
+            var result = SiteMapHelper.RootNode;
+
+            Assert.That(result, Is.EqualTo(_rootNode));
+        }
+
+        [Test]
         public void CurrentNode_should_require_that_a_default_site_map_was_registered()
         {
             var requestContext = new RequestContext();
@@ -144,6 +183,38 @@ namespace FluentSiteMap.Test
                 .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext.HttpContext, httpContext))))
                 .Return(new Node(new List<INodeFilter>()));
             SiteMapHelper.RegisterRootSiteMap(siteMap);
+
+            var result = SiteMapHelper.CurrentNode;
+
+            Assert.That(result, Is.EqualTo(_currentNode));
+        }
+
+        [Test]
+        public void CurrentNode_should_cache_the_root_node_in_the_http_context()
+        {
+            var requestContext = new RequestContext();
+            ArrangeSiteMapHelperWithMvcHandlder(requestContext);
+
+            var siteMap = MockRepository.GenerateStub<ISiteMap>();
+            siteMap
+                .Stub(m => m.Build(Arg<BuilderContext>.Matches(c => Equals(c.RequestContext, requestContext))))
+                .Return(new Node(new List<INodeFilter>()));
+            SiteMapHelper.RegisterRootSiteMap(siteMap);
+
+            var currentNode = SiteMapHelper.CurrentNode;
+
+            var result = requestContext.HttpContext.Items[SiteMapHelper.CurrentNodeKey];
+
+            Assert.That(result, Is.EqualTo(currentNode));
+        }
+
+        [Test]
+        public void CurrentNode_should_get_the_root_node_from_cache_if_it_exists()
+        {
+            var requestContext = new RequestContext();
+            ArrangeSiteMapHelperWithMvcHandlder(requestContext);
+
+            requestContext.HttpContext.Items[SiteMapHelper.CurrentNodeKey] = _currentNode;
 
             var result = SiteMapHelper.CurrentNode;
 
