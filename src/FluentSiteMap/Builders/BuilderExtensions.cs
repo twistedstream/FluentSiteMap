@@ -10,7 +10,7 @@ namespace FluentSiteMap.Builders
     {
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> that will set the node title 
-        /// with an expression.
+        /// using the output of an expression.
         /// </summary>
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
@@ -40,7 +40,7 @@ namespace FluentSiteMap.Builders
 
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> that will set the node description 
-        /// with an expression.
+        /// using the output of an expression.
         /// </summary>
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
@@ -85,7 +85,7 @@ namespace FluentSiteMap.Builders
 
         /// <summary>
         /// Generates a <see cref="INodeBuilder"/> that will set the node URL 
-        /// with an expression.
+        /// using the output of an expression.
         /// </summary>
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
@@ -111,6 +111,48 @@ namespace FluentSiteMap.Builders
         public static INodeBuilder WithUrl(this INodeBuilder inner, string url)
         {
             return WithUrl(inner, (n, c) => url);
+        }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node target 
+        /// using the output of an expression.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="targetGenerator">
+        /// An expression that generates the node target.
+        /// </param>
+        public static INodeBuilder WithTarget(this INodeBuilder inner, Func<Node, BuilderContext, string> targetGenerator)
+        {
+            return new TargetNodeBuilder(inner, targetGenerator);
+        }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will set the node target 
+        /// with a value.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        /// <param name="target">
+        /// The node target.
+        /// </param>
+        public static INodeBuilder WithTarget(this INodeBuilder inner, string target)
+        {
+            return WithTarget(inner, (n, c) => target);
+        }
+
+        /// <summary>
+        /// Generates a <see cref="INodeBuilder"/> that will configure the node so that 
+        /// its link will open up a new window or tab.
+        /// </summary>
+        /// <param name="inner">
+        /// The previous <see cref="INodeBuilder"/> instance in the chain.
+        /// </param>
+        public static INodeBuilder WithTargetThatOpensNewWindow(this INodeBuilder inner)
+        {
+            return inner.WithTarget("_blank");
         }
 
         /// <summary>

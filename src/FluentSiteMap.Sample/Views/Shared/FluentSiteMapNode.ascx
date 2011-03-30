@@ -3,5 +3,5 @@
 <% if (Model.Url == null) { %>
     <%: Model.Title%>
 <% } else { %>
-    <a href="<%: Model.Url %>"><%: Model.Title%></a>
+    <a href="<%: Model.Url %>"<% if (Model.Target != null) { %> target="<%: Model.Target %>"<% } %>><%: Model.Title%></a>
 <% } %>

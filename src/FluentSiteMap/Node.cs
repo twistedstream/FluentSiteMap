@@ -39,6 +39,11 @@ namespace FluentSiteMap
         /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// Gets or sets the node URL target.
+        /// </summary>
+        public string Target { get; set; }
+
         private IList<Node> _children = new List<Node>();
 
         /// <summary>

@@ -47,6 +47,10 @@ namespace FluentSiteMap.Sample.Models
                             .WithTitle("Site Map").WithDescriptionSameAsTitle()
                             .ForAction("SiteMap").WithUrlFromMvc(),
                         Node()
+                            .WithTitle("Google").WithDescriptionSameAsTitle()
+                            .WithUrl("http://google.com")
+                            .WithTargetThatOpensNewWindow(),
+                        Node()
                             .WithTitle("Administration").WithDescriptionSameAsTitle()
                             .ForController("Admin").ForAction("Index").WithUrlFromMvc()
                             .IfInRole("Admin"));

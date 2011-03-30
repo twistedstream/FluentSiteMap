@@ -134,6 +134,14 @@ namespace FluentSiteMap.Test
                                                },
                                            new
                                                {
+                                                   Title = "Google",
+                                                   Description = "Google",
+                                                   Url = "http://google.com",
+                                                   Target = "_blank",
+                                                   Children = ContainsState.EmptyCollection
+                                               },
+                                           new
+                                               {
                                                    Title = "Administration",
                                                    Description = "Administration",
                                                    Url = "/Admin",
@@ -218,7 +226,7 @@ namespace FluentSiteMap.Test
                 .GetRootNode(_siteMap);
 
             // /Admin should not be visible
-            Assert.That(result.Children.Count, Is.EqualTo(4));
+            Assert.That(result.Children.Count, Is.EqualTo(5));
             Assert.That(result.Children.Any(n => n.Url == "/Admin"), Is.False);
         }
 
@@ -238,6 +246,7 @@ namespace FluentSiteMap.Test
             Assert.That(result.Children, ContainsState.With(
                 new object[]
                     {
+                        new {},
                         new {},
                         new {},
                         new {},

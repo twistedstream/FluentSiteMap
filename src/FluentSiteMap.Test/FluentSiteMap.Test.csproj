@@ -63,6 +63,7 @@
     <Compile Include="Builders\StaticChildNodeBuilderTests.cs" />
     <Compile Include="Builders\ControllerNodeBuilderTests.cs" />
     <Compile Include="Builders\DescriptionNodeBuilderTests.cs" />
+    <Compile Include="Builders\TargetNodeBuilderTests.cs" />
     <Compile Include="Builders\TitleNodeBuilderTests.cs" />
     <Compile Include="Builders\UrlFromMvcNodeBuilderTests.cs" />
     <Compile Include="Builders\UrlNodeBuilderTests.cs" />

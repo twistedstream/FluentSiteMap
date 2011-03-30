@@ -46,6 +46,7 @@ namespace FluentSiteMap
                                            Title = node.Title,
                                            Description = node.Description,
                                            Url = node.Url,
+                                           Target = node.Target,
                                            Children = new List<FilteredNode>(),
                                            Parent = parent,
                                            Metadata = node.Metadata

@@ -57,6 +57,7 @@
     <Compile Include="Builders\MetadataNodeBuilder.cs" />
     <Compile Include="Builders\DescriptionNodeBuilder.cs" />
     <Compile Include="Builders\DynamicChildNodeBuilder.cs" />
+    <Compile Include="Builders\TargetNodeBuilder.cs" />
     <Compile Include="Builders\UrlNodeBuilder.cs" />
     <Compile Include="DecoratingNodeBuilder.cs" />
     <Compile Include="BuilderContext.cs" />

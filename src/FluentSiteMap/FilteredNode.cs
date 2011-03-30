@@ -32,6 +32,11 @@ namespace FluentSiteMap
         public string Url { get; set; }
 
         /// <summary>
+        /// Gets or sets the node URL target.
+        /// </summary>
+        public string Target { get; set; }
+
+        /// <summary>
         /// Gets or sets whether the node is the current node 
         /// relative to the current HTTP request.
         /// </summary>
