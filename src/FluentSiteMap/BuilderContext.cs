@@ -55,12 +55,9 @@ namespace FluentSiteMap
         /// The key used to get the value.
         /// </param>
         /// <returns>
-        /// The obtained value either from this context or a parent context.
+        /// The obtained value either from this context or a parent context 
+        /// or a default value (ex: null) if no value is found.
         /// </returns>
-        /// <exception cref="InvalidOperationException">
-        /// No value either in this context or any parent context could be found 
-        /// with the specified <paramref name="key"/>.
-        /// </exception>
         public T GetMetadata<T>(string key)
         {
             // recursively search for the metadata value in current node and ancestors
