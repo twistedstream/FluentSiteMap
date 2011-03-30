@@ -29,5 +29,33 @@ namespace FluentSiteMap.Test
 
             Assert.That(target.RequestContext, Is.EqualTo(requestContext));
         }
+
+        [Test]
+        public void Should_return_a_default_value_if_metadata_doesnt_exist()
+        {
+            var requestContext = new RequestContext();
+
+            var target = new FilterContext(requestContext, new List<INodeFilter>());
+
+            target.SetMetadata("foo", "FOO");
+
+            var result = target.GetMetadata<string>("bar");
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void Should_return_value_if_metadata_exists()
+        {
+            var requestContext = new RequestContext();
+
+            var target = new FilterContext(requestContext, new List<INodeFilter>());
+
+            target.SetMetadata("foo", "FOO");
+
+            var result = target.GetMetadata<string>("foo");
+
+            Assert.That(result, Is.EqualTo("FOO"));
+        }
     }
 }

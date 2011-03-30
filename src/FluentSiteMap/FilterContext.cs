@@ -9,6 +9,8 @@ namespace FluentSiteMap
     /// </summary>
     public class FilterContext
     {
+        private readonly IDictionary<string, object> _metadata = new Dictionary<string, object>();
+
         /// <summary>
         /// Gets the <see cref="RequestContext"/> associated with the site map filter.
         /// </summary>
@@ -35,6 +37,37 @@ namespace FluentSiteMap
 
             RequestContext = requestContext;
             DefaultFilters = defaultFilters;
+        }
+
+        /// <summary>
+        /// Gets a strongly-typed metadata value out of the context.
+        /// </summary>
+        /// <param name="key">
+        /// The key used to get the value.
+        /// </param>
+        /// <returns>
+        /// The obtained value 
+        /// or a default value (ex: null) if no value is found.
+        /// </returns>
+        public T GetMetadata<T>(string key)
+        {
+            return _metadata.ContainsKey(key)
+                       ? (T) _metadata[key]
+                       : default(T);
+        }
+
+        /// <summary>
+        /// Sets a strongly-typed metadata value into the context.
+        /// </summary>
+        /// <param name="key">
+        /// The key used to set the value.
+        /// </param>
+        /// <param name="value">
+        /// The value to set.
+        /// </param>
+        public void SetMetadata(string key, object value)
+        {
+            _metadata[key] = value;
         }
     }
 }
