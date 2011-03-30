@@ -43,6 +43,46 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
+        public void Filter_should_copy_state_from_nodes_to_filtered_nodes()
+        {
+            var filter = MockRepository.GenerateStub<INodeFilter>();
+            filter
+                .Stub(
+                    f =>
+                    f.Filter(Arg<FilteredNode>.Is.Anything,
+                             Arg<FilterContext>.Is.Anything))
+                .Return(true);
+
+            _rootNode = new Node(new[] {filter})
+                            {
+                                Title = "title",
+                                Description = "description",
+                                Url = "/url",
+                                Target = "_target"
+                            };
+            _rootNode.Metadata["key1"] = "value1";
+            _rootNode.Metadata["key2"] = "value2";
+
+            IRecursiveNodeFilter target = new RecursiveNodeFilter();
+
+            var result = target.Filter(_context, _rootNode);
+
+            Assert.That(result, ContainsState.With(
+                new
+                    {
+                        Title = "title",
+                        Description = "description",
+                        Url = "/url",
+                        Target = "_target",
+                        Metadata = new Dictionary<string, object>
+                                       {
+                                           {"key1", "value1"},
+                                           {"key2", "value2"}
+                                       }
+                    }));
+        }
+
+        [Test]
         public void Filter_should_filter_nodes_with_both_the_default_filters_and_the_node_filters()
         {
             var filter1 = MockRepository.GenerateMock<INodeFilter>();
