@@ -61,14 +61,15 @@ namespace FluentSiteMap.Test
         }
 
         [Test]
-        public void Should_throw_the_expected_exception_if_metadata_doesnt_exist()
+        public void Should_return_a_default_value_if_metadata_doesnt_exist()
         {
             var target = new BuilderContext(new RequestContext());
 
             target.SetMetadata("foo", "FOO");
 
-            Assert.Throws<InvalidOperationException>(
-                () => target.GetMetadata<string>("bar"));
+            var result = target.GetMetadata<string>("bar");
+
+            Assert.That(result, Is.Null);
         }
 
         [Test]

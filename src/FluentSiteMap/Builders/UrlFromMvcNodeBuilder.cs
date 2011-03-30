@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace FluentSiteMap.Builders
@@ -45,8 +46,24 @@ namespace FluentSiteMap.Builders
         /// </summary>
         protected override void OnBuild(Node node, BuilderContext context)
         {
+            const string missingMetadataFormat =
+                "No {0} was found either in the current node or in any ancenstor nodes.  Make sure {1} is being called before WithUrlFromMvc.";
+
+            // get controller name
             var controller = context.GetMetadata<string>(ControllerKey);
+            if (controller == null)
+                throw new InvalidOperationException(
+                    string.Format(missingMetadataFormat,
+                                  "controller name",
+                                  "ForController"));
+
+            // get action name
             var action = context.GetMetadata<string>(ActionKey);
+            if (action == null)
+                throw new InvalidOperationException(
+                    string.Format(missingMetadataFormat,
+                                  "action name",
+                                  "ForAction"));
 
             // set URL
             var urlHelper = new UrlHelper(context.RequestContext);

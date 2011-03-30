@@ -63,16 +63,14 @@ namespace FluentSiteMap
         /// </exception>
         public T GetMetadata<T>(string key)
         {
-            // recursively search for the metadata value
+            // recursively search for the metadata value in current node and ancestors
             var context = this;
             while (!context._metadata.ContainsKey(key))
             {
                 context = context.Parent;
                 if (context == null)
-                    throw new InvalidOperationException(
-                        string.Format(
-                            "No metadata with key '{0}' could be found in the current or parent BuilderContext instances.",
-                            key));
+                    // return default value if not found
+                    return default(T);
             }
 
             return (T) context._metadata[key];

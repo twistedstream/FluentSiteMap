@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+﻿using System;
 using System.Web.Routing;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Sample;
@@ -29,6 +29,28 @@ namespace FluentSiteMap.Test.Builders
 
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, "foo");
             _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, "bar");
+        }
+
+        [Test]
+        public void OnBuild_should_require_that_a_controller_was_already_set()
+        {
+            _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ControllerKey, null);
+
+            var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, null);
+
+            Assert.Throws<InvalidOperationException>(
+                () => target.Build(_helper.Context));
+        }
+
+        [Test]
+        public void OnBuild_should_require_that_an_action_was_already_set()
+        {
+            _helper.Context.SetMetadata(UrlFromMvcNodeBuilder.ActionKey, null);
+
+            var target = new UrlFromMvcNodeBuilder(_helper.InnerBuilder, null);
+
+            Assert.Throws<InvalidOperationException>(
+                () => target.Build(_helper.Context));
         }
 
         [Test]
