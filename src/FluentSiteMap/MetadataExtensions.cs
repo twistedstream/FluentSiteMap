@@ -24,7 +24,7 @@ namespace FluentSiteMap
         /// <param name="recursive">
         /// True (default) to search ancestor nodes if the value is not found in <paramref name="node"/>.
         /// </param>
-        public static T GetMetadataValue<T>(this FilteredNode node, string key, bool recursive = true)
+        public static T GetMetadata<T>(this FilteredNode node, string key, bool recursive = true)
         {
             if (node == null) throw new ArgumentNullException("node");
             if (key == null) throw new ArgumentNullException("key");
@@ -48,7 +48,7 @@ namespace FluentSiteMap
         {
             if (node == null) throw new ArgumentNullException("node");
 
-            return node.GetMetadataValue<bool>(HiddenInMenuNodeBuilder.MetadataKey);
+            return node.GetMetadata<bool>(HiddenInMenuNodeBuilder.MetadataKey);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace FluentSiteMap
         {
             if (node == null) throw new ArgumentNullException("node");
 
-            return node.GetMetadataValue<bool>(HiddenInBreadCrumbsNodeBuilder.MetadataKey, false);
+            return node.GetMetadata<bool>(HiddenInBreadCrumbsNodeBuilder.MetadataKey, false);
         }
     }
 }

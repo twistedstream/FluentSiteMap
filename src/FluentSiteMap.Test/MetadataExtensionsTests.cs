@@ -15,7 +15,7 @@ namespace FluentSiteMap.Test
             FilteredNode node = null;
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => node.GetMetadataValue<string>("foo"));
+                () => node.GetMetadata<string>("foo"));
 
             Assert.That(ex.ParamName, Is.EqualTo("node"));
         }
@@ -26,7 +26,7 @@ namespace FluentSiteMap.Test
             var node = new FilteredNode();
 
             var ex = Assert.Throws<ArgumentNullException>(
-                () => node.GetMetadataValue<string>(null));
+                () => node.GetMetadata<string>(null));
 
             Assert.That(ex.ParamName, Is.EqualTo("key"));
         }
@@ -36,7 +36,7 @@ namespace FluentSiteMap.Test
         {
             var node = new FilteredNode();
 
-            var result = node.GetMetadataValue<string>("foo");
+            var result = node.GetMetadata<string>("foo");
 
             Assert.That(result, Is.Null);
         }
@@ -52,7 +52,7 @@ namespace FluentSiteMap.Test
                                               }
                            };
 
-            var result = node.GetMetadataValue<string>("foo");
+            var result = node.GetMetadata<string>("foo");
 
             Assert.That(result, Is.EqualTo("bar"));
         }
@@ -74,7 +74,7 @@ namespace FluentSiteMap.Test
                                             }
                            };
 
-            var result = node.GetMetadataValue<string>("foo", false);
+            var result = node.GetMetadata<string>("foo", false);
 
             Assert.That(result, Is.Null);
         }
@@ -96,7 +96,7 @@ namespace FluentSiteMap.Test
                                             }
                            };
 
-            var result = node.GetMetadataValue<string>("foo");
+            var result = node.GetMetadata<string>("foo");
 
             Assert.That(result, Is.EqualTo("bar"));
         }
