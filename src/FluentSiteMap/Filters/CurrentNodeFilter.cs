@@ -13,52 +13,64 @@ namespace FluentSiteMap.Filters
     public class CurrentNodeFilter
         : INodeFilter
     {
+        internal const string CurrentNodeFoundKey = "current-node-found";
+
         /// <summary>
         /// Implements the <see cref="INodeFilter.Filter"/> method 
         /// by setting the current node as current if it is.
         /// </summary>
         public bool Filter(FilteredNode node, FilterContext context)
         {
-            if (node.Url != null)
+            // only perform check if the current node has not yet been found
+            if (!context.GetMetadata<bool>(CurrentNodeFoundKey))
             {
-                if (context.RequestContext.HttpContext.Handler is MvcHandler)
+
+                // only continue if the node actually has a URL
+                if (node.Url != null)
                 {
-                    //MVC comparison: route values
+                    if (context.RequestContext.HttpContext.Handler is MvcHandler)
+                    {
+                        //MVC comparison: route values
 
-                    // get route values associated with the current request
-                    var currentRequestRouteValues = RouteValuesFromHttpContext(
-                        context.RequestContext.HttpContext);
+                        // get route values associated with the current request
+                        var currentRequestRouteValues = RouteValuesFromHttpContext(
+                            context.RequestContext.HttpContext);
 
-                    // get route values associated with node URL
-                    var nodeRouteValues = RouteValuesFromHttpContext(
-                        new StubHttpContext(
-                            new StubHttpRequest(context.RequestContext.HttpContext.Request,
-                                                node.Url)));
+                        // get route values associated with node URL
+                        var nodeRouteValues = RouteValuesFromHttpContext(
+                            new StubHttpContext(
+                                new StubHttpRequest(context.RequestContext.HttpContext.Request,
+                                                    node.Url)));
 
-                    // only compare non-optional route values from node
-                    var routeValues = nodeRouteValues
-                        .Where(v => v.Value != UrlParameter.Optional)
-                        .ToList();
+                        // only compare non-optional route values from node
+                        var routeValues = nodeRouteValues
+                            .Where(v => v.Value != UrlParameter.Optional)
+                            .ToList();
 
-                    // node is current if current request route values are contained within the node route values
-                    node.IsCurrent =
-                        routeValues.All(v => currentRequestRouteValues.ContainsKey(v.Key))
-                        &&
-                        routeValues.All(
-                            v => v.Value.ToString().ToLowerInvariant() == currentRequestRouteValues[v.Key].ToString().ToLowerInvariant());
+                        // node is current if current request route values are contained within the node route values
+                        node.IsCurrent =
+                            routeValues.All(v => currentRequestRouteValues.ContainsKey(v.Key))
+                            &&
+                            routeValues.All(
+                                v => v.Value.ToString().ToLowerInvariant() == currentRequestRouteValues[v.Key].ToString().ToLowerInvariant());
+                    }
+                    else
+                    {
+                        //non-MVC comparison: URL comparison
+
+                        node.IsCurrent = string.Compare(
+                            node.Url,
+                            context.RequestContext.HttpContext.Request.Path,
+                            StringComparison.InvariantCultureIgnoreCase) == 0;
+                    }
                 }
-                else
-                {
-                    //non-MVC comparison: URL comparison
 
-                    node.IsCurrent = string.Compare(
-                                node.Url,
-                                context.RequestContext.HttpContext.Request.Path,
-                                StringComparison.InvariantCultureIgnoreCase) == 0;
-                }
+                // current node found; prevent further checks
+                if (node.IsCurrent)
+                    context.SetMetadata(CurrentNodeFoundKey, true);
             }
 
-            // not filtering the node itself
+            // always return true as we're not filtering out the node itself
             return true;
         }
 
