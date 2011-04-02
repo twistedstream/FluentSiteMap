@@ -12,6 +12,7 @@ namespace FluentSiteMap.Filters
         : INodeFilter
     {
         private readonly IEnumerable<string> _roles;
+        private readonly bool _inRoles;
 
         /// <summary>
         /// Intitializes a new instance of the <see cref="RolesNodeFilter"/> class.
@@ -19,11 +20,15 @@ namespace FluentSiteMap.Filters
         /// <param name="roles">
         /// The sequence of roles of which a user must be a member of at least one to view the node.
         /// </param>
-        public RolesNodeFilter(IEnumerable<string> roles)
+        /// <param name="inRoles">
+        /// True if the user must be in the roles; false if the user must not be in the roles.
+        /// </param>
+        public RolesNodeFilter(IEnumerable<string> roles, bool inRoles)
         {
             if (roles == null) throw new ArgumentNullException("roles");
 
             _roles = roles;
+            _inRoles = inRoles;
         }
 
         /// <summary>
@@ -32,8 +37,11 @@ namespace FluentSiteMap.Filters
         /// </summary>
         public bool Filter(FilteredNode node, FilterContext context)
         {
-            return _roles.Any(
-                r => context.RequestContext.HttpContext.User.IsInRole(r));
+            return _inRoles
+                       ? _roles.Any(
+                           r => context.RequestContext.HttpContext.User.IsInRole(r))
+                       : !_roles.Any(
+                           r => context.RequestContext.HttpContext.User.IsInRole(r));
         }
     }
 }
