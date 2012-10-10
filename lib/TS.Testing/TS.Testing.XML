@@ -51,6 +51,38 @@
             the state of objects with complext structures.
             </remarks>
         </member>
+        <member name="T:TS.Testing.TestBase">
+            <summary>
+            Base class for all test classes.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.TestBase.TestFixtureSetUp">
+            <summary>
+            Method called once before all the tests in a given test fixture are executed.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.TestBase.TestFixtureTearDown">
+            <summary>
+            Method called once after all of the tests in a given test fixture are executed.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.TestBase.Setup">
+            <summary>
+            Method called before each test in a text fixture is executed.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.TestBase.TearDown">
+            <summary>
+            Method called after each test in a text fixture is executed.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.TestBase.AssertThrowsArgumentException``1(NUnit.Framework.TestDelegate,System.String)">
+            <summary>
+            Helper method that asserts that an <see cref="T:System.ArgumentException"/> gets thrown 
+            with the specified parameter name
+            when the specified code is executed.
+            </summary>
+        </member>
         <member name="T:TS.Testing.ContainsStateConstraint">
             <summary>
             An NUnit <see cref="T:NUnit.Framework.Constraints.Constraint"/> that will execute the 
@@ -80,6 +112,44 @@
             Overrides the <see cref="M:NUnit.Framework.Constraints.Constraint.WriteDescriptionTo(NUnit.Framework.Constraints.MessageWriter)"/> method 
             in order to write the failure description.
             </summary>
+        </member>
+        <member name="T:TS.Testing.ComponentTestBase`1">
+            <summary>
+            A <see cref="T:TS.Testing.TestBase"/> for test classes that need to test a component, 
+            which is a class that uses constructor-based dependency injection.
+            </summary>
+            <typeparam name="TComponent">
+            The type of the component being tested by the concrete test class.
+            </typeparam>
+        </member>
+        <member name="M:TS.Testing.ComponentTestBase`1.GetDependencies">
+            <summary>
+            Gets the set of dependency values (in the correct order) that get injected into the component's constructor
+            during the <see cref="M:TS.Testing.ComponentTestBase`1.CreateTarget"/> method.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.ComponentTestBase`1.CreateTarget">
+            <summary>
+            Allows tests to create instances of the component with all of its injected dependencies.
+            </summary>
+        </member>
+        <member name="M:TS.Testing.ComponentTestBase`1.GetDependencyParameters">
+            <summary>
+            Allow subclasses to get access to the dependency parameters passed into the constructor.
+            </summary>
+            <returns>
+            An dictionary containing all dependency instances by name.
+            </returns>
+        </member>
+        <member name="T:TS.Testing.DependencyContainerTestBase`1">
+            <summary>
+            A <see cref="T:TS.Testing.ComponentTestBase`1"/> for test classes that need to test a component 
+            that is a dependency container, which is a simple class that exposes all the parameters to its 
+            constructor via properties of the same name.
+            </summary>
+            <typeparam name="TDependencyContainer">
+            The type of the dependency container being tested by the concrete test class.
+            </typeparam>
         </member>
         <member name="T:TS.Testing.ContainsStateResult">
             <summary>
@@ -126,66 +196,6 @@
             If <see cref="P:TS.Testing.ContainsStateResult.Success"/> is false, gets or sets the expected value.
             </summary>
         </member>
-        <member name="T:TS.Testing.ComponentTestBase`1">
-            <summary>
-            A <see cref="T:TS.Testing.TestBase"/> for test classes that need to test a component, 
-            which is a class that uses constructor-based dependency injection.
-            </summary>
-            <typeparam name="TComponent">
-            The type of the component being tested by the concrete test class.
-            </typeparam>
-        </member>
-        <member name="T:TS.Testing.TestBase">
-            <summary>
-            Base class for all test classes.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.TestBase.TestFixtureSetUp">
-            <summary>
-            Method called once before all the tests in a given test fixture are executed.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.TestBase.TestFixtureTearDown">
-            <summary>
-            Method called once after all of the tests in a given test fixture are executed.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.TestBase.Setup">
-            <summary>
-            Method called before each test in a text fixture is executed.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.TestBase.TearDown">
-            <summary>
-            Method called after each test in a text fixture is executed.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.TestBase.AssertThrowsArgumentException``1(NUnit.Framework.TestDelegate,System.String)">
-            <summary>
-            Helper method that asserts that an <see cref="T:System.ArgumentException"/> gets thrown 
-            with the specified parameter name
-            when the specified code is executed.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.ComponentTestBase`1.GetDependencies">
-            <summary>
-            Gets the set of dependency values (in the correct order) that get injected into the component's constructor
-            during the <see cref="M:TS.Testing.ComponentTestBase`1.CreateTarget"/> method.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.ComponentTestBase`1.CreateTarget">
-            <summary>
-            Allows tests to create instances of the component with all of its injected dependencies.
-            </summary>
-        </member>
-        <member name="M:TS.Testing.ComponentTestBase`1.GetDependencyParameters">
-            <summary>
-            Allow subclasses to get access to the dependency parameters passed into the constructor.
-            </summary>
-            <returns>
-            An dictionary containing all dependency instances by name.
-            </returns>
-        </member>
         <member name="T:TS.Testing.ComponentWithInterfaceTestBase`2">
             <summary>
             A <see cref="T:TS.Testing.ComponentTestBase`1"/> for test classes that need to test a component 
@@ -202,16 +212,6 @@
             <summary>
             Allows tests to create instances of the component with all of its injected dependencies.
             </summary>
-        </member>
-        <member name="T:TS.Testing.DependencyContainerTestBase`1">
-            <summary>
-            A <see cref="T:TS.Testing.ComponentTestBase`1"/> for test classes that need to test a component 
-            that is a dependency container, which is a simple class that exposes all the parameters to its 
-            constructor via properties of the same name.
-            </summary>
-            <typeparam name="TDependencyContainer">
-            The type of the dependency container being tested by the concrete test class.
-            </typeparam>
         </member>
     </members>
 </doc>
