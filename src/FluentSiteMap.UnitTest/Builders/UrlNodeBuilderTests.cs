@@ -7,7 +7,7 @@ namespace FluentSiteMap.UnitTest.Builders
 {
     [TestFixture]
     public class UrlNodeBuilderTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private DecoratingNodeBuilderTestHelper _helper;
 

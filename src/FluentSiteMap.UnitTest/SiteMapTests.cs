@@ -8,7 +8,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class SiteMapTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private BuilderContext _context;
 

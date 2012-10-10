@@ -5,7 +5,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class FilteredNodeTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void Instances_should_not_have_null_Children_collections()

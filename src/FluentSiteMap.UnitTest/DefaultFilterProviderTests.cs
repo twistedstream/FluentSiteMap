@@ -6,7 +6,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class DefaultFilterProviderTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void GetFilters_should_return_the_expected_filters()

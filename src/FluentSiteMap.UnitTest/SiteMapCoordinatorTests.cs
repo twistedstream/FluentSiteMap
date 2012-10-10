@@ -9,7 +9,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class SiteMapCoordinatorTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private IRecursiveNodeFilter _recursiveNodeFilter;
         private IDefaultFilterProvider _defaultFilterProvider;

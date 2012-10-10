@@ -10,7 +10,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class SiteMapHelperTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private FilteredNode _rootNode;
         private FilteredNode _currentNode;

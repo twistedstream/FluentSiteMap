@@ -10,7 +10,7 @@ namespace FluentSiteMap.UnitTest.Filters
 {
     [TestFixture]
     public class AuthenticationNodeFilterTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private IIdentity _identity;
         private FilterContext _filterContext;

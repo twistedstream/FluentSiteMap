@@ -6,7 +6,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class NodeTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private IList<INodeFilter> _filters;
 

@@ -11,7 +11,7 @@ namespace FluentSiteMap.UnitTest.Filters
 {
     [TestFixture]
     public class CurrentNodeFilterTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private static void RegisterRoutes(RouteCollection routes)
         {

@@ -91,7 +91,7 @@
     <Compile Include="SiteMapHelperTests.cs" />
     <Compile Include="SiteMapTests.cs" />
     <Compile Include="SiteMapCoordinatorTests.cs" />
-    <Compile Include="TestBase.cs" />
+    <Compile Include="FluentSiteMapTestBase.cs" />
     <Compile Include="Web\FluentSiteMapHelperTests.cs" />
     <Compile Include="Web\HtmlHelperExtensionsTests.cs" />
   </ItemGroup>

@@ -12,7 +12,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class IntegrationTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private ISiteMap _siteMap;
 

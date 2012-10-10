@@ -7,7 +7,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class BaseNodeBuilderTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void Instances_should_have_an_empty_list_of_filters()

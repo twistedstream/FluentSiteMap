@@ -7,7 +7,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class FilterContextTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void Instances_should_require_a_request_context()

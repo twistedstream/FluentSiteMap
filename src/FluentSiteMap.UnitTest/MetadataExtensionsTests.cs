@@ -7,7 +7,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class MetadataExtensionsTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void GetMetadataValue_should_require_a_node()

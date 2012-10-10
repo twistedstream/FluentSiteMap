@@ -9,7 +9,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class DecoratingNodeBuilderTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private INodeBuilder _inner;
         private BuilderContext _context;

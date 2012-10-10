@@ -11,7 +11,7 @@ namespace FluentSiteMap.UnitTest.Filters
 {
     [TestFixture]
     public class RolesNodeFilterTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void Instances_should_require_roles()

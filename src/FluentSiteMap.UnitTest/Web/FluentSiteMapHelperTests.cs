@@ -9,7 +9,7 @@ namespace FluentSiteMap.UnitTest.Web
 {
     [TestFixture]
     public class FluentSiteMapHelperTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private HtmlHelper _htmlHelper;
 

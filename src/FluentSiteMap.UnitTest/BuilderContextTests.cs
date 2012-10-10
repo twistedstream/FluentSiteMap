@@ -6,7 +6,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class BuilderContextTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void Root_instances_should_require_a_request_context()

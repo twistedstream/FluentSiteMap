@@ -7,7 +7,7 @@ namespace FluentSiteMap.UnitTest.Web
 {
     [TestFixture]
     public class HtmlHelperExtensionsTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         [Test]
         public void FluentSiteMap_should_return_a_FluentSiteMapHelper_containing_the_passed_HtmlHelper_instance()

@@ -9,7 +9,7 @@ namespace FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class RecursiveNodeFilterTests
-        : TestBase
+        : FluentSiteMapTestBase
     {
         private FilterContext _context;
         private Node _rootNode;
