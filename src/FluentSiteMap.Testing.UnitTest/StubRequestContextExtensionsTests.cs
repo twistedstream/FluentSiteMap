@@ -6,7 +6,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using TS.Testing;
 
-namespace FluentSiteMap.Testing.Test
+namespace FluentSiteMap.Testing.UnitTest
 {
     [TestFixture]
     public class StubRequestContextExtensionsTests

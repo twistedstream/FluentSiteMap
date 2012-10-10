@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Impl;
 
-namespace FluentSiteMap.Testing.Test
+namespace FluentSiteMap.Testing.UnitTest
 {
     /// <summary>
     /// Base class for all test classes.

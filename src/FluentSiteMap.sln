@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Sample", "Flu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Testing", "FluentSiteMap.Testing\FluentSiteMap.Testing.csproj", "{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Testing.Test", "FluentSiteMap.Testing.Test\FluentSiteMap.Testing.Test.csproj", "{2E4D730C-4183-49B2-92E7-4128085E3FCC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Testing.UnitTest", "FluentSiteMap.Testing.UnitTest\FluentSiteMap.Testing.UnitTest.csproj", "{2E4D730C-4183-49B2-92E7-4128085E3FCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
