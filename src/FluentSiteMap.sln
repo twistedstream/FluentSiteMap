@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap", "FluentSiteMap\FluentSiteMap.csproj", "{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Test", "FluentSiteMap.Test\FluentSiteMap.Test.csproj", "{33021BBD-8B42-4969-9CA5-76C15AD6C8DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.UnitTest", "FluentSiteMap.UnitTest\FluentSiteMap.UnitTest.csproj", "{33021BBD-8B42-4969-9CA5-76C15AD6C8DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3048FDFA-5D3F-4596-B3CE-4AAA3BE167F4}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{33021BBD-8B42-4969-9CA5-76C15AD6C8DC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentSiteMap.UnitTest</RootNamespace>
+    <AssemblyName>FluentSiteMap.UnitTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\lib\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\lib\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\lib\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TS.Testing">
+      <HintPath>..\..\lib\TS.Testing\TS.Testing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="BaseNodeBuilderTests.cs" />
+    <Compile Include="BuilderContextTests.cs" />
+    <Compile Include="Builders\ActionNodeBuilderTests.cs" />
+    <Compile Include="Builders\HiddenInBreadCrumbsNodeBuilderTests.cs" />
+    <Compile Include="Builders\HiddenInMenuNodeBuilderTests.cs" />
+    <Compile Include="Builders\MetadataNodeBuilderTests.cs" />
+    <Compile Include="Builders\DynamicChildNodeBuilderTests.cs" />
+    <Compile Include="Builders\StaticChildNodeBuilderTests.cs" />
+    <Compile Include="Builders\ControllerNodeBuilderTests.cs" />
+    <Compile Include="Builders\DescriptionNodeBuilderTests.cs" />
+    <Compile Include="Builders\TargetNodeBuilderTests.cs" />
+    <Compile Include="Builders\TitleNodeBuilderTests.cs" />
+    <Compile Include="Builders\UrlFromMvcNodeBuilderTests.cs" />
+    <Compile Include="Builders\UrlNodeBuilderTests.cs" />
+    <Compile Include="DecoratingNodeBuilderTests.cs" />
+    <Compile Include="DefaultFilterProviderTests.cs" />
+    <Compile Include="FilterContextTests.cs" />
+    <Compile Include="FilteredNodeTests.cs" />
+    <Compile Include="Filters\AuthenticationNodeFilterTests.cs" />
+    <Compile Include="Filters\CurrentNodeFilterTests.cs" />
+    <Compile Include="Filters\RolesNodeFilterTests.cs" />
+    <Compile Include="IntegrationTests.cs" />
+    <Compile Include="MetadataExtensionsTests.cs" />
+    <Compile Include="NodeTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecursiveNodeFilterTests.cs" />
+    <Compile Include="SiteMapHelperTests.cs" />
+    <Compile Include="SiteMapTests.cs" />
+    <Compile Include="SiteMapCoordinatorTests.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="Web\FluentSiteMapHelperTests.cs" />
+    <Compile Include="Web\HtmlHelperExtensionsTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSiteMap.Sample\FluentSiteMap.Sample.csproj">
+      <Project>{164AD247-437D-410B-A260-ACAF21C7A439}</Project>
+      <Name>FluentSiteMap.Sample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSiteMap.Testing\FluentSiteMap.Testing.csproj">
+      <Project>{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}</Project>
+      <Name>FluentSiteMap.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentSiteMap\FluentSiteMap.csproj">
+      <Project>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</Project>
+      <Name>FluentSiteMap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
