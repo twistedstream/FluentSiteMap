@@ -61,14 +61,10 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ContainsState.cs" />
-    <Compile Include="ContainsStateConstraint.cs" />
-    <Compile Include="ContainsStateResult.cs" />
     <Compile Include="DecoratingNodeBuilderTestHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ContainsStateExtensions.cs" />
     <Compile Include="StubRequestContextExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

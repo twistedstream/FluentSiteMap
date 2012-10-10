@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FluentSiteMap.Builders;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
+using TS.Testing;
 
 namespace FluentSiteMap.Test.Builders
 {

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using TS.Testing;
 
 namespace FluentSiteMap.Testing.Test
 {

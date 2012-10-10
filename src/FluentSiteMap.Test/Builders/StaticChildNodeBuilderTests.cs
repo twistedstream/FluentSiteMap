@@ -4,6 +4,7 @@ using FluentSiteMap.Builders;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
+using TS.Testing;
 
 namespace FluentSiteMap.Test.Builders
 {

@@ -6,6 +6,7 @@ using FluentSiteMap.Sample;
 using FluentSiteMap.Sample.Models;
 using FluentSiteMap.Testing;
 using NUnit.Framework;
+using TS.Testing;
 
 namespace FluentSiteMap.Test
 {

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
+using TS.Testing;
 
 namespace FluentSiteMap.Testing.Test
 {
