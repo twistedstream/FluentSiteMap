@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3048FDFA-5D3F-4596-B3CE-4AAA3BE167F4}"
 	ProjectSection(SolutionItems) = preProject
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		nuget.config = nuget.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Sample", "FluentSiteMap.Sample\FluentSiteMap.Sample.csproj", "{164AD247-437D-410B-A260-ACAF21C7A439}"
@@ -16,6 +15,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Testing", "FluentSiteMap.Testing\FluentSiteMap.Testing.csproj", "{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Testing.UnitTest", "FluentSiteMap.Testing.UnitTest\FluentSiteMap.Testing.UnitTest.csproj", "{2E4D730C-4183-49B2-92E7-4128085E3FCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{27B9CB04-623D-4F01-B8FC-540820AA4B68}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
