@@ -95,29 +95,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>set rootBinDir=$(SolutionDir)..\bin
-if not exist "%25rootBinDir%25" mkdir "%25rootBinDir%25"
-
-set fileName=$(TargetName).dll
-set rootBinFile=%25rootBinDir%25\%25fileName%25
-if exist "%25rootBinFile%25" del "%25rootBinFile%25"
-set projBinFile=$(TargetDir)%25fileName%25
-if exist "%25projBinFile%25" copy /Y "%25projBinFile%25" "%25rootBinDir%25\*.*"
-
-set fileName=$(TargetName).pdb
-set rootBinFile=%25rootBinDir%25\%25fileName%25
-if exist "%25rootBinFile%25" del "%25rootBinFile%25"
-set projBinFile=$(TargetDir)%25fileName%25
-if exist "%25projBinFile%25" copy /Y "%25projBinFile%25" "%25rootBinDir%25\*.*"
-
-set fileName=$(TargetName).xml
-set rootBinFile=%25rootBinDir%25\%25fileName%25
-if exist "%25rootBinFile%25" del "%25rootBinFile%25"
-set projBinFile=$(TargetDir)%25fileName%25
-if exist "%25projBinFile%25" copy /Y "%25projBinFile%25" "%25rootBinDir%25\*.*"
-</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
