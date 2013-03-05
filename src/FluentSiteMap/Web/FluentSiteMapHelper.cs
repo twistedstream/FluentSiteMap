@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using FluentSiteMap.Builders;
+using TS.FluentSiteMap.Builders;
 
-namespace FluentSiteMap.Web
+namespace TS.FluentSiteMap.Web
 {
     /// <summary>
     /// A fluent interface helper object used to help render partial views against the site map.

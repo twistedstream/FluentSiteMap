@@ -2,7 +2,7 @@
 using System.Web.Routing;
 using Rhino.Mocks;
 
-namespace FluentSiteMap.Testing
+namespace TS.FluentSiteMap.Testing
 {
     /// <summary>
     /// A helper object for testing classes that inherit from <see cref="DecoratingNodeBuilder"/>.

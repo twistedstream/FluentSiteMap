@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using FluentSiteMap.Sample.Models;
+using TS.FluentSiteMap.Sample.Models;
 
-namespace FluentSiteMap.Sample.Controllers
+namespace TS.FluentSiteMap.Sample.Controllers
 {
 
     [HandleError]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// The default implementation of the <see cref="IRecursiveNodeFilter"/> interface.

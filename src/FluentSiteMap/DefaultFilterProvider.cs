@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using FluentSiteMap.Filters;
+using TS.FluentSiteMap.Filters;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// The default implementation of the <see cref="IDefaultFilterProvider"/> interface.

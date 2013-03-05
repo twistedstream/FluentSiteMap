@@ -6,7 +6,7 @@ using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class SiteMapHelperTests

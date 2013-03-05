@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap.Builders
+﻿namespace TS.FluentSiteMap.Builders
 {
     /// <summary>
     /// A <see cref="DecoratingNodeBuilder"/> class 

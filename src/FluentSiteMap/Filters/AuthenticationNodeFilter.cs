@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap.Filters
+﻿namespace TS.FluentSiteMap.Filters
 {
     /// <summary>
     /// A <see cref="INodeFilter"/> class 

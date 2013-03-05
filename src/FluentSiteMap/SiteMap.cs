@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// The base class for all site maps.  

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using FluentSiteMap.Sample.Models;
+using TS.FluentSiteMap.Sample.Models;
 
-namespace FluentSiteMap.Sample.Controllers
+namespace TS.FluentSiteMap.Sample.Controllers
 {
     [HandleError]
     public class ProductsController : Controller

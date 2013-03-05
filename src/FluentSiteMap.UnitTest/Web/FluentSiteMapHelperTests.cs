@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
-using FluentSiteMap.Builders;
-using FluentSiteMap.Web;
+using TS.FluentSiteMap.Builders;
+using TS.FluentSiteMap.Web;
 using NUnit.Framework;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest.Web
+namespace TS.FluentSiteMap.UnitTest.Web
 {
     [TestFixture]
     public class FluentSiteMapHelperTests

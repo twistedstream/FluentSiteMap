@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Base class for all <see cref="INodeBuilder"/> classes 

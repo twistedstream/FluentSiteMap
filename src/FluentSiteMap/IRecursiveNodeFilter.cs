@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Filters a root <see cref="Node"/> instance and all of its decendants.

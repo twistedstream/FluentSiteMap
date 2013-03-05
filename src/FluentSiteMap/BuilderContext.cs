@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Routing;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Carries state during a site map build process.

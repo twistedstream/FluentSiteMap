@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace FluentSiteMap.Sample.Models
+namespace TS.FluentSiteMap.Sample.Models
 {
 
     #region Models

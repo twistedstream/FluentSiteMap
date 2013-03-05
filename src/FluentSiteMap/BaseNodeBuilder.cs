@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// A <see cref="INodeBuilder"/> class whose instance 

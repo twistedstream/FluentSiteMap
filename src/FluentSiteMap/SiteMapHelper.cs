@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentSiteMap.Web;
+using TS.FluentSiteMap.Web;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Main entry point into FluentSiteMap.

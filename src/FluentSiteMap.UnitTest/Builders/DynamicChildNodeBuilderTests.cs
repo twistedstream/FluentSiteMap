@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentSiteMap.Builders;
-using FluentSiteMap.Testing;
+using TS.FluentSiteMap.Builders;
+using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest.Builders
+namespace TS.FluentSiteMap.UnitTest.Builders
 {
     [TestFixture]
     public class DynamicChildNodeBuilderTests

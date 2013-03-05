@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("FluentSiteMap.Testing")]
+[assembly: AssemblyTitle("TS.FluentSiteMap.Testing")]
 [assembly: AssemblyDescription("Helpers for writing FluentSiteMap unit tests")]
 [assembly: AssemblyConfiguration("")]
 [assembly: ComVisible(false)]

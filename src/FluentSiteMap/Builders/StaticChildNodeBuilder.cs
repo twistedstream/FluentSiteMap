@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentSiteMap.Builders
+namespace TS.FluentSiteMap.Builders
 {
     /// <summary>
     /// A <see cref="DecoratingNodeBuilder"/> class 

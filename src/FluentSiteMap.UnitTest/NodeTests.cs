@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class NodeTests

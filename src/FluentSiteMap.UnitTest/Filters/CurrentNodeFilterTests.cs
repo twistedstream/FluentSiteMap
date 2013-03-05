@@ -2,12 +2,12 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentSiteMap.Filters;
-using FluentSiteMap.Testing;
+using TS.FluentSiteMap.Filters;
+using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace FluentSiteMap.UnitTest.Filters
+namespace TS.FluentSiteMap.UnitTest.Filters
 {
     [TestFixture]
     public class CurrentNodeFilterTests

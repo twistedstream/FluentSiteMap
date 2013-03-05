@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Routing;
-using FluentSiteMap.Filters;
+using TS.FluentSiteMap.Filters;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace FluentSiteMap.UnitTest.Filters
+namespace TS.FluentSiteMap.UnitTest.Filters
 {
     [TestFixture]
     public class RolesNodeFilterTests

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Builds the state of a site map node.

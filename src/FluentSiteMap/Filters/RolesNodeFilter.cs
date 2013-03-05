@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentSiteMap.Filters
+namespace TS.FluentSiteMap.Filters
 {
     /// <summary>
     /// A <see cref="INodeFilter"/> class 

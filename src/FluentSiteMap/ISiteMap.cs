@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Represents a site map.

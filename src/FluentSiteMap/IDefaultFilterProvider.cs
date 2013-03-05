@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Generates a sequence of default node filters to apply on each node during the filter process.

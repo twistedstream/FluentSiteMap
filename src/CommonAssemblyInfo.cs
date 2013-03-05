@@ -1,7 +1,7 @@
 using System.Reflection;
 
 [assembly: AssemblyCompany("Twisted Stream Technologies, Inc.")]
-[assembly: AssemblyProduct("FluentSiteMap")]
+[assembly: AssemblyProduct("TS.FluentSiteMap")]
 [assembly: AssemblyCopyright("Copyright © Twisted Stream Technologies, Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

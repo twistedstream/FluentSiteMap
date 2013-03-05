@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class RecursiveNodeFilterTests

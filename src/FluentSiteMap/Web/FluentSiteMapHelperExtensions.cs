@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc.Html;
 
-namespace FluentSiteMap.Web
+namespace TS.FluentSiteMap.Web
 {
     /// <summary>
     /// Provides extension methods that actually render the partial views from the site map model.

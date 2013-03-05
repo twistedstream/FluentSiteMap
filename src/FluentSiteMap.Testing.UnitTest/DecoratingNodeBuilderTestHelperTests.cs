@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using TS.Testing;
 
-namespace FluentSiteMap.Testing.UnitTest
+namespace TS.FluentSiteMap.Testing.UnitTest
 {
     [TestFixture]
     public class DecoratingNodeBuilderTestHelperTests

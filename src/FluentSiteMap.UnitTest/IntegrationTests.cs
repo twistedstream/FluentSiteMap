@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
-using FluentSiteMap.Builders;
-using FluentSiteMap.Sample;
-using FluentSiteMap.Sample.Models;
-using FluentSiteMap.Testing;
+using TS.FluentSiteMap.Builders;
+using TS.FluentSiteMap.Sample;
+using TS.FluentSiteMap.Sample.Models;
+using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class IntegrationTests

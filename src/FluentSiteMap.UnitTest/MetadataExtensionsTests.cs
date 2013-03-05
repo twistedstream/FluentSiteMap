@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentSiteMap.Builders;
+using TS.FluentSiteMap.Builders;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class MetadataExtensionsTests

@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace FluentSiteMap.Filters
+namespace TS.FluentSiteMap.Filters
 {
     /// <summary>
     /// A <see cref="INodeFilter"/> class 

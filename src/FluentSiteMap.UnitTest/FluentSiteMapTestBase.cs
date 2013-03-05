@@ -1,7 +1,7 @@
 ﻿using System.Web.Routing;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     /// <summary>
     /// Base class for all test classes.

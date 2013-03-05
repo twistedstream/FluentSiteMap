@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap
+﻿namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Filteres the existing state or existance of a site map node.

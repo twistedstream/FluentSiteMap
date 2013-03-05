@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Routing;
 using Rhino.Mocks;
 
-namespace FluentSiteMap.Testing
+namespace TS.FluentSiteMap.Testing
 {
     /// <summary>
     /// Contains extension methods for stubbing out the state of a <see cref="RequestContext"/> object 

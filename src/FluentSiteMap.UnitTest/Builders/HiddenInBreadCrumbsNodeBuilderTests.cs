@@ -1,8 +1,8 @@
-﻿using FluentSiteMap.Builders;
-using FluentSiteMap.Testing;
+﻿using TS.FluentSiteMap.Builders;
+using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest.Builders
+namespace TS.FluentSiteMap.UnitTest.Builders
 {
     [TestFixture]
     public class HiddenInBreadCrumbsNodeBuilderTests

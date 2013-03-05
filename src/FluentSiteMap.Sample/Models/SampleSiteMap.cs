@@ -1,7 +1,7 @@
-﻿using FluentSiteMap.Builders;
-using FluentSiteMap.Filters;
+﻿using TS.FluentSiteMap.Builders;
+using TS.FluentSiteMap.Filters;
 
-namespace FluentSiteMap.Sample.Models
+namespace TS.FluentSiteMap.Sample.Models
 {
     public class SampleSiteMap
         : SiteMap

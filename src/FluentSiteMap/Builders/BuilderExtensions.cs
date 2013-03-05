@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentSiteMap.Builders
+namespace TS.FluentSiteMap.Builders
 {
     /// <summary>
     /// Contains extension methods for chaining node builders.

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<FilteredNode>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IEnumerable<TS.FluentSiteMap.FilteredNode>>" %>
 
 <% foreach (var node in Model) { %>
     <% if (node.Parent != null) { %>

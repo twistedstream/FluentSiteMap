@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using FluentSiteMap.Filters;
+using TS.FluentSiteMap.Filters;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class DefaultFilterProviderTests

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-namespace FluentSiteMap.Builders
+namespace TS.FluentSiteMap.Builders
 {
     /// <summary>
     /// A <see cref="DecoratingNodeBuilder"/> class 

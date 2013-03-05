@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap.Filters
+﻿namespace TS.FluentSiteMap.Filters
 {
     /// <summary>
     /// Contains extension methods for chaining node filters.

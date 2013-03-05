@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentSiteMap.Sample.Models;
+using TS.FluentSiteMap.Sample.Models;
 
-namespace FluentSiteMap.Sample
+namespace TS.FluentSiteMap.Sample
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

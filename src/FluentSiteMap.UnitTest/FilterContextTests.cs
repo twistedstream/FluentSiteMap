@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class FilterContextTests

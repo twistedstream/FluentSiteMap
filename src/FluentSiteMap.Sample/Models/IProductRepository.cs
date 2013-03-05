@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FluentSiteMap.Sample.Models
+namespace TS.FluentSiteMap.Sample.Models
 {
     public interface IProductRepository
     {

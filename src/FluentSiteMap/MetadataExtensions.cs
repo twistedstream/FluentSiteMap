@@ -1,7 +1,7 @@
 ﻿using System;
-using FluentSiteMap.Builders;
+using TS.FluentSiteMap.Builders;
 
-namespace FluentSiteMap
+namespace TS.FluentSiteMap
 {
     /// <summary>
     /// Contains extension methods for working with node metadata.

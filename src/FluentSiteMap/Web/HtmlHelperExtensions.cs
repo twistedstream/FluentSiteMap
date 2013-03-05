@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace FluentSiteMap.Web
+namespace TS.FluentSiteMap.Web
 {
     /// <summary>
     /// Provides extension methods that generate fluent interface objects from the <see cref="HtmlHelper"/> 

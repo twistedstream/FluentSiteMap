@@ -8,8 +8,8 @@
     <ProjectGuid>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentSiteMap</RootNamespace>
-    <AssemblyName>FluentSiteMap</AssemblyName>
+    <RootNamespace>TS.FluentSiteMap</RootNamespace>
+    <AssemblyName>TS.FluentSiteMap</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>bin\Debug\FluentSiteMap.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\TS.FluentSiteMap.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\FluentSiteMap.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\TS.FluentSiteMap.XML</DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-using FluentSiteMap.Web;
+using TS.FluentSiteMap.Web;
 using NUnit.Framework;
 using TS.Testing;
 
-namespace FluentSiteMap.UnitTest.Web
+namespace TS.FluentSiteMap.UnitTest.Web
 {
     [TestFixture]
     public class HtmlHelperExtensionsTests

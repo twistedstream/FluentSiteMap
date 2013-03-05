@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.UnitTest
 {
     [TestFixture]
     public class FilteredNodeTests

@@ -8,8 +8,8 @@
     <ProjectGuid>{33021BBD-8B42-4969-9CA5-76C15AD6C8DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentSiteMap.UnitTest</RootNamespace>
-    <AssemblyName>FluentSiteMap.UnitTest</AssemblyName>
+    <RootNamespace>TS.FluentSiteMap.UnitTest</RootNamespace>
+    <AssemblyName>TS.FluentSiteMap.UnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -100,15 +100,15 @@
   <ItemGroup>
     <ProjectReference Include="..\FluentSiteMap.Sample\FluentSiteMap.Sample.csproj">
       <Project>{164AD247-437D-410B-A260-ACAF21C7A439}</Project>
-      <Name>FluentSiteMap.Sample</Name>
+      <Name>TS.FluentSiteMap.Sample</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSiteMap.Testing\FluentSiteMap.Testing.csproj">
       <Project>{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}</Project>
-      <Name>FluentSiteMap.Testing</Name>
+      <Name>TS.FluentSiteMap.Testing</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentSiteMap\FluentSiteMap.csproj">
       <Project>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</Project>
-      <Name>FluentSiteMap</Name>
+      <Name>TS.FluentSiteMap</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

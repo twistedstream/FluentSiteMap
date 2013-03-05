@@ -1,4 +1,4 @@
-﻿namespace FluentSiteMap.Sample.Models
+﻿namespace TS.FluentSiteMap.Sample.Models
 {
     public class Product
     {
