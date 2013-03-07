@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Routing;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TS.Testing;
+using TS.NUnitExtensions;
 
 namespace TS.FluentSiteMap.UnitTest
 {

@@ -6,7 +6,7 @@ using TS.FluentSiteMap.Sample;
 using TS.FluentSiteMap.Sample.Models;
 using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
-using TS.Testing;
+using TS.NUnitExtensions;
 
 namespace TS.FluentSiteMap.UnitTest
 {

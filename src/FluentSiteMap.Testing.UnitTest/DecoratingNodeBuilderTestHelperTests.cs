@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using TS.Testing;
+using TS.NUnitExtensions;
 
 namespace TS.FluentSiteMap.Testing.UnitTest
 {

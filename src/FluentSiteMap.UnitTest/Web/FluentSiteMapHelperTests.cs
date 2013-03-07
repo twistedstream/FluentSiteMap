@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using TS.FluentSiteMap.Builders;
 using TS.FluentSiteMap.Web;
 using NUnit.Framework;
-using TS.Testing;
+using TS.NUnitExtensions;
 
 namespace TS.FluentSiteMap.UnitTest.Web
 {

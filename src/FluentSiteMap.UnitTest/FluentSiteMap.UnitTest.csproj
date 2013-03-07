@@ -56,8 +56,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TS.Testing">
-      <HintPath>..\..\lib\TS.Testing\TS.Testing.dll</HintPath>
+    <Reference Include="TS.NUnitExtensions">
+      <HintPath>..\packages\TS.NUnitExtensions.1.0.3\lib\net40\TS.NUnitExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
