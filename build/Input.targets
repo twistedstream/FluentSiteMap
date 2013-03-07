@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Product information -->
+  <PropertyGroup>
+    <Input_Product>FluentSiteMap</Input_Product>
+    <Input_Company>Twisted Stream Technologies, Inc.</Input_Company>
+    <Input_VersionMajor>1</Input_VersionMajor>
+    <Input_VersionMinor>0</Input_VersionMinor>
+    <Input_VersionRevision>0</Input_VersionRevision>
+    <Input_VersionInformation>RC</Input_VersionInformation>
+  </PropertyGroup>
+  
+  <!-- Build / package configuration -->
+  <PropertyGroup>
+    <!-- Root directory of the source code (typically a 'src' directory) -->
+    <Input_SourceDirPath>$(MSBuildProjectDirectory)\..\..\..\src</Input_SourceDirPath>
+    <!-- Directory containing the NUnit executable -->
+    <Input_NUnitToolDirPath>$(Input_SourceDirPath)\packages\NUnit.2.5.10.11092\tools</Input_NUnitToolDirPath>
+    <!-- Patern used to identify a unit test assembly -->
+    <Input_NUnitAssemblyNamePattern>*.UnitTest.dll</Input_NUnitAssemblyNamePattern>
+    <!-- Directory containing the NuGet executable -->
+    <Input_NuGetToolDirPath>$(Input_SourceDirPath)\.nuget</Input_NuGetToolDirPath>
+    <!-- Directory where all output from Buildage gets put (test results, NuGet packages) -->
+    <Input_OutputDirPath>$(MSBuildProjectDirectory)\..\..\out</Input_OutputDirPath>
+  </PropertyGroup>
+</Project>

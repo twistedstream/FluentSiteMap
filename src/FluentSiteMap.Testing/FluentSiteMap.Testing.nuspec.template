@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <!-- dynamic: csproj file -->
+    <id>$id$</id>
+    <title>$title$</title>
+    <description>$description$</description>
+
+    <!-- dynamic: injected by build -->
+    <version></version>
+    <copyright></copyright>
+    
+    <!-- static -->
+    <authors>twistedstream</authors>
+    <licenseUrl>https://raw.github.com/twistedstream/FluentSiteMap/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/twistedstream/FluentSiteMap</projectUrl>
+    <iconUrl>https://raw.github.com/twistedstream/FluentSiteMap/master/build/Logo-NuGet.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>asp.net mvc sitemap fluent</tags>
+    <releaseNotes>Intial release candidate.</releaseNotes>	
+    <dependencies>
+      <dependency id="NUnit" version="2.5" />
+      <dependency id="RhinoMocks" version="3.6" />
+      <dependency id="TS.FluentSiteMap" version="1.0" />
+    </dependencies>	
+  </metadata>
+</package>

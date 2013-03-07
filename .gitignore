@@ -102,3 +102,5 @@ Desktop.ini
 #####################
 
 src/FluentSiteMap.Sample/App_Data/aspnetdb_log.LDF
+CommonAssemblyInfo.cs
+/build/out
