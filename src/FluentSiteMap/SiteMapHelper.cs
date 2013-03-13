@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using TS.FluentSiteMap.Web;
 
 namespace TS.FluentSiteMap
 {

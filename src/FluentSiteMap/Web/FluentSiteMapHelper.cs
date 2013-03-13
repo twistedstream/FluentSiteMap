@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using TS.FluentSiteMap.Builders;
 
 namespace TS.FluentSiteMap.Web
 {

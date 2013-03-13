@@ -203,8 +203,8 @@ namespace TS.FluentSiteMap.Builders
         }
 
         /// <summary>
-        /// Generates a <see cref="INodeBuilder"/> that will set the 
-        /// children of a node.
+        /// Generates a <see cref="INodeBuilder"/> that will set the children of a node
+        /// using a list of specified child node builders.
         /// </summary>
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.
@@ -218,8 +218,8 @@ namespace TS.FluentSiteMap.Builders
         }
 
         /// <summary>
-        /// Generates a <see cref="INodeBuilder"/> that will set the 
-        /// children of a node.
+        /// Generates a <see cref="INodeBuilder"/> that will set the children of a node
+        /// using source data and an expression that defines how each child node is built from that data.
         /// </summary>
         /// <param name="inner">
         /// The previous <see cref="INodeBuilder"/> instance in the chain.

@@ -7,7 +7,7 @@ namespace TS.FluentSiteMap.Sample.Controllers
     [HandleError]
     public class ProductsController : Controller
     {
-        private IProductRepository _repository;
+        private readonly IProductRepository _repository;
 
         public ProductsController()
         {
@@ -23,8 +23,7 @@ namespace TS.FluentSiteMap.Sample.Controllers
         {
             var product = _repository
                 .FetchProducts()
-                .Where(p => p.Id == id)
-                .Single();
+                .Single(p => p.Id == id);
 
             return View(product);
         }

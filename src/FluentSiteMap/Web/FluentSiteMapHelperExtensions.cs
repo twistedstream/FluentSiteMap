@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc.Html;
+﻿using System.Web.Mvc.Html;
 
 namespace TS.FluentSiteMap.Web
 {
