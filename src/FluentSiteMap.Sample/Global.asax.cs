@@ -26,9 +26,6 @@ namespace TS.FluentSiteMap.Sample
             AreaRegistration.RegisterAllAreas();
 
             RegisterRoutes(RouteTable.Routes);
-
-            var siteMap = new SampleSiteMap(new ProductRepository());
-            SiteMapHelper.RegisterRootSiteMap(siteMap);
         }
     }
 }
