@@ -71,11 +71,11 @@
   <ItemGroup>
     <ProjectReference Include="..\FluentSiteMap.Testing\FluentSiteMap.Testing.csproj">
       <Project>{2CEE1CEE-5F7F-4D56-A8F9-93635F40114B}</Project>
-      <Name>TS.FluentSiteMap.Testing</Name>
+      <Name>FluentSiteMap.Testing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FluentSiteMap\FluentSiteMap.csproj">
+    <ProjectReference Include="..\FluentSiteMap.Core\FluentSiteMap.Core.csproj">
       <Project>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</Project>
-      <Name>TS.FluentSiteMap</Name>
+      <Name>FluentSiteMap.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

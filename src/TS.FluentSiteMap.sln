@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap", "FluentSiteMap\FluentSiteMap.csproj", "{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.Core", "FluentSiteMap.Core\FluentSiteMap.Core.csproj", "{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSiteMap.UnitTest", "FluentSiteMap.UnitTest\FluentSiteMap.UnitTest.csproj", "{33021BBD-8B42-4969-9CA5-76C15AD6C8DC}"
 EndProject

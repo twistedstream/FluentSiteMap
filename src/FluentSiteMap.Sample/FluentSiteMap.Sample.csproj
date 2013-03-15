@@ -128,9 +128,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\FluentSiteMap\FluentSiteMap.csproj">
+    <ProjectReference Include="..\FluentSiteMap.Core\FluentSiteMap.Core.csproj">
       <Project>{FCF03864-67D5-4CC9-92BD-4887EB3D2B4A}</Project>
-      <Name>TS.FluentSiteMap</Name>
+      <Name>FluentSiteMap.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
