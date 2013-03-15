@@ -1,0 +1,10 @@
+<configuration>
+  <system.web>
+    <pages>
+      <namespaces>
+        <add namespace="TS.FluentSiteMap" />
+        <add namespace="TS.FluentSiteMap.Web" />
+      </namespaces>
+    </pages>
+  </system.web>
+</configuration>

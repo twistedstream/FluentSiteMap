@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <!-- dynamic: csproj file -->
-    <id>$id$</id>
-    <title>$title$</title>
-    <description>$description$</description>
+    <id>TS.FluentSiteMap</id>
+    <title>FluentSiteMap</title>
+    <description>An ASP.NET SiteMap provider that's MVC-friendly and uses a fluent configuration API.  Use this package with your Visual Studio web project to configure it for FluentSiteMap.  To only add the binaries, use the Core package instead.</description>
 
     <!-- dynamic: injected by build -->
     <version></version>
@@ -19,9 +18,11 @@
     <tags>asp.net mvc sitemap fluent</tags>
     <releaseNotes>Intial release candidate.</releaseNotes>	
     <dependencies>
-      <dependency id="NUnit" version="2.5" />
-      <dependency id="RhinoMocks" version="3.6" />
       <dependency id="TS.FluentSiteMap.Core" version="1.0" />
     </dependencies>	
   </metadata>
+  <files>
+    <file src="FluentSiteMap.Sample\Views\Shared\FluentSiteMap*.ascx" target="content\Views\Shared" />
+    <file src="Web.config.transform" target="content" />
+  </files>
 </package>
