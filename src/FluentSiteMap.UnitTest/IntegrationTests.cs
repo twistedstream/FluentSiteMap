@@ -20,7 +20,7 @@ namespace TS.FluentSiteMap.UnitTest
         {
             base.Setup();
 
-            _siteMap = new SampleSiteMap(new ProductRepository());
+            _siteMap = new MySiteMap(new ProductRepository());
         }
 
         [Test]

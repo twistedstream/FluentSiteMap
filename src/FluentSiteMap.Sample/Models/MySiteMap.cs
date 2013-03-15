@@ -3,10 +3,10 @@ using TS.FluentSiteMap.Filters;
 
 namespace TS.FluentSiteMap.Sample.Models
 {
-    public class SampleSiteMap
+    public class MySiteMap
         : SiteMap
     {
-        public SampleSiteMap(IProductRepository productRepository)
+        public MySiteMap(IProductRepository productRepository)
         {
             Root =
                 Node()

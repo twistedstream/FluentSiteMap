@@ -8,7 +8,7 @@ namespace TS.FluentSiteMap.Sample.App_Start
     public static class FluentSiteMapCreator
     {
         public static void PostStart() {
-            var siteMap = new SampleSiteMap(new ProductRepository());
+            var siteMap = new MySiteMap(new ProductRepository());
             SiteMapHelper.RegisterRootSiteMap(siteMap);
         }
     }
