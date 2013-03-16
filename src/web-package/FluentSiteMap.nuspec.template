@@ -22,10 +22,4 @@
       <dependency id="WebActivator" version="1.5" />
     </dependencies>	
   </metadata>
-  <files>
-    <file src="FluentSiteMap.Sample\Views\Shared\FluentSiteMap*.ascx" target="content\Views\Shared" />
-    <file src="Web.config.transform" target="content" />
-    <file src="MySiteMap.cs.pp" target="content\Models" />
-    <file src="FluentSiteMapCreator.cs.pp" target="content\App_Start" />
-  </files>
 </package>
