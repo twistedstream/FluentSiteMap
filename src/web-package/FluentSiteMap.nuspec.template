@@ -3,7 +3,7 @@
   <metadata>
     <id>TS.FluentSiteMap</id>
     <title>FluentSiteMap</title>
-    <description>An ASP.NET SiteMap provider that's MVC-friendly and uses a fluent configuration API.  Use this package with your Visual Studio web project to configure it for FluentSiteMap.  To only add the binaries, use the Core package instead.</description>
+    <description>A site map solution for MVC that uses a fluent configuration API.  Use this package with your Visual Studio web project to configure it for FluentSiteMap.  To only add the binaries, use the Core package instead.</description>
 
     <!-- dynamic: injected by build -->
     <version></version>
