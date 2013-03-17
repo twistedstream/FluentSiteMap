@@ -2,23 +2,24 @@
 using System.Linq;
 using System.Web.Routing;
 using TS.FluentSiteMap.Builders;
-using TS.FluentSiteMap.Sample;
 using TS.FluentSiteMap.Sample.Models;
 using TS.FluentSiteMap.Testing;
 using NUnit.Framework;
 using TS.NUnitExtensions;
 
-namespace TS.FluentSiteMap.UnitTest
+namespace TS.FluentSiteMap.Sample.UnitTest
 {
     [TestFixture]
     public class IntegrationTests
-        : FluentSiteMapTestBase
+        : TestBase
     {
         private ISiteMap _siteMap;
 
         public override void Setup()
         {
             base.Setup();
+
+            RouteTable.Routes.Clear();
 
             _siteMap = new MySiteMap(new ProductRepository());
         }
