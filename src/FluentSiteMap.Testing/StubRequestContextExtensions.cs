@@ -23,7 +23,7 @@ namespace TS.FluentSiteMap.Testing
         /// The full request URL used to populate the contained <see cref="HttpRequestBase"/>.
         /// </param>
         /// <param name="applicationPath">
-        /// The relative path of the web application within the <paramref name="requestUrl"/>.
+        /// The relative path of the web application within the <paramref name="requestUrl"/>; typically "/" in a test, which is the default.
         /// </param>
         public static RequestContext WithHttpContext(this RequestContext context, string requestUrl, string applicationPath = "/")
         {
