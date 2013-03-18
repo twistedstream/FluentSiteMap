@@ -35,7 +35,7 @@ The NuGet package install performs the following tasks:
 Now you can start configuring your site map:
 * Optionally rename the new site map class in your `Models` directory, which by default is called `MySiteMap.cs`.
 * Edit your site map class so that it matches your site's actual structure (see the [Fluent API Reference](#fluent-api-reference) for more info).
-* If your site map needs to use a dependency (ex: a data repository to load product data), add the dependency to the site map class's constructor and then inject it via the `FluentSiteMapCreator` class in the `App_Start/FluentSiteMapCreator.cs` file, which is where your site map instance is actually created and registered with FluentSiteMap.
+* If your site map needs to use a dependency (ex: a data repository to load product data), add the dependency to the site map class's constructor and then inject it via the `FluentSiteMapInitializer` class in the `App_Start/FluentSiteMapInitializer.cs` file, which is where your site map instance is actually created and registered with FluentSiteMap.
 
 The final goal is to actually render content using your site map data.  That's easily done using a set of HTML helpers provided with FluentSiteMap that use the partial views included in the package:
 
