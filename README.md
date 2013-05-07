@@ -5,6 +5,7 @@ A site map solution for MVC that uses a fluent configuration API.
 FluentSiteMap provides the following features:
 * A rich, highly-testable, hierarchical site map data structure representing the navigable pages of your web site.  It's similar to, but not as complex as classic ASP.NET SiteMaps.
 * A fluent API for configuring your site map that can use lambda expressions to load data within the various nodes.
+* Since site maps are simple .NET classes, [globalization](http://en.wikipedia.org/wiki/Internationalization_and_localization) can be accomplished by getting site map data from resource files or databases instead of using string literals.  See the [site map](src/FluentSiteMap.Sample/Models/MySiteMap.cs) included in the sample project to see an example of calling a database to get site map data.
 * Out-of-the box partial views that can be used to easily render page titles, menus, bread crumbs, and full site maps from the site map data.
 * The ability to filter site map nodes based on the current user's authentication/authorization status.
 * The ability to hide site map nodes from menus or bread crumbs.
